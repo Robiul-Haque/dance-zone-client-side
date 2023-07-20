@@ -16,14 +16,6 @@ const firebaseConfig = {
     measurementId: import.meta.VITE_local_measurementId
 };
 
-// console.log(import.meta.env.VITE_local_apiKey);
-// console.log(import.meta.env.VITE_authDomain);
-// console.log(import.meta.env.VITE_projectId);
-// console.log(import.meta.env.VITE_storageBucket);
-// console.log(import.meta.env.VITE_messagingSenderId);
-// console.log(import.meta.env.VITE_appId);
-// console.log(import.meta.env.VITE_measurementId);
-
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 // eslint-disable-next-line no-unused-vars

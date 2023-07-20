@@ -1,20 +1,50 @@
 /* eslint-disable react/prop-types */
-import { createContext } from "react";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { createContext, useEffect, useState } from "react";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { app } from "../Firebase/Firsebase.config";
-
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
 
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const google = new GoogleAuthProvider();
+
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
+    const login = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password);
+    }
+
+    const popUpGoogleLogin = () => {
+        return signInWithPopup(auth, google)
+    }
+
+    const userLogout = () => {
+        return signOut(auth)
+    }
+
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+            setUser(currentUser);
+            setLoading(false);
+        });
+        return () => {
+            return unSubscribe();
+        }
+    })
+
     const authInfo = {
-        createUser
+        createUser,
+        login,
+        popUpGoogleLogin,
+        userLogout,
+        user,
+        loading,
     }
 
     return (

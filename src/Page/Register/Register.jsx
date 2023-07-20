@@ -2,24 +2,29 @@ import { useForm } from "react-hook-form";
 import dance from '../../assets/login.png';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
+import { updateProfile } from "firebase/auth";
+import { NavLink } from "react-router-dom";
 // import { ToastContainer, toast } from "react-toastify";
 
 const Register = () => {
 
-    const { createUser } = useContext(AuthContext);
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { createUser, popUpGoogleLogin } = useContext(AuthContext);
+    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handelRegister = data => {
         console.log(data);
+        reset()
         setSuccessMessage('');
+        setErrorMessage('');
 
         createUser(data.email, data.password)
             .then(userCredential => {
                 const loggedUser = userCredential.user;
                 console.log(loggedUser);
                 // if (loggedUser.email) {
-                //     toast.success('🦄 Wow so easy!', {
+                //     toast.success('Registration Successful', {
                 //         position: "top-right",
                 //         autoClose: 5000,
                 //         hideProgressBar: false,
@@ -30,7 +35,41 @@ const Register = () => {
                 //         theme: "dark",
                 //     });
                 // }
+                updateUserInfo(loggedUser, data.name, data.photo);
                 setSuccessMessage('Registration Successful');
+            })
+            .catch(error => {
+                console.log(error);
+                setErrorMessage(error.message);
+            })
+
+        const updateUserInfo = (user, name, photo) => {
+            updateProfile(user, {
+                displayName: name,
+                photoURL: photo,
+            })
+        }
+    }
+
+    const googleLogin = () => {
+        popUpGoogleLogin()
+            .then(loggedUser => {
+                console.log(loggedUser);
+                // if (loggedUser.email) {
+                //     toast.success('Login Successful', {
+                //         position: "top-right",
+                //         autoClose: 5000,
+                //         hideProgressBar: false,
+                //         closeOnClick: true,
+                //         pauseOnHover: true,
+                //         draggable: true,
+                //         progress: undefined,
+                //         theme: "dark",
+                //     });
+                // }
+            })
+            .catch(error => {
+                console.log(error);
             })
     }
 
@@ -89,11 +128,19 @@ const Register = () => {
                                 {/* {errors.confirm_password && <span className="mt-1 text-red-500">Confirm Password field is required</span>} */}
                             </div>
                             <div className="form-control mt-6">
-                                <input type='submit' value='Register' className="btn btn-primary" />
+                                <input type='submit' value='Register' className="btn btn-primary text-white" />
                             </div>
                         </form>
+                        <button onClick={googleLogin} className="btn border-slate-400 my-3">
+                            <img width="28" height="28" src="https://img.icons8.com/fluency/48/google-logo.png" alt="google-logo" />
+                            <span className="text-slate-600">Login with Google</span>
+                        </button>
+                        <p className="text-sm text-center text-slate-500">You have an account <NavLink to='/login' className='text-slate-800 underline font-medium'>Login</NavLink></p>
                         {
                             successMessage && <span className="mt-2 text-green-500 text-center">{successMessage}</span>
+                        }
+                        {
+                            errorMessage && <span className="mt-2 text-red-500 text-center">{errorMessage}</span>
                         }
                     </div>
                 </div>

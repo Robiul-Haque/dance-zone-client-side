@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
-import PrivetRoute from "./PrivetRoute";
+// import PrivetRoute from "./PrivetRoute";
 import Home from "../page/home/home";
 import Register from "../Page/Register/Register";
 import Login from "../Page/Login/Login";

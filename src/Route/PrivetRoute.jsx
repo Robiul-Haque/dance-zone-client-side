@@ -7,18 +7,18 @@ const PrivetRoute = ({ children }) => {
 
     const { user, loading } = useContext(AuthContext);
 
-    if (user?.email) {
-        return children;
-    } else {
-        <Navigate to='/login'></Navigate>
-    }
-
     if (loading) {
         return (
             <div className="text-center">
                 <span className="loading loading-spinner loading-lg"></span>
             </div>
         )
+    }
+
+    if (user?.email) {
+        return children;
+    } else {
+        return <Navigate to='/login'></Navigate>
     }
 
 };

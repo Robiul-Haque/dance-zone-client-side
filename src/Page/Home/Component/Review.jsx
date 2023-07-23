@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 const Review = () => {
     return (
         <div className='mt-10 mb-48 mx-96' data-aos="zoom-in">
-            <h2 className='text-4xl font-semibold text-center mb-10'>Customer Review</h2>
+            <h2 className='text-4xl font-semibold text-center mb-10'>Student Review</h2>
             <Swiper
                 spaceBetween={10}
                 slidesPerView={1}

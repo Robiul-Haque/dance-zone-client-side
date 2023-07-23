@@ -10,12 +10,12 @@ const Class = () => {
         <div className="my-20">
             <h1 className='text-4xl font-semibold text-center mb-10'>Popular Class</h1>
             <div className='flex justify-center gap-8 flex-wrap'>
-                <img alt="image-1" src={dance_1} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
-                <img alt="image-2" src={dance_2} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
-                <img alt="image-3" src={dance_3} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
-                <img alt="image-4" src={dance_4} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
-                <img alt="image-5" src={dance_5} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
-                <img alt="image-6" src={dance_6} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
+                <img alt="image-1" src={dance_1} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
+                <img alt="image-2" src={dance_2} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
+                <img alt="image-3" src={dance_3} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
+                <img alt="image-4" src={dance_4} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
+                <img alt="image-5" src={dance_5} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500 transition' />
+                <img alt="image-6" src={dance_6} className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
             </div>
         </div>
     );

@@ -11,12 +11,12 @@ const Instructor = () => {
         <div className='my-20'>
             <h1 className="text-4xl font-semibold text-center mb-10">Popular Instructor</h1>
             <div className='flex justify-center gap-8 flex-wrap'>
-                <img src={instructor_1} alt="instructor_1" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
-                <img src={instructor_2} alt="instructor_2" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
-                <img src={instructor_3} alt="instructor_3" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
-                <img src={instructor_4} alt="instructor_4" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
-                <img src={instructor_5} alt="instructor_5" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
-                <img src={instructor_6} alt="instructor_6" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 hover:shadow-lg hover:shadow-neutral-500 transition duration-300 ease-out hover:ease-in' />
+                <img src={instructor_1} alt="instructor_1" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
+                <img src={instructor_2} alt="instructor_2" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
+                <img src={instructor_3} alt="instructor_3" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
+                <img src={instructor_4} alt="instructor_4" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
+                <img src={instructor_5} alt="instructor_5" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
+                <img src={instructor_6} alt="instructor_6" className='w-96 h-60 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
             </div>
         </div>
     );

@@ -38,7 +38,7 @@ const login = () => {
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
-                        if (loggedUser.email) {
+                        if (loggedUser.user.email) {
                             toast.success('Login Successful', {
                                 position: "top-right",
                                 autoClose: 5000,

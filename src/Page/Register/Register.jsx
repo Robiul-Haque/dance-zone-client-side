@@ -24,18 +24,6 @@ const Register = () => {
             .then(userCredential => {
                 const loggedUser = userCredential.user;
                 console.log(loggedUser);
-                if (loggedUser.email) {
-                    toast.success('Registration Successful', {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "dark",
-                    });
-                }
                 updateUserInfo(loggedUser, data.name, data.photo);
                 setSuccessMessage('Registration Successful');
             })
@@ -49,25 +37,59 @@ const Register = () => {
                 displayName: name,
                 photoURL: photo,
             })
+
+            const loggedUserInfo = { name: name, email: user.email }
+            fetch('http://localhost:5000/login-user', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(loggedUserInfo)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (user.email) {
+                        toast.success('Registration Successful', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                        });
+                    }
+                })
         }
     }
 
     const googleLogin = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
-                console.log(loggedUser);
-                if (loggedUser.email) {
-                    toast.success('Login Successful', {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "dark",
-                    });
-                }
+                console.log(loggedUser.user.email);
+
+                const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email }
+                fetch('http://localhost:5000/login-user', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify(loggedUserInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (loggedUser.user.email) {
+                            toast.success('Login Successful', {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "dark",
+                            });
+                        }
+                    })
             })
             .catch(error => {
                 console.log(error);

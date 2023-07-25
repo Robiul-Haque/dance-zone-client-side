@@ -4,6 +4,8 @@ import dance from '../../assets/login.png';
 import { useContext } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
 import { NavLink } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const login = () => {
 
@@ -26,18 +28,29 @@ const login = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
                 console.log(loggedUser);
-                // if (loggedUser.email) {
-                //     toast.success('Login Successful', {
-                //         position: "top-right",
-                //         autoClose: 5000,
-                //         hideProgressBar: false,
-                //         closeOnClick: true,
-                //         pauseOnHover: true,
-                //         draggable: true,
-                //         progress: undefined,
-                //         theme: "dark",
-                //     });
-                // }
+
+                const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email }
+                fetch('http://localhost:5000/login-user', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify(loggedUserInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (loggedUser.email) {
+                            toast.success('Login Successful', {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "dark",
+                            });
+                        }
+                    });
             })
             .catch(error => {
                 console.log(error);
@@ -82,7 +95,7 @@ const login = () => {
                     </div>
                 </div>
             </div>
-            {/* <ToastContainer
+            <ToastContainer
                 position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -93,7 +106,7 @@ const login = () => {
                 draggable
                 pauseOnHover
                 theme="dark"
-            /> */}
+            />
         </div>
     );
 };

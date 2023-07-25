@@ -4,7 +4,8 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import { NavLink } from "react-router-dom";
-// import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
 
@@ -23,18 +24,18 @@ const Register = () => {
             .then(userCredential => {
                 const loggedUser = userCredential.user;
                 console.log(loggedUser);
-                // if (loggedUser.email) {
-                //     toast.success('Registration Successful', {
-                //         position: "top-right",
-                //         autoClose: 5000,
-                //         hideProgressBar: false,
-                //         closeOnClick: true,
-                //         pauseOnHover: true,
-                //         draggable: true,
-                //         progress: undefined,
-                //         theme: "dark",
-                //     });
-                // }
+                if (loggedUser.email) {
+                    toast.success('Registration Successful', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
+                }
                 updateUserInfo(loggedUser, data.name, data.photo);
                 setSuccessMessage('Registration Successful');
             })
@@ -55,18 +56,18 @@ const Register = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
                 console.log(loggedUser);
-                // if (loggedUser.email) {
-                //     toast.success('Login Successful', {
-                //         position: "top-right",
-                //         autoClose: 5000,
-                //         hideProgressBar: false,
-                //         closeOnClick: true,
-                //         pauseOnHover: true,
-                //         draggable: true,
-                //         progress: undefined,
-                //         theme: "dark",
-                //     });
-                // }
+                if (loggedUser.email) {
+                    toast.success('Login Successful', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
+                }
             })
             .catch(error => {
                 console.log(error);
@@ -145,7 +146,7 @@ const Register = () => {
                     </div>
                 </div>
             </div>
-            {/* <ToastContainer
+            <ToastContainer
                 position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -156,7 +157,7 @@ const Register = () => {
                 draggable
                 pauseOnHover
                 theme="dark"
-            /> */}
+            />
         </div>
     );
 };

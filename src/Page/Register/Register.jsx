@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import { NavLink } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
@@ -24,6 +24,31 @@ const Register = () => {
             .then(userCredential => {
                 const loggedUser = userCredential.user;
                 console.log(loggedUser);
+
+                // const loggedUserInfo = { name: data.name, email: data.email, role: 'student' }
+                // console.log(data.name, data.email);
+                // fetch('http://localhost:5000/login-user', {
+                //     method: 'POST',
+                //     headers: { 'content-type': 'application/json' },
+                //     body: JSON.stringify(loggedUserInfo)
+                // })
+                //     .then(res => res.json())
+                //     .then(data => {
+                //         console.log(data);
+                //         if (data) {
+                //             toast.success('Registration Successful', {
+                //                 position: "top-right",
+                //                 autoClose: 5000,
+                //                 hideProgressBar: false,
+                //                 closeOnClick: true,
+                //                 pauseOnHover: true,
+                //                 draggable: true,
+                //                 progress: undefined,
+                //                 theme: "dark",
+                //             });
+                //         }
+                //     })
+
                 updateUserInfo(loggedUser, data.name, data.photo);
                 setSuccessMessage('Registration Successful');
             })
@@ -38,7 +63,7 @@ const Register = () => {
                 photoURL: photo,
             })
 
-            const loggedUserInfo = { name: name, email: user.email }
+            const loggedUserInfo = { name: name, email: user.email, photo: photo, role: 'student' }
             fetch('http://localhost:5000/login-user', {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
@@ -68,7 +93,7 @@ const Register = () => {
             .then(loggedUser => {
                 console.log(loggedUser.user.email);
 
-                const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email }
+                const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, role: 'student' }
                 fetch('http://localhost:5000/login-user', {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
@@ -168,18 +193,6 @@ const Register = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </div>
     );
 };

@@ -5,7 +5,8 @@ import Home from "../page/home/home";
 import Register from "../Page/Register/Register";
 import Login from "../Page/Login/Login";
 import Dashboard from "../Layout/Dashboard";
-import Admin from "../Page/Dashboard/Dashboard";
+import Admin from "../Page/Admin/Admin/Admin";
+import User from "../Page/Admin/User/User";
 
 export const router = createBrowserRouter([
     {
@@ -25,10 +26,6 @@ export const router = createBrowserRouter([
                 element: <h2>Class</h2>
             },
             {
-                path: '/dashboard',
-                element: <h2>Dashboard</h2>
-            },
-            {
                 path: '/login',
                 element: <Login></Login>
             },
@@ -39,12 +36,16 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: 'dashboard',
+        path: '/admin/dashboard',
         element: <Dashboard></Dashboard>,
         children: [
             {
-                path: 'dashboard',
+                path: '/admin/dashboard',
                 element: <Admin></Admin>
+            },
+            {
+                path: '/admin/dashboard/user',
+                element: <User></User>
             }
         ]
     }

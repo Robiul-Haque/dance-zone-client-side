@@ -4,7 +4,7 @@ import dance from '../../assets/login.png';
 import { useContext } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
 import { NavLink } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const login = () => {
@@ -29,7 +29,8 @@ const login = () => {
             .then(loggedUser => {
                 console.log(loggedUser);
 
-                const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email }
+                const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, photo: loggedUser.user?.photoURL, role: 'student' }
+                console.log(loggedUserInfo);
                 fetch('http://localhost:5000/login-user', {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
@@ -95,18 +96,6 @@ const login = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </div>
     );
 };

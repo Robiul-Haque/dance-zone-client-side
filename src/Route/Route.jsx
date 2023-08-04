@@ -4,9 +4,16 @@ import Main from "../layout/Main";
 import Home from "../page/home/home";
 import Register from "../Page/Register/Register";
 import Login from "../Page/Login/Login";
-import Dashboard from "../Layout/Dashboard";
+import AdminDashboard from "../Layout/AdminDashboard";
 import Admin from "../Page/Admin/Admin/Admin";
 import User from "../Page/Admin/User/User";
+import InstructorDashboard from "../Layout/InstructorDashboard";
+import Dashboard from "../Page/Instructor/Dashboard/Dashboard";
+import AddClass from "../Page/Instructor/AddClass/AddClass";
+import InstructorPrivetRoute from "./InstructorPrivetRoute";
+import MyClass from "../Page/Instructor/MyClass/MyClass";
+import AdminPrivetRoute from "./AdminPrivetRoute";
+import Class from "../Page/Admin/Class/Class";
 
 export const router = createBrowserRouter([
     {
@@ -36,16 +43,40 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: '/admin/dashboard',
-        element: <Dashboard></Dashboard>,
+        path: '/instructor-dashboard',
+        element: <InstructorPrivetRoute><InstructorDashboard></InstructorDashboard></InstructorPrivetRoute>,
         children: [
             {
-                path: '/admin/dashboard',
+                path: '/instructor-dashboard',
+                element: <Dashboard></Dashboard>
+            },
+            {
+                path: '/instructor-dashboard/add-class',
+                element: <AddClass></AddClass>
+            },
+            {
+                path: '/instructor-dashboard/my-class',
+                element: <MyClass></MyClass>,
+                loader: () => fetch('http://localhost:5000/my-class')
+            },
+        ]
+    },
+    {
+        path: '/admin-dashboard',
+        element: <AdminPrivetRoute><AdminDashboard></AdminDashboard></AdminPrivetRoute>,
+        children: [
+            {
+                path: '/admin-dashboard',
                 element: <Admin></Admin>
             },
             {
-                path: '/admin/dashboard/user',
+                path: '/admin-dashboard/user',
                 element: <User></User>
+            },
+            {
+                path: '/admin-dashboard/manage-class',
+                element: <Class></Class>,
+                loader: () => fetch('http://localhost:5000/manage-class')
             }
         ]
     }

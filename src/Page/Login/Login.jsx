@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import dance from '../../assets/login.png';
 import { useContext } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -11,12 +11,22 @@ const login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { login, popUpGoogleLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handelRegister = data => {
         console.log(data);
         login(data.email, data.password)
             .then(userCredential => {
                 console.log(userCredential);
+                if (userCredential.user.email) {
+                    fetch(`http://localhost:5000/instructor/${userCredential.user.email}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.role === 'instructor') {
+                                navigate('/instructor-dashboard');
+                            }
+                        })
+                }
             })
             .catch(error => {
                 console.log(error);
@@ -28,9 +38,7 @@ const login = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
                 console.log(loggedUser);
-
                 const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, photo: loggedUser.user?.photoURL, role: 'student' }
-                console.log(loggedUserInfo);
                 fetch('http://localhost:5000/login-user', {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },

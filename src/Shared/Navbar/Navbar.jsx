@@ -62,9 +62,9 @@ const Navbar = () => {
             </div>
             <div className="navbar-end flex justify-end gap-4">
                 {
-                    user ?
+                    user?.email ?
                         <>
-                            <NavLink to='/dashboard' className='btn'>Dashboard</NavLink>
+                            <NavLink to='/student/dashboard' className='btn'>Dashboard</NavLink>
                             <div className="avatar mx-1">
                                 <div className="w-10 rounded-full">
                                     <img src={user?.photoURL} alt={user?.displayName} title={user?.displayName} />

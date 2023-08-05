@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useForm } from "react-hook-form";
 import dance from '../../assets/login.png';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,27 +9,32 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const login = () => {
 
+    const [error, setError] = useState('')
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { login, popUpGoogleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const handelRegister = data => {
-        console.log(data);
+    const handelLogin = data => {
+        setError('')
         login(data.email, data.password)
             .then(userCredential => {
-                console.log(userCredential);
                 if (userCredential.user.email) {
                     fetch(`http://localhost:5000/instructor/${userCredential.user.email}`)
                         .then(res => res.json())
                         .then(data => {
                             if (data.role === 'instructor') {
                                 navigate('/instructor-dashboard');
+                            } else if (data.role === 'admin') {
+                                navigate('/admin-dashboard');
+                            } else if (data.role === 'student') {
+                                navigate('/');
                             }
                         })
                 }
             })
             .catch(error => {
                 console.log(error);
+                setError(error.message)
             })
 
     }
@@ -46,18 +51,48 @@ const login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
-                        if (loggedUser.user.email) {
-                            toast.success('Login Successful', {
-                                position: "top-right",
-                                autoClose: 5000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                                theme: "dark",
-                            });
+                        if (data.user.role === 'admin') {
+                            navigate('/admin-dashboard');
+                            if (loggedUser.user.email) {
+                                toast.success('Login Successful', {
+                                    position: "top-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "dark",
+                                });
+                            }
+                        } else if (data.user.role === 'instructor') {
+                            navigate('/instructor-dashboard');
+                            if (loggedUser.user.email) {
+                                toast.success('Login Successful', {
+                                    position: "top-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "dark",
+                                });
+                            }
+                        } else if (data.user.role === 'student') {
+                            navigate('/');
+                            if (loggedUser.user.email) {
+                                toast.success('Login Successful', {
+                                    position: "top-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "dark",
+                                });
+                            }
                         }
                     });
             })
@@ -75,7 +110,7 @@ const login = () => {
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">
                         <h1 className="text-2xl font-bold text-center">Login now!</h1>
-                        <form onSubmit={handleSubmit(handelRegister)}>
+                        <form onSubmit={handleSubmit(handelLogin)}>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
@@ -101,6 +136,9 @@ const login = () => {
                             <span className="text-slate-600">Login with Google</span>
                         </button>
                         <p className="text-sm text-center text-slate-500">Don,t have an account <NavLink to='/register' className='text-slate-800 underline font-medium'>Register</NavLink></p>
+                        {
+                            error && <p className="text-red-600 mt-2 mx-auto text-sm flex gap-x-2"><img width="20" height="20" src="https://img.icons8.com/fluency-systems-regular/48/dc2626/error--v1.png" alt="error--v1" /> {error}</p>
+                        }
                     </div>
                 </div>
             </div>

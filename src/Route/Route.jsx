@@ -1,7 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
-// import PrivetRoute from "./PrivetRoute";
+import StudentPrivetRoute from "./InstructorPrivetRoute";
+import InstructorPrivetRoute from "./InstructorPrivetRoute";
+import AdminPrivetRoute from "./AdminPrivetRoute";
 import Home from "../page/home/home";
+import StudentDashboard from "../Page/Home/Component/Dashboard";
 import Register from "../Page/Register/Register";
 import Login from "../Page/Login/Login";
 import AdminDashboard from "../Layout/AdminDashboard";
@@ -10,10 +13,10 @@ import User from "../Page/Admin/User/User";
 import InstructorDashboard from "../Layout/InstructorDashboard";
 import Dashboard from "../Page/Instructor/Dashboard/Dashboard";
 import AddClass from "../Page/Instructor/AddClass/AddClass";
-import InstructorPrivetRoute from "./InstructorPrivetRoute";
 import MyClass from "../Page/Instructor/MyClass/MyClass";
-import AdminPrivetRoute from "./AdminPrivetRoute";
 import Class from "../Page/Admin/Class/Class";
+import SelectedClass from "../Page/Home/Component/SelectedClass";
+import EnrolledClass from "../Page/Home/Component/EnrolledClass";
 
 export const router = createBrowserRouter([
     {
@@ -31,6 +34,20 @@ export const router = createBrowserRouter([
             {
                 path: '/class',
                 element: <h2>Class</h2>
+            },
+            {
+                path: '/student/dashboard',
+                element: <StudentPrivetRoute><StudentDashboard></StudentDashboard></StudentPrivetRoute>,
+                children: [
+                    {
+                        path: '/student/dashboard/selected-class',
+                        element: <SelectedClass></SelectedClass>
+                    },
+                    {
+                        path: '/student/dashboard/enrolled-class',
+                        element: <EnrolledClass></EnrolledClass>
+                    }
+                ]
             },
             {
                 path: '/login',

@@ -17,6 +17,7 @@ import MyClass from "../Page/Instructor/MyClass/MyClass";
 import Class from "../Page/Admin/Class/Class";
 import SelectedClass from "../Page/Home/Component/SelectedClass";
 import EnrolledClass from "../Page/Home/Component/EnrolledClass";
+import PaymentHistory from "../Page/Home/Component/PaymentHistory";
 
 export const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
                     {
                         path: '/student/dashboard/enrolled-class',
                         element: <EnrolledClass></EnrolledClass>
+                    },
+                    {
+                        path: '/student/dashboard/payment-history',
+                        element: <PaymentHistory></PaymentHistory>
                     }
                 ]
             },
@@ -93,7 +98,7 @@ export const router = createBrowserRouter([
             {
                 path: '/admin-dashboard/manage-class',
                 element: <Class></Class>,
-                loader: () => fetch('http://localhost:5000/manage-class')
+                // loader: () => fetch('http://localhost:5000/manage-class')
             }
         ]
     }

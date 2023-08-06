@@ -1,8 +1,8 @@
-import useUser from "../../../Hook/useUser";
+import useAdminManageUser from "../../../Hook/useAdminManageUser";
 
 const User = () => {
 
-    const { refetch, isLoading, data } = useUser();
+    const { refetch, isLoading, data } = useAdminManageUser();
 
     const makeAdmin = (id) => {
         console.log(id);
@@ -31,7 +31,7 @@ const User = () => {
     }
 
     if (isLoading) {
-        return <div>Loading</div>
+        return <h1 className="text-xl font-semibold">Loading...</h1>
     }
 
     return (

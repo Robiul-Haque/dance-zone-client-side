@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-const useUser = () => {
+const useAdminManageUser = () => {
     const { data = [], refetch, isLoading } = useQuery({
         queryKey: ['user'],
         queryFn: async () => {
@@ -11,4 +11,4 @@ const useUser = () => {
     return {data, isLoading, refetch};
 };
 
-export default useUser;
+export default useAdminManageUser;

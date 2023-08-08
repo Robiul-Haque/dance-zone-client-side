@@ -1,8 +1,14 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
+import useInstructorMyClass from "../../../Hook/useInstructorMyClass";
 
 const MyClass = () => {
 
-    const allClass = useLoaderData();
+    const { data, isLoading } = useInstructorMyClass();
+
+
+    if (isLoading) {
+        return <h1 className="text-xl font-semibold">Loading...</h1>
+    }
 
     return (
         <div className="overflow-x-auto">
@@ -20,18 +26,18 @@ const MyClass = () => {
                 </thead>
                 <tbody>
                     {
-                        allClass.map((data, index) =>
-                            <tr key={data._id}>
+                        data.map((singleClass, index) =>
+                            <tr key={singleClass?._id}>
                                 <td>{index + 1}</td>
                                 <td>
-                                    <img src={data.class_image} alt={data.class_name} className="w-16 h-16 rounded-xl" />
+                                    <img src={singleClass?.class_image} alt={singleClass?.class_name} className="w-16 h-16 rounded-xl" />
                                 </td>
-                                <td>{data.class_name}</td>
-                                <td className={data.status === 'pending' ? 'text-yellow-600 capitalize font-semibold' : data.status === 'approve' ? 'text-green-600 capitalize font-semibold' : data.status === 'reject' ? 'text-red-600 capitalize font-semibold' : ''}>{data.status}</td>
+                                <td>{singleClass?.class_name}</td>
+                                <td className={singleClass?.status === 'pending' ? 'capitalize font-semibold' : singleClass?.status === 'accepted' ? 'text-green-600 capitalize font-semibold' : singleClass?.status === 'rejected' ? 'text-red-600 capitalize font-semibold' : ''}>{singleClass?.status}</td>
                                 <td></td>
-                                <td className="w-64 overflow-auto">Quality Control Specialist Quality Control Specialist</td>
+                                <td className="w-64 overflow-auto">{singleClass?.feedback}</td>
                                 <td>
-                                    <Link className="btn"><img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/edit--v1.png" alt="edit--v1" /> edit</Link>
+                                    <Link to={`/instructor-dashboard/my-class/edit/${singleClass?._id}`} className="btn"><img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/edit--v1.png" alt="edit--v1" /> Edit</Link>
                                 </td>
                             </tr>
                         )

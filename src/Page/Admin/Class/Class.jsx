@@ -1,15 +1,18 @@
 import useAdminManageClass from "../../../Hook/useAdminManageClass";
+import { useState } from "react";
+import AdminFeedbackModal from "./AdminFeedbackModal";
+import { toast } from "react-toastify";
 
 const Class = () => {
 
+    const [classId, setClassId] = useState('');
     const { data, isLoading, refetch } = useAdminManageClass();
+    const [previousFeedback, setPreviousFeedback] = useState('');
 
     const approve = id => {
         fetch(`http://localhost:5000/admin/approve-class/${id}`, {
             method: 'PATCH',
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: { 'content-type': 'application/json' }
         })
             .then(res => res.json())
             .then(() => refetch())
@@ -18,12 +21,43 @@ const Class = () => {
     const deny = id => {
         fetch(`http://localhost:5000/admin/deny-class/${id}`, {
             method: 'PATCH',
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: { 'content-type': 'application/json' }
         })
             .then(res => res.json())
             .then(() => refetch())
+    }
+
+    const modalData = (id) => {
+        fetch(`http://localhost:5000/admin/feedback/data/${id}`)
+            .then(res => res.json())
+            .then(data => setPreviousFeedback(data?.feedback))
+    }
+
+    const deleteClass = id => {
+        const confirmation = confirm('Are you sure want to do Delete');
+        if (confirmation === true) {
+            fetch(`http://localhost:5000/admin/delete-class/${id}`, {
+                method: 'DELETE',
+                headers: { 'content-type': 'application/json' }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    refetch();
+                    if (data?.deletedCount > 0) {
+                        toast.success('Class Delete Successful', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                        });
+                    }
+                })
+        }
     }
 
     if (isLoading) {
@@ -31,7 +65,7 @@ const Class = () => {
     }
 
     return (
-        <div className="overflow-x-auto mx-4">
+        <div className="overflow-x-auto">
             <table className="table text-center">
                 <thead>
                     <tr>
@@ -46,6 +80,7 @@ const Class = () => {
                         <th>Approve</th>
                         <th>Deny</th>
                         <th>Feedback</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,13 +104,17 @@ const Class = () => {
                                     <button onClick={() => deny(data?._id)} className={data?.status === 'accepted' || data?.status === 'rejected' ? 'btn btn-disabled' : 'btn bg-red-400 hover:bg-red-500'}>Deny</button>
                                 </td>
                                 <td>
-                                    <button className="btn">Feedback</button>
+                                    <button className="btn" onClick={() => { window.my_modal_3.showModal(data?._id); setClassId(data?._id); modalData(data?._id) }}>Feedback</button>
+                                </td>
+                                <td>
+                                    <button onClick={() => deleteClass(data?._id)} className="btn bg-red-500 text-white hover:bg-red-500">Delete</button>
                                 </td>
                             </tr>
                         )
                     }
                 </tbody>
             </table>
+            <AdminFeedbackModal id={classId} oldFeedback={previousFeedback}></AdminFeedbackModal>
         </div>
     );
 };

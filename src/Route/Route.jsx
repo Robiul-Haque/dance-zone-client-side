@@ -14,10 +14,11 @@ import InstructorDashboard from "../Layout/InstructorDashboard";
 import Dashboard from "../Page/Instructor/Dashboard/Dashboard";
 import AddClass from "../Page/Instructor/AddClass/AddClass";
 import MyClass from "../Page/Instructor/MyClass/MyClass";
-import Class from "../Page/Admin/Class/Class";
 import SelectedClass from "../Page/Home/Component/SelectedClass";
 import EnrolledClass from "../Page/Home/Component/EnrolledClass";
 import PaymentHistory from "../Page/Home/Component/PaymentHistory";
+import Class from "../Page/Admin/Class/Class";
+import EditClass from "../Page/Instructor/MyClass/EditClass";
 
 export const router = createBrowserRouter([
     {
@@ -79,8 +80,12 @@ export const router = createBrowserRouter([
             {
                 path: '/instructor-dashboard/my-class',
                 element: <MyClass></MyClass>,
-                loader: () => fetch('http://localhost:5000/my-class')
             },
+            {
+                path: '/instructor-dashboard/my-class/edit/:id',
+                element: <EditClass></EditClass>,
+                loader: ({params}) => fetch(`http://localhost:5000/my-class/edit/show-data/${params?.id}`)
+            }
         ]
     },
     {
@@ -97,8 +102,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/admin-dashboard/manage-class',
-                element: <Class></Class>,
-                // loader: () => fetch('http://localhost:5000/manage-class')
+                element: <Class></Class>
             }
         ]
     }

@@ -1,4 +1,4 @@
-import useAdminManageCourse from "../../../Hook/useAdminManageCourse";
+import useAdminManageCourse from "../../../../Hook/useAdminManageCourse";
 import { useState } from "react";
 import AdminFeedbackModal from "./AdminFeedbackModal";
 import { toast } from "react-toastify";

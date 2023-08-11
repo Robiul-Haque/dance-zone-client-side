@@ -1,5 +1,5 @@
 
-const Admin = () => {
+const Dashboard = () => {
     return (
         <div>
             Admin Dashboard
@@ -7,4 +7,4 @@ const Admin = () => {
     );
 };
 
-export default Admin;
+export default Dashboard;

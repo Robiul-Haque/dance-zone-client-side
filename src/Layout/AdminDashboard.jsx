@@ -25,12 +25,14 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="drawer lg:drawer-open md:px-60">
+        <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col items-center justify-center">
                 {/* Page content here */}
-                <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-                <Outlet></Outlet>
+                <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden my-5">Open Menu</label>
+                <div className="my-10">
+                    <Outlet></Outlet>
+                </div>
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
@@ -43,7 +45,7 @@ const Dashboard = () => {
                         <Link to='/admin-dashboard/user'><img width="25" height="25" src="https://img.icons8.com/ios-glyphs/30/group.png" alt="user" /> Manage User</Link>
                     </li>
                     <li>
-                        <Link to='/admin-dashboard/manage-course'><img width="25" height="25" src="https://img.icons8.com/metro/26/class.png" alt="class"/> Manage Course</Link>
+                        <Link to='/admin-dashboard/manage-course'><img width="25" height="25" src="https://img.icons8.com/metro/26/class.png" alt="class" /> Manage Course</Link>
                     </li>
                     <hr className="my-2" />
                     <li>

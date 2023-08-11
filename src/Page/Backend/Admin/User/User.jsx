@@ -1,4 +1,4 @@
-import useAdminManageUser from "../../../Hook/useAdminManageUser";
+import useAdminManageUser from "../../../../Hook/useAdminManageUser";
 
 const User = () => {
 

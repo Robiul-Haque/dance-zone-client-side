@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useInstructorMyCourse from "../../../Hook/useInstructorMyCourse";
+import useInstructorMyCourse from "../../../../Hook/useInstructorMyCourse";
 
 const MyClass = () => {
 

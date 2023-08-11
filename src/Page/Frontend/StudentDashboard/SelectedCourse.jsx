@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import useStudentSelectedCourse from "../../../../Hook/useStudentSelectedCourse";
+import useStudentSelectedCourse from "../../../Hook/useStudentSelectedCourse";
 
 const SelectedCourse = () => {
 

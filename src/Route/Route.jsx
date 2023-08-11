@@ -1,26 +1,26 @@
 import { createBrowserRouter } from "react-router-dom";
-import Main from "../layout/Main";
-import StudentPrivetRoute from "./InstructorPrivetRoute";
-import InstructorPrivetRoute from "./InstructorPrivetRoute";
-import AdminPrivetRoute from "./AdminPrivetRoute";
-import Home from "../page/Client_side/home/home";
-import AllCourse from "../Page/Client_side/Course/Course"
-import StudentDashboard from "../Page/Client_side/Dashboard/Dashboard";
 import Register from "../Page/Register/Register";
 import Login from "../Page/Login/Login";
-import AdminDashboard from "../Layout/AdminDashboard";
-import Admin from "../Page/Admin/Admin/Admin";
-import User from "../Page/Admin/User/User";
+import Main from "../layout/Main";
+import Home from "../page/Frontend/Home/Home";
+import Instructor from "../Page/Frontend/Instructor/Instructor";
+import AllCourse from "../Page/Frontend/Course/Course";
+import StudentPrivetRoute from "./InstructorPrivetRoute";
+import StudentDashboard from "../Layout/StudentDashboard";
+import SelectedCourse from "../Page/Frontend/StudentDashboard/SelectedCourse";
+import EnrolledCourse from "../Page/Frontend/StudentDashboard/EnrolledCourse";
+import PaymentHistory from "../Page/Frontend/StudentDashboard/PaymentHistory";
+import InstructorPrivetRoute from "./InstructorPrivetRoute";
 import InstructorDashboard from "../Layout/InstructorDashboard";
-import Dashboard from "../Page/Instructor/Dashboard/Dashboard";
-import AddCourse from "../Page/Instructor/AddCourse/AddCourse";
-import MyCourse from "../Page/Instructor/MyCourse/MyCourse";
-import SelectedCourse from "../Page/Client_side/Dashboard/Component/SelectedCourse";
-import EnrolledCourse from "../Page/Client_side/Dashboard/Component/EnrolledCourse";
-import PaymentHistory from "../Page/Client_side/Dashboard/Component/PaymentHistory";
-import Course from "../Page/Admin/Course/Course";
-import EditCourse from "../Page/Instructor/MyCourse/EditCourse";
-import Instructor from "../Page/Client_side/Instructor/Instructor";
+import Dashboard from "../Page/Backend/Instructor/Dashboard/Dashboard";
+import AddCourse from "../Page/Backend/Instructor/AddCourse/AddCourse";
+import MyCourse from "../Page/Backend/Instructor/MyCourse/MyCourse";
+import EditCourse from "../Page/Backend/Instructor/MyCourse/EditCourse";
+import AdminPrivetRoute from "./AdminPrivetRoute";
+import AdminDashboard from "../Layout/AdminDashboard";
+import Course from "../Page/Backend/Admin/Course/Course";
+import Admin from "../Page/Backend/Admin/Dashboard/Dashboard";
+import User from "../Page/Backend/Admin/User/User";
 
 export const router = createBrowserRouter([
     {

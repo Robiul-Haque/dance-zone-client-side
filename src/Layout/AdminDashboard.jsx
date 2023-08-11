@@ -43,7 +43,7 @@ const Dashboard = () => {
                         <Link to='/admin-dashboard/user'><img width="25" height="25" src="https://img.icons8.com/ios-glyphs/30/group.png" alt="user" /> Manage User</Link>
                     </li>
                     <li>
-                        <Link to='/admin-dashboard/manage-class'><img width="25" height="25" src="https://img.icons8.com/metro/26/class.png" alt="class"/> Manage Class</Link>
+                        <Link to='/admin-dashboard/manage-course'><img width="25" height="25" src="https://img.icons8.com/metro/26/class.png" alt="class"/> Manage Course</Link>
                     </li>
                     <hr className="my-2" />
                     <li>

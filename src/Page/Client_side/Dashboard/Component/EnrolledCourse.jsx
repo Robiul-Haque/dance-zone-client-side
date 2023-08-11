@@ -1,5 +1,5 @@
 
-const EnrolledClass = () => {
+const EnrolledCourse = () => {
     return (
         <div className="overflow-x-auto">
             <table className="table">
@@ -40,4 +40,4 @@ const EnrolledClass = () => {
     );
 };
 
-export default EnrolledClass;
+export default EnrolledCourse;

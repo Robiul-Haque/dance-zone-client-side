@@ -14,10 +14,10 @@ const Dashboard = () => {
                 <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
                     {/* Sidebar content here */}
                     <li>
-                        <Link to='/student/dashboard/selected-class'>Selected Class</Link>
+                        <Link to='/student/dashboard/selected-course'>Selected Course</Link>
                     </li>
                     <li className="my-2">
-                        <Link to='/student/dashboard/enrolled-class'>Enrolled Class</Link>
+                        <Link to='/student/dashboard/enrolled-course'>Enrolled Course</Link>
                     </li>
                     <li>
                         <Link to='/student/dashboard/payment-history'>Payment History</Link>

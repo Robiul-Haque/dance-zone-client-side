@@ -39,7 +39,7 @@ const Navbar = () => {
                             <NavLink to='/instructor' className='font-medium text-base block text-center'>Instructor</NavLink>
                         </li>
                         <li>
-                            <NavLink to='/class' className='font-medium text-base block text-center'>Class</NavLink>
+                            <NavLink to='/course' className='font-medium text-base block text-center'>Course</NavLink>
                         </li>
                     </ul>
                 </div>
@@ -56,7 +56,7 @@ const Navbar = () => {
                         <NavLink to='/instructor' className='font-medium text-base'>Instructor</NavLink>
                     </li>
                     <li>
-                        <NavLink to='/class' className='font-medium text-base'>Class</NavLink>
+                        <NavLink to='/course' className='font-medium text-base'>Course</NavLink>
                     </li>
                 </ul>
             </div>

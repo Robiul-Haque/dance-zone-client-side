@@ -40,10 +40,10 @@ const Instructor = () => {
                         <Link to='/instructor-dashboard'><img width="24" height="24" src="https://img.icons8.com/material/24/1A1A1A/dashboard-layout.png" alt="dashboard-layout" /> Dashboard</Link>
                     </li>
                     <li className="my-2">
-                        <Link to='/instructor-dashboard/add-class'><img width="24" height="24" src="https://img.icons8.com/ios-filled/50/classroom.png" alt="classroom" /> Add A Class</Link>
+                        <Link to='/instructor-dashboard/add-course'><img width="24" height="24" src="https://img.icons8.com/ios-filled/50/classroom.png" alt="classroom" /> Add A Course</Link>
                     </li>
                     <li>
-                        <Link to='/instructor-dashboard/my-class'><img width="24" height="24" src="https://img.icons8.com/fluency-systems-filled/48/class.png" alt="class" /> My Class</Link>
+                        <Link to='/instructor-dashboard/my-course'><img width="24" height="24" src="https://img.icons8.com/fluency-systems-filled/48/class.png" alt="class" /> My Course</Link>
                     </li>
                     <hr className="my-2" />
                     <li>

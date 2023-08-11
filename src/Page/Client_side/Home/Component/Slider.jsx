@@ -6,12 +6,12 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css';
 import 'swiper/css';
-import slider_1 from '../../../assets/slider-1.jpg';
-import slider_2 from '../../../assets/slider-2.jpg';
-import slider_3 from '../../../assets/slider-3.jpg';
-import slider_4 from '../../../assets/slider-4.jpg';
-import slider_5 from '../../../assets/slider-5.jpg';
-import slider_6 from '../../../assets/slider-6.jpg';
+import slider_1 from '../../../../assets/slider-1.jpg';
+import slider_2 from '../../../../assets/slider-2.jpg';
+import slider_3 from '../../../../assets/slider-3.jpg';
+import slider_4 from '../../../../assets/slider-4.jpg';
+import slider_5 from '../../../../assets/slider-5.jpg';
+import slider_6 from '../../../../assets/slider-6.jpg';
 
 
 const Slider = () => {

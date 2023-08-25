@@ -21,6 +21,7 @@ import AdminDashboard from "../Layout/AdminDashboard";
 import Course from "../Page/Backend/Admin/Course/Course";
 import Admin from "../Page/Backend/Admin/Dashboard/Dashboard";
 import User from "../Page/Backend/Admin/User/User";
+import Checkout from "../Page/Frontend/Checkout/Checkout";
 
 export const router = createBrowserRouter([
     {
@@ -51,11 +52,18 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: '/student/dashboard/enrolled-course',
-                        element: <EnrolledCourse></EnrolledCourse>
+                        element: <EnrolledCourse></EnrolledCourse>,
+                        loader: () => fetch('http://localhost:5000/student/enrolled-course')
                     },
                     {
                         path: '/student/dashboard/payment-history',
-                        element: <PaymentHistory></PaymentHistory>
+                        element: <PaymentHistory></PaymentHistory>,
+                        loader: () => fetch('http://localhost:5000/student/payment-history')
+                    },
+                    {
+                        path: '/student/dashboard/checkout/:id',
+                        element: <Checkout></Checkout>,
+                        loader: ({ params }) => fetch(`http://localhost:5000/student/selected-single-course/${params.id}`)
                     }
                 ]
             },

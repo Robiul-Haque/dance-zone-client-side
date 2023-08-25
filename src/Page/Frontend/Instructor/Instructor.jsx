@@ -1,16 +1,14 @@
-// import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
+import InstructorTotalCourse from "./InstructorTotalCourse";
+// import { useState } from "react";
 
 const Instructor = () => {
 
+    // const [instructorEmail, setInstructorEmail] = useState('');
     const allInstructor = useLoaderData();
-    // allInstructor.map(data => console.log(data.email));
-
-    // useEffect(() => {
-    //     fetch(`http://localhost:5000/single-instructor/total-course-count`)
-    //         .then(res => res.json())
-    //         .then(data => console.log(data))
-    // }, [])
+    // console.log(allInstructor);
+    allInstructor.map(data => console.log(data?.email));
+    // console.log(instructorEmail);
 
     return (
         <>
@@ -28,7 +26,7 @@ const Instructor = () => {
                                     <figure><img src={classData?.photo} alt={classData?.name + 'Photo'} className="w-full h-64 object-cover" /></figure>
                                     <div className="card-body">
                                         <h2 className="card-title text-2xl font-bold text-gray-500">{classData?.name}</h2>
-                                        <p className="my-2">Instructor Total Course: </p>
+                                        <InstructorTotalCourse></InstructorTotalCourse>
                                         <div className="card-actions justify-end">
                                             <button className="btn btn-neutral w-full">See Instructor Course</button>
                                         </div>

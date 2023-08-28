@@ -1,14 +1,9 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import InstructorTotalCourse from "./InstructorTotalCourse";
-// import { useState } from "react";
 
 const Instructor = () => {
 
-    // const [instructorEmail, setInstructorEmail] = useState('');
     const allInstructor = useLoaderData();
-    // console.log(allInstructor);
-    allInstructor.map(data => console.log(data?.email));
-    // console.log(instructorEmail);
 
     return (
         <>
@@ -20,15 +15,15 @@ const Instructor = () => {
                 <h1 className="text-center font-bold text-3xl text-gray-600 mb-16">Our Best Instructor</h1>
                 <div className="grid md:grid-cols-3 md:gap-16 gap-4">
                     {
-                        allInstructor?.map(classData => {
+                        allInstructor?.map(data => {
                             return (
-                                <div key={classData?._id} className="card w-96 bg-base-100 shadow-xl">
-                                    <figure><img src={classData?.photo} alt={classData?.name + 'Photo'} className="w-full h-64 object-cover" /></figure>
+                                <div key={data?._id} className="card w-96 bg-base-100 shadow-xl">
+                                    <figure><img src={data?.photo} alt={data?.name + 'Photo'} className="w-full h-64 object-cover" /></figure>
                                     <div className="card-body">
-                                        <h2 className="card-title text-2xl font-bold text-gray-500">{classData?.name}</h2>
-                                        <InstructorTotalCourse></InstructorTotalCourse>
+                                        <h2 className="card-title text-2xl font-bold text-gray-500">{data?.name}</h2>
+                                        <InstructorTotalCourse email={data?.email}></InstructorTotalCourse>
                                         <div className="card-actions justify-end">
-                                            <button className="btn btn-neutral w-full">See Instructor Course</button>
+                                            <Link to={`/instructor/see-all-course/${data?.email}`} className="btn btn-neutral w-full">See Instructor Course</Link>
                                         </div>
                                     </div>
                                 </div>

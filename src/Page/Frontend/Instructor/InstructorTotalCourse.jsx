@@ -1,18 +1,19 @@
 /* eslint-disable react/prop-types */
-// import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const InstructorTotalCourse = () => {
-    // console.log(email);
+const InstructorTotalCourse = ({ email }) => {
 
-    // useEffect(() => {
-    //     fetch(`http://localhost:5000/single-instructor/total-course-count`)
-    //         .then(res => res.json())
-    //         .then(data => console.log(data))
-    // }, [])
+    const [course, setCourse] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/single-instructor/total-course-count/${email}`)
+            .then(res => res.json())
+            .then(data => setCourse(data))
+    }, [])
 
     return (
         <>
-            <p className="my-2">Instructor Total Course: </p>
+            <p className="my-2">Instructor Total Course: {course.length}</p>
         </>
     );
 };

@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import Error from "../Page/Error/Error";
 import Register from "../Page/Register/Register";
 import Login from "../Page/Login/Login";
 import Main from "../layout/Main";
@@ -7,6 +8,7 @@ import Instructor from "../Page/Frontend/Instructor/Instructor";
 import AllCourse from "../Page/Frontend/Course/Course";
 import StudentPrivetRoute from "./InstructorPrivetRoute";
 import StudentDashboard from "../Layout/StudentDashboard";
+import StudentDashboard1 from "../Page/Frontend/StudentDashboard/Dashboard";
 import SelectedCourse from "../Page/Frontend/StudentDashboard/SelectedCourse";
 import EnrolledCourse from "../Page/Frontend/StudentDashboard/EnrolledCourse";
 import PaymentHistory from "../Page/Frontend/StudentDashboard/PaymentHistory";
@@ -22,20 +24,18 @@ import Course from "../Page/Backend/Admin/Course/Course";
 import Admin from "../Page/Backend/Admin/Dashboard/Dashboard";
 import User from "../Page/Backend/Admin/User/User";
 import Checkout from "../Page/Frontend/Checkout/Checkout";
+import InstructorSeeCourse from "../Page/Frontend/Instructor/InstructorSeeCourse";
+import ContactUs from "../Page/Frontend/ContactUs/ContactUs";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
+        errorElement: <Error></Error>,
         children: [
             {
                 path: '/',
                 element: <Home></Home>
-            },
-            {
-                path: '/instructor',
-                element: <Instructor></Instructor>,
-                loader: () => fetch('http://localhost:5000/all-instructor')
             },
             {
                 path: '/Course',
@@ -43,12 +43,31 @@ export const router = createBrowserRouter([
                 loader: () => fetch('http://localhost:5000/all-course')
             },
             {
+                path: '/instructor',
+                element: <Instructor></Instructor>,
+                loader: () => fetch('http://localhost:5000/all-instructor')
+            },
+            {
+                path: '/instructor/see-all-course/:email',
+                element: <InstructorSeeCourse></InstructorSeeCourse>,
+                loader: ({ params }) => fetch(`http://localhost:5000/see-all-course-by-instructor/${params.email}`)
+            },
+            {
+                path: '/contact-us',
+                element: <ContactUs></ContactUs>
+            },
+            {
                 path: '/student/dashboard',
                 element: <StudentPrivetRoute><StudentDashboard></StudentDashboard></StudentPrivetRoute>,
                 children: [
                     {
+                        path: '/student/dashboard',
+                        element: <StudentDashboard1></StudentDashboard1>,
+                        loader: () => fetch('http://localhost:5000/student/all-statices')
+                    },
+                    {
                         path: '/student/dashboard/selected-course',
-                        element: <SelectedCourse></SelectedCourse>,
+                        element: <SelectedCourse></SelectedCourse>
                     },
                     {
                         path: '/student/dashboard/enrolled-course',

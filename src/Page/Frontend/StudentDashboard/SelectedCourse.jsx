@@ -52,16 +52,16 @@ const SelectedCourse = () => {
                 </thead>
                 <tbody>
                     {
-                        data.map((allCourse, index) => {
+                        data.map((course, index) => {
                             return (
-                                <tr key={allCourse?._id}>
+                                <tr key={course?._id}>
                                     <th>{index + 1}</th>
-                                    <td><img src={allCourse?.class_image} alt={allCourse?.class_name + 'Class photo'} className="w-16 h-16 rounded-xl" /></td>
-                                    <td>{allCourse?.class_name}</td>
-                                    <td>{allCourse?.course_price} $</td>
-                                    <td>{allCourse?.instructor_name}</td>
-                                    <td><Link to={`/student/dashboard/checkout/${allCourse?._id}`} className="btn btn-neutral">Enroll Now</Link></td>
-                                    <td><button onClick={() => deleteCourse(allCourse?._id)} className="btn bg-red-500 text-white hover:bg-red-600">Delete</button></td>
+                                    <td><img src={course?.class_image} alt={course?.class_name + 'Class photo'} className="w-16 h-16 rounded-xl" /></td>
+                                    <td>{course?.class_name}</td>
+                                    <td>{course?.course_price} $</td>
+                                    <td>{course?.instructor_name}</td>
+                                    <td><Link to={`/student/dashboard/checkout/${course?._id}`} className="btn btn-neutral">Enroll Now</Link></td>
+                                    <td><button onClick={() => deleteCourse(course?._id)} className="btn bg-red-500 text-white hover:bg-red-600">Delete</button></td>
                                 </tr>
                             )
                         })

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../Auth/AuthProvider";
 import { toast } from "react-toastify";
+import InstructorEnrollBtn from "./InstructorEnrollBtn";
 
 const InstructorSeeCourse = () => {
 
@@ -59,8 +60,8 @@ const InstructorSeeCourse = () => {
                                         <div className="card-actions flex flex-nowrap">
                                             {
                                                 user?.email ? <>
-                                                    {/* <Link to={`/student/dashboard/checkout/${course?._id}`} className="btn btn-neutral">Enroll Now</Link> */}
-                                                    <button onClick={() => selectCourse(course)} className="btn btn-outline btn-primary w-full">Select This Course</button>
+                                                    <InstructorEnrollBtn course={course}></InstructorEnrollBtn>
+                                                    <button onClick={() => selectCourse(course)} className="btn btn-outline btn-primary">Select This Course</button>
                                                 </>
                                                     :
                                                     <>

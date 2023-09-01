@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const Course = () => {
 
-    const [classId, setCourseId] = useState('');
+    const [courseId, setCourseId] = useState('');
     const { data, isLoading, refetch } = useAdminManageCourse();
     const [previousFeedback, setPreviousFeedback] = useState('');
 
@@ -97,10 +97,10 @@ const Course = () => {
                                 <td>{course?.course_price}</td>
                                 <td className={course?.status === 'accepted' ? 'text-green-500 capitalize font-semibold' : course?.status === 'rejected' ? 'text-red-500 capitalize font-semibold' : 'capitalize font-semibold'}>{course?.status}</td>
                                 <td>
-                                    <button onClick={() => approve(course?._id)} className={course?.status === 'accepted' || course?.status === 'rejected' ? 'btn btn-disabled' : 'btn bg-green-400 hover:bg-green-500'}>Approve</button>
+                                    <button onClick={() => approve(course?._id)} className={course?.status === 'accepted' || course?.status === 'rejected' ? 'btn btn-disabled' : 'btn bg-green-500 text-white hover:bg-green-600'}>Approve</button>
                                 </td>
                                 <td>
-                                    <button onClick={() => deny(course?._id)} className={course?.status === 'accepted' || course?.status === 'rejected' ? 'btn btn-disabled' : 'btn bg-red-400 hover:bg-red-500'}>Deny</button>
+                                    <button onClick={() => deny(course?._id)} className={course?.status === 'accepted' || course?.status === 'rejected' ? 'btn btn-disabled' : 'btn bg-red-500 text-white hover:bg-red-600'}>Deny</button>
                                 </td>
                                 <td>
                                     <button className="btn" onClick={() => { window.my_modal_3.showModal(course?._id); setCourseId(course?._id); modalData(course?._id) }}>Feedback</button>
@@ -113,7 +113,7 @@ const Course = () => {
                     }
                 </tbody>
             </table>
-            <AdminFeedbackModal id={classId} oldFeedback={previousFeedback}></AdminFeedbackModal>
+            <AdminFeedbackModal id={courseId} oldFeedback={previousFeedback}></AdminFeedbackModal>
         </div>
     );
 };

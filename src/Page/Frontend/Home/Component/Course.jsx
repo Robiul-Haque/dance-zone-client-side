@@ -13,7 +13,7 @@ const Course = () => {
     return (
         <div className="my-20">
             <h1 className='text-4xl font-semibold text-center mb-10'>Popular Course</h1>
-            <div className="flex justify-center flex-wrap lg:gap-34 md:gap-24 gap-4">
+            <div className="flex justify-center flex-wrap lg:gap-34 md:gap-24 gap-y-12">
                 {
                     courses.map(allCourse => {
                         return (

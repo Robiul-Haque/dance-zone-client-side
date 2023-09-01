@@ -9,7 +9,7 @@ const InstructorTotalCourse = ({ email }) => {
         fetch(`http://localhost:5000/single-instructor/total-course-count/${email}`)
             .then(res => res.json())
             .then(data => setCourse(data))
-    }, [email])
+    }, [])
 
     return (
         <>

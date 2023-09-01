@@ -11,7 +11,7 @@ const Dashboard = () => {
         userLogout()
             .then(() => {
                 console.log('User log out');
-                toast.success('Log Out Successful', {
+                toast.success('Log Out Successfully', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -39,13 +39,16 @@ const Dashboard = () => {
                 <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
                     {/* Sidebar content here */}
                     <li>
-                        <Link to='/admin-dashboard'><img width="24" height="24" src="https://img.icons8.com/material/24/1A1A1A/dashboard-layout.png" alt="dashboard-layout" /> Dashboard</Link>
+                        <Link to='/admin-dashboard'><img width="25" height="25" src="https://img.icons8.com/material/24/dashboard-layout.png" alt="dashboard-layout" /> Dashboard</Link>
                     </li>
                     <li className="my-2">
                         <Link to='/admin-dashboard/user'><img width="25" height="25" src="https://img.icons8.com/ios-glyphs/30/group.png" alt="user" /> Manage User</Link>
                     </li>
-                    <li>
+                    <li className="mb-2">
                         <Link to='/admin-dashboard/manage-course'><img width="25" height="25" src="https://img.icons8.com/metro/26/class.png" alt="class" /> Manage Course</Link>
+                    </li>
+                    <li>
+                        <Link to='/admin-dashboard/contact-us/message'><img width="25" height="25" src="https://img.icons8.com/ios/50/speech-bubble-with-dots--v1.png" alt="speech-bubble-with-dots--v1" /> Contact Message</Link>
                     </li>
                     <hr className="my-2" />
                     <li>

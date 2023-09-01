@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import InstructorTotalCourse from './InstructorTotalCourse';
 
 
 const Instructor = () => {
@@ -8,18 +10,28 @@ const Instructor = () => {
     useEffect(() => {
         fetch('http://localhost:5000/home/instructor')
             .then(res => res.json())
-            .then(data => setInstructors(data))
+            .then(data => setInstructors(data));
     })
 
     return (
         <div className='my-20'>
             <h1 className="text-4xl font-semibold text-center mb-10">Popular Instructor</h1>
-            <div className='flex justify-center gap-8 flex-wrap'>
+            <div className='flex justify-center lg:gap-34 md:gap-24 gap-y-12 flex-wrap'>
                 {
-                    instructors?.map(instructor => <div key={instructor._id}>
-                        <img src={instructor?.photo} alt="instructor_1" className='w-56 h-56 object-cover rounded-lg border-4 border-base-200 shadow-lg shadow-neutral-500' />
-                        <h2 className='text-xl text-center font-semibold mt-4'>{instructor?.name}</h2>
-                    </div>)
+                    instructors?.map(instructors => {
+                        return (
+                            <div key={instructors?._id} className="card w-96 bg-base-100 shadow-xl">
+                                <figure><img src={instructors?.photo} alt={instructors?.name + 'Photo'} className="w-full h-64 object-cover" /></figure>
+                                <div className="card-body">
+                                    <h2 className="card-title text-2xl font-bold text-gray-500">{instructors?.name}</h2>
+                                    <InstructorTotalCourse email={instructors?.email}></InstructorTotalCourse>
+                                    <div className="card-actions justify-end">
+                                        <Link to={`/instructor/see-all-course/${instructors?.email}`} className="btn btn-neutral w-full">See Instructor Course</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })
                 }
             </div>
         </div>

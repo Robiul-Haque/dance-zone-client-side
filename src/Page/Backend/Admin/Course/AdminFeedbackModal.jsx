@@ -18,7 +18,7 @@ const AdminFeedbackModal = ({ id, oldFeedback }) => {
                 .then(data => {
                     console.log(data)
                     if (data?.modifiedCount > 0) {
-                        toast.success('Feedback Send Successful', {
+                        toast.success('Feedback Send Successfully', {
                             position: "top-right",
                             autoClose: 5000,
                             hideProgressBar: false,

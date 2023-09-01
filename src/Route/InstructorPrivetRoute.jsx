@@ -6,7 +6,6 @@ import { Navigate } from "react-router-dom";
 const InstructorPrivetRoute = ({children}) => {
 
     const { user, loading } = useContext(AuthContext);
-    console.log(user);
 
     if (loading) {
         return (

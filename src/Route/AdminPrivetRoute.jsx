@@ -4,6 +4,7 @@ import { AuthContext } from "../Auth/AuthProvider";
 import { Navigate } from "react-router-dom";
 
 const AdminPrivetRoute = ({ children }) => {
+    
     const { user, loading } = useContext(AuthContext);
 
     if (loading) {

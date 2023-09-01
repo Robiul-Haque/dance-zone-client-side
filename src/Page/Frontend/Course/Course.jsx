@@ -35,24 +35,24 @@ const Course = () => {
 
     return (
         <>
-            <div className="md:mt-20">
-                <h1 className="text-center font-extrabold text-4xl text-gray-600">Elegance in Motion Discover the Rhythm of Dance</h1>
-                <p className="text-center font-medium text-lg text-gray-500 mt-2">Join us in a captivating journey of grace music and passion Experience dance like never before</p>
+            <div className="lg:mt-20 md:mt-15 mt-6 mx-5">
+                <h1 className="text-center lg:font-extrabold md:font-extrabold font-bold text-4xl text-gray-600">Elegance in Motion Discover the Rhythm of Dance</h1>
+                <p className="text-center font-medium lg:text-lg md:text-lg text-gray-500 lg:mt-3 md:mt-2 mt-5">Join us in a captivating journey of grace music and passion Experience dance like never before</p>
             </div>
-            <div className="md:px-80 md:py-20">
-                <h1 className="text-center font-bold text-3xl text-gray-600 mb-16">Our Best Dance Course</h1>
-                <div className="grid md:grid-cols-2 md:gap-16 gap-4">
+            <div className="lg:px-80 lg:py-20 md:px-80 md:py-20 pt-5 mb-20">
+                <h1 className="text-center lg:font-bold md:font-bold font-normal lg:text-3xl md:text-3xl text-2xl text-gray-600 lg:mb-16 md:mb-16 my-10">Our Best Dance Course</h1>
+                <div className="grid md:grid-cols-2 md:gap-14 lg:gap-16 gap-y-10">
                     {
                         allCourse?.map(courseData => {
                             return (
                                 <div key={courseData?._id} className="card card-side bg-base-100 shadow-xl hover:shadow-2xl">
-                                    <figure><img src={courseData?.class_image} alt={courseData?.class_name + "Class Image"} className="w-64 h-64 object-cover" /></figure>
+                                    <figure><img src={courseData?.class_image} alt={courseData?.class_name + "Class Image"} className="lg:w-64 lg:h-64 md:w-64 md:h-64 w-64 h-80" /></figure>
                                     <div className="card-body">
                                         <h2 className="card-title text-2xl font-bold text-gray-500">{courseData?.class_name}</h2>
                                         <p className="text-gray-500 font-medium">Instructor name: <span className="font-bold">{courseData?.instructor_name}</span></p>
                                         <p className="text-gray-500 font-medium">Available seats: <span className="font-bold">{courseData?.available_seats}</span></p>
                                         <p className="text-gray-500 font-medium">Course price: <span className="font-bold">{courseData?.course_price} $</span></p>
-                                        <div className="card-actions flex flex-nowrap">
+                                        <div className="card-actions flex lg:flex-nowrap md:flex-nowrap flex-wrap">
                                             {
                                                 user?.email ? <>
                                                     <button className="btn btn-neutral">Enroll Now</button>

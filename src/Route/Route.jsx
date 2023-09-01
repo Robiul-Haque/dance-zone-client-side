@@ -26,6 +26,7 @@ import User from "../Page/Backend/Admin/User/User";
 import Checkout from "../Page/Frontend/Checkout/Checkout";
 import InstructorSeeCourse from "../Page/Frontend/Instructor/InstructorSeeCourse";
 import ContactUs from "../Page/Frontend/ContactUs/ContactUs";
+import ContactUsDashboard from "../Page/Backend/Admin/ContactUs/ContactUsDashboard";
 
 export const router = createBrowserRouter([
     {
@@ -134,6 +135,10 @@ export const router = createBrowserRouter([
             {
                 path: '/admin-dashboard/manage-course',
                 element: <Course></Course>
+            },
+            {
+                path: '/admin-dashboard/contact-us/message',
+                element: <ContactUsDashboard></ContactUsDashboard>,
             }
         ]
     }

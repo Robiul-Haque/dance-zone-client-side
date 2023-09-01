@@ -4,6 +4,7 @@ import { AuthContext } from "../Auth/AuthProvider";
 import { Navigate } from "react-router-dom";
 
 const StudentPrivetRoute = ({ children }) => {
+    
     const { user, loading } = useContext(AuthContext);
 
     if (loading) {

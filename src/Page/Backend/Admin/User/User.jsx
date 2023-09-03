@@ -5,29 +5,28 @@ const User = () => {
     const { refetch, isLoading, data } = useAdminManageUser();
 
     const makeAdmin = (id) => {
-        console.log(id);
         fetch(`http://localhost:5000/manage-user/update-role-admin/${id}`, {
             method: 'PATCH',
             headers: { 'content-type': 'application/json' }
         })
             .then(res => res.json())
-            .then(data => {
-                refetch();
-                console.log(data);
-            })
+            .then(() => refetch())
     }
 
     const makeInstructor = (id) => {
-        console.log(id);
+        fetch(`http://localhost:5000/admin/manage-user/update/view-status/${id}`, {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(() => refetch())
+
         fetch(`http://localhost:5000/manage-user/update-role-instructor/${id}`, {
             method: 'PATCH',
             headers: { 'content-type': 'application/json' }
         })
             .then(res => res.json())
-            .then(data => {
-                refetch();
-                console.log(data);
-            })
+            .then(() => refetch())
     }
 
     if (isLoading) {
@@ -50,7 +49,7 @@ const User = () => {
                     <tbody className="font-medium">
                         {
                             data.map((user, index) =>
-                                <tr key={user?._id}>
+                                <tr key={user?._id} className={user?.status === 'unseen' ? 'bg-base-200' : ''}>
                                     <th>{index + 1}</th>
                                     <td>{user?.email}</td>
                                     <td className={user?.role === 'admin' ? "text-green-500 capitalize" : user.role === 'instructor' ? "text-red-500 capitalize" : "text-purple-500 capitalize"}>{user?.role}</td>

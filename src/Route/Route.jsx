@@ -27,6 +27,8 @@ import Checkout from "../Page/Frontend/Checkout/Checkout";
 import InstructorSeeCourse from "../Page/Frontend/Instructor/InstructorSeeCourse";
 import ContactUs from "../Page/Frontend/ContactUs/ContactUs";
 import ContactUsDashboard from "../Page/Backend/Admin/ContactUs/ContactUsDashboard";
+import AdminPaymentHistory from "../Page/Backend/Admin/AdminPaymentHistory/AdminPaymentHistory";
+
 
 export const router = createBrowserRouter([
     {
@@ -129,7 +131,7 @@ export const router = createBrowserRouter([
                 element: <Admin></Admin>
             },
             {
-                path: '/admin-dashboard/user',
+                path: '/admin-dashboard/manage-user',
                 element: <User></User>
             },
             {
@@ -137,8 +139,12 @@ export const router = createBrowserRouter([
                 element: <Course></Course>
             },
             {
+                path: '/admin-dashboard/payment-history',
+                element: <AdminPaymentHistory></AdminPaymentHistory>
+            },
+            {
                 path: '/admin-dashboard/contact-us/message',
-                element: <ContactUsDashboard></ContactUsDashboard>,
+                element: <ContactUsDashboard></ContactUsDashboard>
             }
         ]
     }

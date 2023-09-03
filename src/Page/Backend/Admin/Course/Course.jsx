@@ -10,6 +10,13 @@ const Course = () => {
     const [previousFeedback, setPreviousFeedback] = useState('');
 
     const approve = id => {
+        fetch(`http://localhost:5000/admin/manage-course/update/view-status/${id}`, {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(() => refetch())
+
         fetch(`http://localhost:5000/admin/approve-course/${id}`, {
             method: 'PATCH',
             headers: { 'content-type': 'application/json' }
@@ -19,6 +26,13 @@ const Course = () => {
     }
 
     const deny = id => {
+        fetch(`http://localhost:5000/admin/manage-course/update/view-status/${id}`, {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(() => refetch())
+
         fetch(`http://localhost:5000/admin/deny-course/${id}`, {
             method: 'PATCH',
             headers: { 'content-type': 'application/json' }
@@ -28,6 +42,13 @@ const Course = () => {
     }
 
     const modalData = (id) => {
+        fetch(`http://localhost:5000/admin/manage-course/update/view-status/${id}`, {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' }
+        })
+            .then(res => res.json())
+            .then(() => refetch())
+
         fetch(`http://localhost:5000/admin/feedback/data/${id}`)
             .then(res => res.json())
             .then(data => setPreviousFeedback(data?.feedback))
@@ -73,7 +94,7 @@ const Course = () => {
                         <th>Course Name</th>
                         <th>Instructor Name</th>
                         <th>Instructor Email</th>
-                        <th>Available seat</th>
+                        <th>Available Seat</th>
                         <th>Price</th>
                         <th>Status</th>
                         <th>Approve</th>
@@ -85,7 +106,7 @@ const Course = () => {
                 <tbody>
                     {
                         data.map((course, index) =>
-                            <tr key={course?._id}>
+                            <tr key={course?._id} className={course?.view_status === 'unseen' ? 'bg-base-200' : ''}>
                                 <th>{index + 1}</th>
                                 <td>
                                     <img src={course?.class_image} alt={course?.class_image} className="w-16 h-16 rounded-xl" />

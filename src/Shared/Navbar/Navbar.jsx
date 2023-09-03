@@ -25,7 +25,6 @@ const Navbar = () => {
     const logOut = () => {
         userLogout()
             .then(() => {
-                console.log('User log out');
                 toast.success('Log out Successful', {
                     position: "top-right",
                     autoClose: 5000,

@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router-dom";
+import Title from "../../../../PageTitle/Title";
 
 const Dashboard = () => {
 
@@ -6,6 +7,7 @@ const Dashboard = () => {
 
     return (
         <>
+            <Title title={'Student Dashboard'}></Title>
             <div className="flex lg:gap-10 flex-wrap">
                 <div className="bg-base-200 w-80 h-40 flex justify-center items-center rounded-lg border text-gray-500">
                     <div className="text-center text-2xl font-medium">

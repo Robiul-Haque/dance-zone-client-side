@@ -1,3 +1,4 @@
+import Title from "../../../../../PageTitle/Title";
 import useAdminManageUser from "../../../../Hook/useAdminManageUser";
 
 const User = () => {
@@ -34,7 +35,8 @@ const User = () => {
     }
 
     return (
-        <div>
+        <>
+            <Title title={'Manage User'}></Title>
             <div className="overflow-x-auto">
                 <table className="table text-center">
                     <thead>
@@ -71,7 +73,7 @@ const User = () => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </>
     );
 };
 

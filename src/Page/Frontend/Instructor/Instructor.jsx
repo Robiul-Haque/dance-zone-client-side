@@ -1,4 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
+import Title from "../../../../PageTitle/Title";
 // import InstructorTotalCourse from "./InstructorTotalCourse";
 
 const Instructor = () => {
@@ -7,6 +8,7 @@ const Instructor = () => {
 
     return (
         <>
+            <Title title={'Instructor'}></Title>
             <div className="md:mt-20">
                 <h1 className="text-center font-extrabold text-4xl text-gray-600">Dance Masters Shaping Dreams One Step at a Time</h1>
                 <p className="text-center font-medium text-lg text-gray-500 mt-2">Experience the artistry and dedication of our dance instructors igniting your passion for movement and self expression</p>

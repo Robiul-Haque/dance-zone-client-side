@@ -3,6 +3,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../Auth/AuthProvider";
 import { toast } from "react-toastify";
 import InstructorEnrollBtn from "./InstructorEnrollBtn";
+import Title from "../../../../PageTitle/Title";
 
 const InstructorSeeCourse = () => {
 
@@ -43,7 +44,8 @@ const InstructorSeeCourse = () => {
     }
 
     return (
-        <div>
+        <>
+            <Title title={'Instructor Course'}></Title>
             <div className="md:px-80 md:py-20">
                 <h1 className="text-center font-bold text-3xl text-gray-600 mb-16">Explore Instructor Best Dance Course</h1>
                 <div className="grid md:grid-cols-2 md:gap-16 gap-4">
@@ -77,7 +79,7 @@ const InstructorSeeCourse = () => {
                     }
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

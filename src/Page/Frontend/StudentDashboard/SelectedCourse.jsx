@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import useStudentSelectedCourse from "../../../Hook/useStudentSelectedCourse";
 import { Link } from "react-router-dom";
+import Title from "../../../../PageTitle/Title";
 
 const SelectedCourse = () => {
 
@@ -21,7 +22,7 @@ const SelectedCourse = () => {
                 .then(data => {
                     refetch();
                     if (data?.deletedCount) {
-                        toast.success('Course Delete Successful', {
+                        toast.success('Course Delete Successfully', {
                             position: "top-right",
                             autoClose: 5000,
                             hideProgressBar: false,
@@ -37,38 +38,42 @@ const SelectedCourse = () => {
     }
 
     return (
-        <div className="overflow-x-auto">
-            <table className="table text-center">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Course Image</th>
-                        <th>Course Name</th>
-                        <th>Course Price</th>
-                        <th>Instructor Name</th>
-                        <th>Enroll</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        data.map((course, index) => {
-                            return (
-                                <tr key={course?._id}>
-                                    <th>{index + 1}</th>
-                                    <td><img src={course?.class_image} alt={course?.class_name + 'Class photo'} className="w-16 h-16 rounded-xl" /></td>
-                                    <td>{course?.class_name}</td>
-                                    <td>{course?.course_price} $</td>
-                                    <td>{course?.instructor_name}</td>
-                                    <td><Link to={`/student/dashboard/checkout/${course?._id}`} className="btn btn-neutral">Enroll Now</Link></td>
-                                    <td><button onClick={() => deleteCourse(course?._id)} className="btn bg-red-500 text-white hover:bg-red-600">Delete</button></td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
-        </div>
+        <>
+            <Title title={'Selected Course'}></Title>
+            <div className="overflow-x-auto">
+                <table className="table text-center">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Course Image</th>
+                            <th>Course Name</th>
+                            <th>Course Price</th>
+                            <th>Instructor Name</th>
+                            <th>Enroll</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            data.map((course, index) => {
+                                return (
+                                    <tr key={course?._id}>
+                                        <th>{index + 1}</th>
+                                        <td><img src={course?.class_image} alt={course?.class_name + 'Class photo'} className="w-16 h-16 rounded-xl" /></td>
+                                        <td>{course?.class_name}</td>
+                                        <td>{course?.course_price} $</td>
+                                        <td>{course?.instructor_name}</td>
+                                        <td><Link to={`/student/dashboard/checkout/${course?._id}`} className="btn btn-neutral">Enroll Now</Link></td>
+                                        <td><button onClick={() => deleteCourse(course?._id)} className="btn bg-red-500 text-white hover:bg-red-600">Delete</button></td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </>
+
     );
 };
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Title from "../../../../../PageTitle/Title";
 
 const Dashboard = () => {
 
@@ -29,6 +30,7 @@ const Dashboard = () => {
 
     return (
         <>
+            <Title title={'Admin Dashboard'}></Title>
             <div className="flex lg:gap-10 md:gap-6 gap-4 flex-wrap">
                 <div className="bg-base-200 lg:w-64 md:w-72 w-56 h-40 flex justify-center items-center rounded-lg border text-gray-500">
                     <div className="text-center text-2xl font-medium">
@@ -91,7 +93,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className="flex lg:gap-20 md:gap-10 gap-y-5 flex-wrap justify-center mt-14">
-                <div className="overflow-x-auto border rounded-xl py-5 hover:shadow-xl transition duration-1000 ease-out">
+                <div className="overflow-x-auto border rounded-xl p-5 hover:shadow-xl transition duration-1000 ease-out">
                     <h2 className="text-center text-xl font-bold mb-5">Register User</h2>
                     <table className="table text-center">
                         <thead>
@@ -121,7 +123,7 @@ const Dashboard = () => {
                     </table>
                     <div className="text-center mt-5"><Link to={'/admin-dashboard/manage-user'} className="btn">See More</Link></div>
                 </div>
-                <div className="overflow-x-auto border rounded-xl py-5 hover:shadow-xl transition duration-500 ease-out">
+                <div className="overflow-x-auto border rounded-xl p-5 hover:shadow-xl transition duration-500 ease-out">
                     <h2 className="text-center text-xl font-bold mb-5">Approve Course</h2>
                     <table className="table text-center">
                         <thead>

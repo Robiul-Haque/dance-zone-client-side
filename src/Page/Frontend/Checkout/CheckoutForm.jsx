@@ -5,7 +5,8 @@ import { AuthContext } from "../../../Auth/AuthProvider";
 import { toast } from "react-toastify";
 import './Checkout';
 
-const CheckoutForm = ({ classId, className, classImage, coursePrice, instructorName, instructorEmail }) => {
+const CheckoutForm = ({ courseId, selectedCourseId, courseName, courseImage, coursePrice, instructorName, instructorEmail,
+    available_seats }) => {
     const stripe = useStripe();
     const elements = useElements();
     const { user } = useContext(AuthContext);
@@ -24,7 +25,7 @@ const CheckoutForm = ({ classId, className, classImage, coursePrice, instructorN
             .then(data => {
                 setClientSecret(data?.clientSecret);
             })
-    }, [])
+    }, [coursePrice])
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -74,6 +75,7 @@ const CheckoutForm = ({ classId, className, classImage, coursePrice, instructorN
 
         if (paymentIntent.status === "succeeded") {
             setTransactionId(paymentIntent.id);
+
             fetch('http://localhost:5000/student/selected-course/payment-info', {
                 method: 'POST',
                 headers: {
@@ -83,16 +85,25 @@ const CheckoutForm = ({ classId, className, classImage, coursePrice, instructorN
                     transaction_id: paymentIntent.id,
                     user_name: user?.displayName,
                     user_email: user?.email,
-                    class_name: className,
-                    class_image: classImage,
+                    class_name: courseName,
+                    class_image: courseImage,
                     course_price: coursePrice,
                     instructor_name: instructorName,
                     instructor_email: instructorEmail,
-                    date: new Date().toISOString().slice(0,10)
+                    date: new Date().toISOString().slice(0, 10)
                 })
             })
                 .then(res => res.json())
                 .then(data => {
+                    fetch(`http://localhost:5000/student/course/available-seat-decrement/${selectedCourseId}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify({ available_seats })
+                    })
+                        .then(res => res.json())
+                        .then()
 
                     if (data.insertedId) {
                         toast.success('Payment Successful', {
@@ -105,11 +116,12 @@ const CheckoutForm = ({ classId, className, classImage, coursePrice, instructorN
                             progress: undefined,
                             theme: "dark",
                         });
-                        fetch(`http://localhost:5000/student/selected-course/${classId}`, {
+
+                        fetch(`http://localhost:5000/student/selected-course/${courseId}`, {
                             method: "DELETE"
                         })
                             .then(res => res.json())
-                            .then(data => console.log(data))
+                            .then()
                     }
                 })
         }

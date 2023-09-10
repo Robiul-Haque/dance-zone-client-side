@@ -6,6 +6,7 @@ import { updateProfile } from "firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Title from "../../../PageTitle/Title";
 
 const Register = () => {
 
@@ -123,6 +124,7 @@ const Register = () => {
 
     return (
         <div className="hero min-h-screen bg-base-200">
+            <Title title={'Register'}></Title>
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-right">
                     <img src={dance} alt="dance image" />

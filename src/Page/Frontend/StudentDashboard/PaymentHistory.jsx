@@ -1,11 +1,13 @@
 import { useLoaderData } from "react-router-dom";
+import Title from "../../../../PageTitle/Title";
 
 const PaymentHistory = () => {
 
     const PaymentHistory = useLoaderData();
 
     return (
-        <div>
+        <>
+            <Title title={'Payment History'}></Title>
             <div className="overflow-x-auto">
                 <table className="table">
                     <thead>
@@ -36,7 +38,7 @@ const PaymentHistory = () => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </>
     );
 };
 

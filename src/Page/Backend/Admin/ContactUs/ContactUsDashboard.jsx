@@ -2,6 +2,7 @@ import ContactUsModal from "./ContactUsModal";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import useAdminContactMassage from "../../../../Hook/useAdminContactMassage";
+import Title from "../../../../../PageTitle/Title";
 
 const ContactUsDashboard = () => {
 
@@ -54,7 +55,8 @@ const ContactUsDashboard = () => {
     }
 
     return (
-        <div>
+        <>
+            <Title title={'Contact Message'}></Title>
             <div className="overflow-x-auto">
                 <table className="table text-center">
                     <thead>
@@ -86,7 +88,7 @@ const ContactUsDashboard = () => {
                 </table>
             </div>
             <ContactUsModal message={contactUsMessage}></ContactUsModal>
-        </div>
+        </>
     );
 };
 

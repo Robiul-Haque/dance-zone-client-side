@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify';
 import useAdminPaymentHistory from '../../../../Hook/useAdminPaymentHistory';
+import Title from '../../../../../PageTitle/Title';
 
 const AdminPaymentHistory = () => {
 
@@ -37,6 +38,7 @@ const AdminPaymentHistory = () => {
 
     return (
         <>
+            <Title title={'Payment History'}></Title>
             <div className="overflow-x-auto">
                 <table className="table text-center">
                     <thead>

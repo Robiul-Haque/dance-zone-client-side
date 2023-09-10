@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../Auth/AuthProvider";
+import Title from "../../../../PageTitle/Title";
 
 const Course = () => {
 
@@ -19,7 +20,7 @@ const Course = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.insertedId) {
-                    toast.success('Course Selected Successful', {
+                    toast.success('Course Selected Successfully', {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -35,6 +36,7 @@ const Course = () => {
 
     return (
         <>
+            <Title title={'Course'}></Title>
             <div className="lg:mt-20 md:mt-15 mt-6 mx-5">
                 <h1 className="text-center lg:font-extrabold md:font-extrabold font-bold text-4xl text-gray-600">Elegance in Motion Discover the Rhythm of Dance</h1>
                 <p className="text-center font-medium lg:text-lg md:text-lg text-gray-500 lg:mt-3 md:mt-2 mt-5">Join us in a captivating journey of grace music and passion Experience dance like never before</p>
@@ -55,8 +57,8 @@ const Course = () => {
                                         <div className="card-actions flex lg:flex-nowrap md:flex-nowrap flex-wrap">
                                             {
                                                 user?.email ? <>
-                                                    <button className="btn btn-neutral">Enroll Now</button>
-                                                    <button onClick={() => selectCourse(courseData)} className="btn btn-outline btn-primary">Select This Course</button>
+                                                    <Link to={`/student/dashboard/checkout/${courseData?._id}`} className={courseData?.available_seats === 0 ? 'btn btn-disabled mt-2' : 'btn btn-neutral mt-2'}>Enroll Now</Link>
+                                                    <button onClick={() => selectCourse(courseData)} className={courseData?.available_seats === 0 ? 'btn btn-disabled mt-2' : 'btn btn-outline btn-primary mt-2'}>Select This Course</button>
                                                 </>
                                                     :
                                                     <>

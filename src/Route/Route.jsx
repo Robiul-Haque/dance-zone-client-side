@@ -28,6 +28,7 @@ import InstructorSeeCourse from "../Page/Frontend/Instructor/InstructorSeeCourse
 import ContactUs from "../Page/Frontend/ContactUs/ContactUs";
 import ContactUsDashboard from "../Page/Backend/Admin/ContactUs/ContactUsDashboard";
 import AdminPaymentHistory from "../Page/Backend/Admin/AdminPaymentHistory/AdminPaymentHistory";
+import CourseEnrollCheckout from "../Page/Frontend/Checkout/CourseEnrollCheckout/CourseEnrollCheckout";
 
 
 export const router = createBrowserRouter([
@@ -41,9 +42,16 @@ export const router = createBrowserRouter([
                 element: <Home></Home>
             },
             {
-                path: '/Course',
+                path: '/course',
                 element: <AllCourse></AllCourse>,
-                loader: () => fetch('http://localhost:5000/all-course')
+                loader: () => fetch('http://localhost:5000/all-course'),
+                // children: [
+                //     {
+                //         path: '/course/enroll/checkout/:id',
+                //         element: <StudentPrivetRoute><CourseEnrollCheckout></CourseEnrollCheckout></StudentPrivetRoute>,
+                //         loader: ({ params }) => fetch(`http://localhost:5000/student/course/enroll/checkout/${params.id}`)
+                //     }
+                // ]
             },
             {
                 path: '/instructor',
@@ -86,7 +94,13 @@ export const router = createBrowserRouter([
                         path: '/student/dashboard/checkout/:id',
                         element: <Checkout></Checkout>,
                         loader: ({ params }) => fetch(`http://localhost:5000/student/selected-single-course/${params.id}`)
-                    }
+                    },
+                    // single course direct enroll now stripe payment
+                    {
+                        path: '/student/dashboard/course/enroll/checkout/:id',
+                        element: <CourseEnrollCheckout></CourseEnrollCheckout>,
+                        loader: ({ params }) => fetch(`http://localhost:5000/student/course/enroll/checkout/${params.id}`)
+                    },
                 ]
             },
             {

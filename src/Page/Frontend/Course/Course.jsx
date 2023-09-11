@@ -57,7 +57,7 @@ const Course = () => {
                                         <div className="card-actions flex lg:flex-nowrap md:flex-nowrap flex-wrap">
                                             {
                                                 user?.email ? <>
-                                                    <Link to={`/student/dashboard/checkout/${courseData?._id}`} className={courseData?.available_seats === 0 ? 'btn btn-disabled mt-2' : 'btn btn-neutral mt-2'}>Enroll Now</Link>
+                                                    <Link to={`/student/dashboard/course/enroll/checkout/${courseData?._id}`} className={courseData?.available_seats === 0 ? 'btn btn-disabled mt-2' : 'btn btn-neutral mt-2'}>Enroll Now</Link>
                                                     <button onClick={() => selectCourse(courseData)} className={courseData?.available_seats === 0 ? 'btn btn-disabled mt-2' : 'btn btn-outline btn-primary mt-2'}>Select This Course</button>
                                                 </>
                                                     :

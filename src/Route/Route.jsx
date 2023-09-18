@@ -74,7 +74,6 @@ export const router = createBrowserRouter([
                     {
                         path: '/student/dashboard',
                         element: <StudentDashboard1></StudentDashboard1>,
-                        loader: () => fetch('http://localhost:5000/student/all-statices')
                     },
                     {
                         path: '/student/dashboard/selected-course',
@@ -83,12 +82,10 @@ export const router = createBrowserRouter([
                     {
                         path: '/student/dashboard/enrolled-course',
                         element: <EnrolledCourse></EnrolledCourse>,
-                        loader: () => fetch('http://localhost:5000/student/enrolled-course')
                     },
                     {
                         path: '/student/dashboard/payment-history',
                         element: <PaymentHistory></PaymentHistory>,
-                        loader: () => fetch('http://localhost:5000/student/payment-history')
                     },
                     {
                         path: '/student/dashboard/checkout/:id',
@@ -100,7 +97,7 @@ export const router = createBrowserRouter([
                         path: '/student/dashboard/course/enroll/checkout/:id',
                         element: <CourseEnrollCheckout></CourseEnrollCheckout>,
                         loader: ({ params }) => fetch(`http://localhost:5000/student/course/enroll/checkout/${params.id}`)
-                    },
+                    }
                 ]
             },
             {

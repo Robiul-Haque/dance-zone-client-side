@@ -2,10 +2,13 @@ import { toast } from "react-toastify";
 import useStudentSelectedCourse from "../../../Hook/useStudentSelectedCourse";
 import { Link } from "react-router-dom";
 import Title from "../../../../PageTitle/Title";
+import { useContext } from "react";
+import { AuthContext } from "../../../Auth/AuthProvider";
 
 const SelectedCourse = () => {
 
     const { data, refetch, isLoading } = useStudentSelectedCourse();
+    const { user } = useContext(AuthContext);
 
     if (isLoading) {
         return <h1 className="text-xl font-semibold">Loading...</h1>
@@ -14,7 +17,7 @@ const SelectedCourse = () => {
     const deleteCourse = id => {
         const confirmation = confirm('Are you sure want to do Delete');
         if (confirmation) {
-            fetch(`http://localhost:5000/student/delete-selected-course/${id}`, {
+            fetch(`http://localhost:5000/student/delete-selected-course/${id}/${user?.email}`, {
                 method: 'DELETE',
                 headers: { 'content-type': 'application/json' }
             })

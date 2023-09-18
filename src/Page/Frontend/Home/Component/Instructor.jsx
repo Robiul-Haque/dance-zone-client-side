@@ -15,7 +15,7 @@ const Instructor = () => {
 
     return (
         <div className='my-20'>
-            <h1 className="text-4xl font-semibold text-center mb-10">Popular Instructor</h1>
+            <h1 className="text-4xl font-semibold text-center mb-16">Popular Instructor</h1>
             <div className='flex justify-center lg:gap-34 md:gap-24 gap-y-12 flex-wrap'>
                 {
                     instructors?.map(instructors => {
@@ -25,9 +25,7 @@ const Instructor = () => {
                                 <div className="card-body">
                                     <h2 className="card-title text-2xl font-bold text-gray-500">{instructors?.name}</h2>
                                     <InstructorTotalCourse email={instructors?.email}></InstructorTotalCourse>
-                                    <div className="card-actions justify-end">
-                                        <Link to={`/instructor/see-all-course/${instructors?.email}`} className="btn btn-neutral w-full">See Instructor Course</Link>
-                                    </div>
+                                    <Link to={`/instructor/see-all-course/${instructors?.email}`} className="btn btn-neutral w-full">See Instructor Course</Link>
                                 </div>
                             </div>
                         )

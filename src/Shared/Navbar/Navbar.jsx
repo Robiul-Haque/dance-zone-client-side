@@ -7,6 +7,13 @@ const Navbar = () => {
 
     const { user, userLogout } = useContext(AuthContext);
     const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light');
+    const [verifyStudent, setVerifyStudent] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/if-exist-student/${user?.email}`)
+            .then(res => res.json())
+            .then(data => setVerifyStudent(data))
+    }, [user?.email])
 
     const handelToggle = event => {
         if (event.target.checked) {
@@ -60,7 +67,7 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
-                <Link to={'/'} className="font-bold text-2xl">Dance Zone</Link>
+                <Link to={'/'} className="font-bold text-2xl font-serif">Dance Zone</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 gap-3">
@@ -82,7 +89,9 @@ const Navbar = () => {
                 {
                     user?.email ?
                         <>
-                            <NavLink to='/student/dashboard' className='btn '>Dashboard</NavLink>
+                            {
+                                verifyStudent?.role === "student" && <NavLink to='/student/dashboard' className='btn '>Dashboard</NavLink>
+                            }
                             <div className="avatar online lg:mx-1">
                                 <div className="w-12 rounded-full">
                                     <img src={user?.photoURL} alt={user?.displayName} title={user?.displayName} className="avatar online" />

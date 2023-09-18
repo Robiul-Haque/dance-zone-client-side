@@ -6,12 +6,17 @@ import { toast } from "react-toastify";
 const Dashboard = () => {
 
     const { user, userLogout } = useContext(AuthContext);
+    const [verifyAdmin, setVerifyAdmin] = useState([]);
     const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light');
     const [time, setTime] = useState(new Date());
 
     useEffect(() => {
+        fetch(`http://localhost:5000/if-exist-admin/${user?.email}`)
+            .then(res => res.json())
+            .then(data => setVerifyAdmin(data))
+
         setInterval(() => setTime(new Date()), 1000)
-    }, []);
+    }, [user?.email]);
 
     const handelToggle = event => {
         if (event.target.checked) {
@@ -51,7 +56,9 @@ const Dashboard = () => {
                 {/* Page content here */}
                 <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden my-5">Open Menu</label>
                 <div className="my-10">
-                    <Outlet></Outlet>
+                    {
+                        verifyAdmin?.role === "admin" ?? <Outlet></Outlet>
+                    }
                 </div>
             </div>
             <div className="drawer-side">
@@ -80,21 +87,25 @@ const Dashboard = () => {
                         <h2 className="text-xl font-bold mt-2"><Link to={'/'}>Dance Zone</Link></h2>
                     </div>
                     <hr className="my-5" />
-                    <li>
-                        <Link to='/admin-dashboard'><img width="25" height="25" src="https://img.icons8.com/material/24/dashboard-layout.png" alt="dashboard-layout" /> Dashboard</Link>
-                    </li>
-                    <li className="my-2">
-                        <Link to='/admin-dashboard/manage-user'><img width="25" height="25" src="https://img.icons8.com/ios-glyphs/30/group.png" alt="user" /> Manage User</Link>
-                    </li>
-                    <li>
-                        <Link to='/admin-dashboard/manage-course'><img width="25" height="25" src="https://img.icons8.com/metro/26/class.png" alt="class" /> Manage Course</Link>
-                    </li>
-                    <li className="my-2">
-                        <Link to='/admin-dashboard/payment-history'><img width="25" height="25" src="https://img.icons8.com/ios-filled/50/online-payment-.png" alt="online-payment-" /> Payment History</Link>
-                    </li>
-                    <li>
-                        <Link to='/admin-dashboard/contact-us/message'><img width="25" height="25" src="https://img.icons8.com/ios/50/speech-bubble-with-dots--v1.png" alt="speech-bubble-with-dots--v1" /> Contact Message</Link>
-                    </li>
+                    {
+                        verifyAdmin?.role === "admin" && <>
+                            <li>
+                                <Link to='/admin-dashboard'><img width="25" height="25" src="https://img.icons8.com/material/24/dashboard-layout.png" alt="dashboard-layout" /> Dashboard</Link>
+                            </li>
+                            <li className="my-2">
+                                <Link to='/admin-dashboard/manage-user'><img width="25" height="25" src="https://img.icons8.com/ios-glyphs/30/group.png" alt="user" /> Manage User</Link>
+                            </li>
+                            <li>
+                                <Link to='/admin-dashboard/manage-course'><img width="25" height="25" src="https://img.icons8.com/metro/26/class.png" alt="class" /> Manage Course</Link>
+                            </li>
+                            <li className="my-2">
+                                <Link to='/admin-dashboard/payment-history'><img width="25" height="25" src="https://img.icons8.com/ios-filled/50/online-payment-.png" alt="online-payment-" /> Payment History</Link>
+                            </li>
+                            <li>
+                                <Link to='/admin-dashboard/contact-us/message'><img width="25" height="25" src="https://img.icons8.com/ios/50/speech-bubble-with-dots--v1.png" alt="speech-bubble-with-dots--v1" /> Contact Message</Link>
+                            </li>
+                        </>
+                    }
                     <li className="mt-2">
                         <button onClick={logOut}><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/exit.png" alt="exit" /> Logout</button>
                     </li>

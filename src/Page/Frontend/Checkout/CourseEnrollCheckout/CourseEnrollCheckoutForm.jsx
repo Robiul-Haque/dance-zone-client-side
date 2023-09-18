@@ -87,7 +87,7 @@ const CourseEnrollCheckoutForm = ({ courseId, courseName, courseImage, coursePri
                     user_email: user?.email,
                     class_name: courseName,
                     class_image: courseImage,
-                    course_price: coursePrice,
+                    course_price: parseFloat(coursePrice),
                     instructor_name: instructorName,
                     instructor_email: instructorEmail,
                     date: new Date().toISOString().slice(0, 10)

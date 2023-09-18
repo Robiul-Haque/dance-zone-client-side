@@ -1,9 +1,17 @@
-import { useLoaderData } from "react-router-dom";
 import Title from "../../../../PageTitle/Title";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../Auth/AuthProvider";
 
 const PaymentHistory = () => {
 
-    const PaymentHistory = useLoaderData();
+    const { user } = useContext(AuthContext);
+    const [paymentHistory, setPaymentHistory] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/student/payment-history/${user?.email}`)
+            .then(res => res.json())
+            .then(data => setPaymentHistory(data))
+    }, [user?.email])
 
     return (
         <>
@@ -22,7 +30,7 @@ const PaymentHistory = () => {
                     </thead>
                     <tbody>
                         {
-                            PaymentHistory.map((data, index) => {
+                            paymentHistory.map((data, index) => {
                                 return (
                                     <tr key={data?._id}>
                                         <th>{index + 1}</th>

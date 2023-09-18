@@ -11,7 +11,9 @@ const Main = () => {
     <>
       <Navbar></Navbar>
       <Outlet></Outlet>
-      {!routes.includes(location.pathname) && <Footer></Footer>}
+      {
+        !routes.includes(location.pathname) && <Footer></Footer>
+      }
     </>
   );
 };

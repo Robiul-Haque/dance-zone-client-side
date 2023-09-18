@@ -6,7 +6,7 @@ const Dashboard = () => {
 
     const [adminDashboardStatices, setAdminDashboardStatices] = useState({});
     const { admin, instructor, student, pending, accepted, rejected, contactUnseenMessage, enrolledCourse } = adminDashboardStatices || {};
-    // const [totalEnrolledCoursePrice, setTotalEnrolledCoursePrice] = useState([]);
+    const [totalEnrolledCoursePrice, setTotalEnrolledCoursePrice] = useState([]);
     const [users, setUsers] = useState([]);
     const [approveCourses, setApproveCourses] = useState([]);
 
@@ -15,9 +15,9 @@ const Dashboard = () => {
             .then(res => res.json())
             .then(data => setAdminDashboardStatices(data))
 
-        // fetch('http://localhost:5000/admin-dashboard/statices/total-revenue')
-        //     .then(res => res.json())
-        //     .then(data => setTotalEnrolledCoursePrice(data))
+        fetch('http://localhost:5000/admin-dashboard/statices/total-revenue')
+            .then(res => res.json())
+            .then(data => setTotalEnrolledCoursePrice(data))
 
         fetch('http://localhost:5000/admin-dashboard/statices/user')
             .then(res => res.json())
@@ -88,7 +88,11 @@ const Dashboard = () => {
                 <div className="bg-base-200 lg:w-64 md:w-72 w-56 h-40 flex justify-center items-center rounded-lg border text-gray-500 indicator">
                     <div className="text-center text-2xl font-medium">
                         <h2 className="mb-3">Total Revenue</h2>
-                        <h2 className="text-xl">10000 $</h2>
+                        <h2 className="text-xl">{
+                            totalEnrolledCoursePrice.reduce((previousValue, currentValue) => {
+                                return previousValue + currentValue.course_price
+                            }, 0)
+                        } $</h2>
                     </div>
                 </div>
             </div>

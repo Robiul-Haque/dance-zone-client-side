@@ -8,10 +8,15 @@ const Instructor = () => {
     const { user, userLogout } = useContext(AuthContext);
     const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light');
     const [time, setTime] = useState(new Date());
+    const [verifyInstructor, setInstructor] = useState([]);
 
     useEffect(() => {
+        fetch(`http://localhost:5000/if-exist-instructor/${user?.email}`)
+            .then(res => res.json())
+            .then(data => setInstructor(data))
+
         setInterval(() => setTime(new Date()), 1000)
-    }, []);
+    }, [user?.email]);
 
     const handelToggle = event => {
         if (event.target.checked) {
@@ -51,7 +56,9 @@ const Instructor = () => {
                 {/* Page content here */}
                 <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden my-5">Open Menu</label>
                 <div className="my-10">
-                    <Outlet></Outlet>
+                    {
+                        verifyInstructor?.role === "instructor" && <Outlet></Outlet>
+                    }
                 </div>
             </div>
             <div className="drawer-side">
@@ -80,20 +87,23 @@ const Instructor = () => {
                         <h2 className="text-xl font-bold mt-2"><Link to={'/'}>Dance Zone</Link></h2>
                     </div>
                     <hr className="my-5" />
-                    <li>
-                        <Link to='/instructor-dashboard'><img width="24" height="24" src="https://img.icons8.com/material/24/dashboard-layout.png" alt="dashboard-layout" /> Dashboard</Link>
-                    </li>
-                    <li className="my-2">
-                        <Link to='/instructor-dashboard/add-course'><img width="24" height="24" src="https://img.icons8.com/ios-filled/50/classroom.png" alt="classroom" /> Add A Course</Link>
-                    </li>
-                    <li>
-                        <Link to='/instructor-dashboard/my-course'><img width="24" height="24" src="https://img.icons8.com/fluency-systems-filled/48/class.png" alt="class" /> My Course</Link>
-                    </li>
+                    {
+                        verifyInstructor?.role === "instructor" && <>
+                            <li>
+                                <Link to='/instructor-dashboard'><img width="24" height="24" src="https://img.icons8.com/material/24/dashboard-layout.png" alt="dashboard-layout" /> Dashboard</Link>
+                            </li>
+                            <li className="my-2">
+                                <Link to='/instructor-dashboard/add-course'><img width="24" height="24" src="https://img.icons8.com/ios-filled/50/classroom.png" alt="classroom" /> Add A Course</Link>
+                            </li>
+                            <li>
+                                <Link to='/instructor-dashboard/my-course'><img width="24" height="24" src="https://img.icons8.com/fluency-systems-filled/48/class.png" alt="class" /> My Course</Link>
+                            </li>
+                        </>
+                    }
                     <li>
                         <button onClick={logOut}><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/exit.png" alt="exit" /> Logout</button>
                     </li>
                 </ul>
-
             </div>
         </div>
     );

@@ -17,7 +17,7 @@ const EditCourse = () => {
         const formData = { ...data, instructor_name: user?.displayName, instructor_email: user?.email, status: 'pending', feedback: '' };
 
         if (formData) {
-            fetch(`http://localhost:5000/my-course/update-data/${_id}`, {
+            fetch(`http://localhost:5000/my-course/update-data/${_id}/${user?.email}`, {
                 method: 'PUT',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(formData)

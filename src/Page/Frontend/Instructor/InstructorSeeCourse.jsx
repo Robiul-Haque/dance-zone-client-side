@@ -68,7 +68,7 @@ const InstructorSeeCourse = () => {
                                                     :
                                                     <>
                                                         <Link to='/login' className="btn btn-neutral">Enroll Now</Link>
-                                                        <Link to='/login' className="btn btn-outline btn-primary">Select This Course</Link>
+                                                        <Link to='/login' className="btn btn-outline btn-primary">Select Course</Link>
                                                     </>
                                             }
                                         </div>

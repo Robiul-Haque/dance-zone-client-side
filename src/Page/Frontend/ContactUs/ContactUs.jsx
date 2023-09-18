@@ -65,7 +65,7 @@ export const ContactUs = () => {
         <>
             <Title title={'Contact us'}></Title>
             <div className='lg:my-24'>
-                <h1 className='text-center font-bold font-serif text-2xl mx-auto mb-10 divider w-96'>Contact Us</h1>
+                <h1 className='text-center font-bold text-2xl mx-auto mb-10 divider w-96'>Contact Us</h1>
                 <div className='flex justify-center lg:gap-20 flex-wrap py-8 mx-auto'>
                     <form ref={form} onSubmit={sendMessage}>
                         <div className='mb-5'>

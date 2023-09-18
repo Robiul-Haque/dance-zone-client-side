@@ -16,17 +16,16 @@ const AddCourse = () => {
         const formData = { ...data, instructor_name: user?.displayName, instructor_email: user?.email, status: 'pending', feedback: '' }
 
         if (formData) {
-            fetch('http://localhost:5000/add-course', {
+            fetch(`http://localhost:5000/add-course/${user?.email}`, {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(formData)
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     if (data.insertedId) {
                         navigate('/instructor-dashboard/my-course');
-                        toast.success('Class Add Successful', {
+                        toast.success('Class Add Successfully', {
                             position: "top-right",
                             autoClose: 5000,
                             hideProgressBar: false,

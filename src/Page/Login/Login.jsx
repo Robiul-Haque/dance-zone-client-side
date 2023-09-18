@@ -20,7 +20,7 @@ const login = () => {
         login(data.email, data.password)
             .then(userCredential => {
                 if (userCredential.user.email) {
-                    fetch(`http://localhost:5000/instructor/${userCredential.user.email}`)
+                    fetch(`http://localhost:5000/login-user/${userCredential.user.email}`)
                         .then(res => res.json())
                         .then(data => {
                             if (data.role === 'instructor') {
@@ -55,7 +55,7 @@ const login = () => {
                         if (data.user.role === 'admin') {
                             navigate('/admin-dashboard');
                             if (loggedUser.user.email) {
-                                toast.success('Login Successful', {
+                                toast.success('Login Successfully', {
                                     position: "top-right",
                                     autoClose: 5000,
                                     hideProgressBar: false,
@@ -69,7 +69,7 @@ const login = () => {
                         } else if (data.user.role === 'instructor') {
                             navigate('/instructor-dashboard');
                             if (loggedUser.user.email) {
-                                toast.success('Login Successful', {
+                                toast.success('Login Successfully', {
                                     position: "top-right",
                                     autoClose: 5000,
                                     hideProgressBar: false,
@@ -83,7 +83,7 @@ const login = () => {
                         } else if (data.user.role === 'student') {
                             navigate('/');
                             if (loggedUser.user.email) {
-                                toast.success('Login Successful', {
+                                toast.success('Login Successfully', {
                                     position: "top-right",
                                     autoClose: 5000,
                                     hideProgressBar: false,

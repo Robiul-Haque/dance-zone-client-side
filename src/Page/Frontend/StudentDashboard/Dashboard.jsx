@@ -1,9 +1,17 @@
-import { useLoaderData } from "react-router-dom";
 import Title from "../../../../PageTitle/Title";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../Auth/AuthProvider";
 
 const Dashboard = () => {
 
-    const studentStatices = useLoaderData();
+    const { user } = useContext(AuthContext);
+    const [studentStatices, setStudentStatices] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/student/all-statices/${user?.email}`)
+            .then(res => res.json())
+            .then(data => setStudentStatices(data))
+    }, [user?.email])
 
     return (
         <>

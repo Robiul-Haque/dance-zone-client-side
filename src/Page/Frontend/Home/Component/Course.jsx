@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../../../Auth/AuthProvider";
 
 const Course = () => {
 
     const [courses, setCourse] = useState([]);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         fetch('http://localhost:5000/home/course')
@@ -26,7 +29,12 @@ const Course = () => {
                                         <span className="font-bold text-gray-500">Available Seat {allCourse?.available_seats}</span>
                                     </div>
                                     <div className="card-actions">
-                                        <button className="btn btn-primary w-full">Enroll Now</button>
+                                        {
+                                            user?.email ?
+                                                <Link to={`/student/dashboard/course/enroll/checkout/${allCourse?._id}`} className={allCourse?.available_seats === 0 ? 'btn btn-disabled w-full' : 'btn btn-neutral w-full'}>Enroll Now</Link>
+                                                :
+                                                <Link to={'/login'} className="btn btn-neutral w-full">Enroll Now</Link>
+                                        }
                                     </div>
                                 </div>
                             </div>

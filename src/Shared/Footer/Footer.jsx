@@ -5,8 +5,8 @@ const Footer = () => {
         <footer>
             <div className="footer p-10 bg-base-200 text-base-content md:px-60">
                 <div>
-                    <Link to={'/'} className="font-extrabold text-4xl">Dance Zone</Link>
-                    <p className="font-medium">International Dance Online Academy.</p>
+                    <Link to={'/'} className="font-extrabold text-4xl font-serif">Dance Zone</Link>
+                    <p className="font-medium font-serif">International Dance Online Academy.</p>
                 </div>
                 <div>
                     <span className="footer-title">Menu</span>

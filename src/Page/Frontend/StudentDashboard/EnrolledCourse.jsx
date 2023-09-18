@@ -1,9 +1,17 @@
-import { useLoaderData } from "react-router-dom";
 import Title from "../../../../PageTitle/Title";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../Auth/AuthProvider";
 
 const EnrolledCourse = () => {
 
-    const enrolledCourses = useLoaderData();
+    const { user } = useContext(AuthContext);
+    const [enrolledCourses, setEnrolledCourses] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/student/enrolled-course/${user?.email}`)
+            .then(res => res.json())
+            .then(data => setEnrolledCourses(data))
+    }, [user?.email]);
 
     return (
         <>

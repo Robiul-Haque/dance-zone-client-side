@@ -56,7 +56,7 @@ const Course = () => {
     }
 
     const deleteCourse = id => {
-        const confirmation = confirm('Are you sure want to do Delete');
+        const confirmation = confirm('Are you sure want to do Delete!');
         if (confirmation === true) {
             fetch(`http://localhost:5000/admin/delete-course/${id}`, {
                 method: 'DELETE',
@@ -66,7 +66,7 @@ const Course = () => {
                 .then(data => {
                     refetch();
                     if (data?.deletedCount > 0) {
-                        toast.success('Course Delete Successful', {
+                        toast.success('Course Delete Successfully', {
                             position: "top-right",
                             autoClose: 5000,
                             hideProgressBar: false,
@@ -117,8 +117,8 @@ const Course = () => {
                                     <td>{course?.class_name}</td>
                                     <td>{course?.instructor_name}</td>
                                     <td>{course?.instructor_email}</td>
-                                    <td></td>
-                                    <td>{course?.course_price}</td>
+                                    <td>{course?.available_seats}</td>
+                                    <td>{course?.course_price} $</td>
                                     <td className={course?.status === 'accepted' ? 'text-green-500 capitalize font-semibold' : course?.status === 'rejected' ? 'text-red-500 capitalize font-semibold' : 'capitalize font-semibold'}>{course?.status}</td>
                                     <td>
                                         <button onClick={() => approve(course?._id)} className={course?.status === 'accepted' || course?.status === 'rejected' ? 'btn btn-disabled' : 'btn bg-green-500 text-white hover:bg-green-600'}>Approve</button>

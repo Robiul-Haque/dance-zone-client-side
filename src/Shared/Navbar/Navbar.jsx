@@ -32,6 +32,7 @@ const Navbar = () => {
     const logOut = () => {
         userLogout()
             .then(() => {
+                localStorage.removeItem('jwt-access-token')
                 toast.success('Log out Successful', {
                     position: "top-right",
                     autoClose: 5000,

@@ -138,7 +138,7 @@ export const router = createBrowserRouter([
         element: <AdminPrivetRoute><AdminDashboard></AdminDashboard></AdminPrivetRoute>,
         children: [
             {
-                path: '/admin-dashboard',
+                path: '',
                 element: <Admin></Admin>
             },
             {

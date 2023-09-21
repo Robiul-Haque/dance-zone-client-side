@@ -14,7 +14,7 @@ const EditCourse = () => {
     const navigate = useNavigate();
 
     const editClass = data => {
-        const formData = { ...data, instructor_name: user?.displayName, instructor_email: user?.email, status: 'pending', feedback: '' };
+        const formData = { ...data, instructor_name: user?.displayName, instructor_email: user?.email, status: 'pending', feedback: '',  view_status: 'unseen'};
 
         if (formData) {
             fetch(`http://localhost:5000/my-course/update-data/${_id}/${user?.email}`, {
@@ -26,7 +26,7 @@ const EditCourse = () => {
                 .then(data => {
                     if (data?.modifiedCount > 0) {
                         navigate('/instructor-dashboard/my-course');
-                        toast.success('Course Update Successful', {
+                        toast.success('Course Update Successfully', {
                             position: "top-right",
                             autoClose: 5000,
                             hideProgressBar: false,

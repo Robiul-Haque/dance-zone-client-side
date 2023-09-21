@@ -35,7 +35,7 @@ const Instructor = () => {
     const logOut = () => {
         userLogout()
             .then(() => {
-                console.log('User log out');
+                localStorage.removeItem('jwt-access-token')
                 toast.success('Log Out Successful', {
                     position: "top-right",
                     autoClose: 5000,

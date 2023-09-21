@@ -23,12 +23,63 @@ const login = () => {
                     fetch(`http://localhost:5000/login-user/${userCredential.user.email}`)
                         .then(res => res.json())
                         .then(data => {
+                            fetch('http://localhost:5000/create-jwt-token', {
+                                method: 'POST',
+                                headers: { 'content-type': 'application/json', },
+                                body: JSON.stringify({ email: data?.email })
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    if (data?.token) {
+                                        localStorage.setItem('jwt-access-token', data?.token);
+                                    }
+                                })
+
                             if (data.role === 'instructor') {
                                 navigate('/instructor-dashboard');
+
+                                if (userCredential.user.email) {
+                                    toast.success('Login Successful', {
+                                        position: "top-right",
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: "dark",
+                                    });
+                                }
                             } else if (data.role === 'admin') {
                                 navigate('/admin-dashboard');
+
+                                if (userCredential.user.email) {
+                                    toast.success('Login Successful', {
+                                        position: "top-right",
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: "dark",
+                                    });
+                                }
                             } else if (data.role === 'student') {
                                 navigate('/');
+
+                                if (userCredential.user.email) {
+                                    toast.success('Login Successful', {
+                                        position: "top-right",
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: "dark",
+                                    });
+                                }
                             }
                         })
                 }
@@ -43,7 +94,6 @@ const login = () => {
     const googleLogin = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
-                console.log(loggedUser);
                 const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, photo: loggedUser.user?.photoURL, role: 'student' }
                 fetch('http://localhost:5000/login-user', {
                     method: 'POST',
@@ -52,10 +102,23 @@ const login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
+                        fetch('http://localhost:5000/create-jwt-token', {
+                            method: 'POST',
+                            headers: { 'content-type': 'application/json', },
+                            body: JSON.stringify({ email: data?.email })
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data?.token) {
+                                    localStorage.setItem('jwt-access-token', data?.token);
+                                }
+                            })
+
                         if (data.user.role === 'admin') {
                             navigate('/admin-dashboard');
+
                             if (loggedUser.user.email) {
-                                toast.success('Login Successfully', {
+                                toast.success('Login Successful', {
                                     position: "top-right",
                                     autoClose: 5000,
                                     hideProgressBar: false,
@@ -68,8 +131,9 @@ const login = () => {
                             }
                         } else if (data.user.role === 'instructor') {
                             navigate('/instructor-dashboard');
+
                             if (loggedUser.user.email) {
-                                toast.success('Login Successfully', {
+                                toast.success('Login Successful', {
                                     position: "top-right",
                                     autoClose: 5000,
                                     hideProgressBar: false,
@@ -82,8 +146,9 @@ const login = () => {
                             }
                         } else if (data.user.role === 'student') {
                             navigate('/');
+
                             if (loggedUser.user.email) {
-                                toast.success('Login Successfully', {
+                                toast.success('Login Successful', {
                                     position: "top-right",
                                     autoClose: 5000,
                                     hideProgressBar: false,

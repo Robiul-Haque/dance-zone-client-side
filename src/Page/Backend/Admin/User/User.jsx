@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import Title from "../../../../../PageTitle/Title";
 import useAdminManageUser from "../../../../Hook/useAdminManageUser";
 
@@ -5,7 +6,7 @@ const User = () => {
 
     const { refetch, isLoading, data } = useAdminManageUser();
 
-    const makeAdmin = (id) => {
+    const makeAdmin = id => {
         fetch(`http://localhost:5000/manage-user/update-role-admin/${id}`, {
             method: 'PATCH',
             headers: { 'content-type': 'application/json' }
@@ -14,7 +15,7 @@ const User = () => {
             .then(() => refetch())
     }
 
-    const makeInstructor = (id) => {
+    const makeInstructor = id => {
         fetch(`http://localhost:5000/admin/manage-user/update/view-status/${id}`, {
             method: 'PUT',
             headers: { 'content-type': 'application/json' }
@@ -28,6 +29,33 @@ const User = () => {
         })
             .then(res => res.json())
             .then(() => refetch())
+    }
+
+    const deleteUser = id => {
+        const confirmation = confirm('Are you sure want to do Delete!');
+        
+        if (confirmation) {
+            fetch(`http://localhost:5000/user/delete/${id}`, {
+                method: 'DELETE',
+                headers: { 'content-type': 'application/json' }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data?.deletedCount > 0) {
+                        refetch();
+                        toast.success('Course Delete Successfully', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                        });
+                    }
+                })
+        }
     }
 
     if (isLoading) {
@@ -46,6 +74,7 @@ const User = () => {
                             <th>Role</th>
                             <th>Make Admin</th>
                             <th>Make Instructor</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody className="font-medium">
@@ -66,6 +95,9 @@ const User = () => {
                                             <img width="26" height="26" src="https://img.icons8.com/ios-filled/50/coach-.png" alt="coach-" />
                                             instructor
                                         </button>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => deleteUser(user?._id)} className="btn bg-red-500 hover:bg-red-600 text-white" type="button">Delete</button>
                                     </td>
                                 </tr>
                             )

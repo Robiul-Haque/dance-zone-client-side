@@ -6,14 +6,16 @@ import { toast } from "react-toastify";
 const Dashboard = () => {
 
     const { user, userLogout } = useContext(AuthContext);
-    const [verifyAdmin, setVerifyAdmin] = useState([]);
+    const [verifyAdmin, setVerifyAdmin] = useState(false);
     const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light');
     const [time, setTime] = useState(new Date());
 
     useEffect(() => {
-        fetch(`http://localhost:5000/if-exist-admin/${user?.email}`)
-            .then(res => res.json())
-            .then(data => setVerifyAdmin(data))
+        if (user?.email) {
+            fetch(`http://localhost:5000/if-exist-admin/${user?.email}`)
+                .then(res => res.json())
+                .then(data => setVerifyAdmin(data.role == "admin"))
+        }
 
         setInterval(() => setTime(new Date()), 1000)
     }, [user?.email]);
@@ -35,8 +37,8 @@ const Dashboard = () => {
     const logOut = () => {
         userLogout()
             .then(() => {
-                console.log('User log out');
-                toast.success('Log Out Successfully', {
+                localStorage.removeItem('jwt-access-token')
+                toast.success('Log Out Successful', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -57,7 +59,7 @@ const Dashboard = () => {
                 <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden my-5">Open Menu</label>
                 <div className="my-10">
                     {
-                        verifyAdmin?.role === "admin" ?? <Outlet></Outlet>
+                        verifyAdmin && <Outlet></Outlet>
                     }
                 </div>
             </div>
@@ -88,7 +90,7 @@ const Dashboard = () => {
                     </div>
                     <hr className="my-5" />
                     {
-                        verifyAdmin?.role === "admin" && <>
+                        verifyAdmin && <>
                             <li>
                                 <Link to='/admin-dashboard'><img width="25" height="25" src="https://img.icons8.com/material/24/dashboard-layout.png" alt="dashboard-layout" /> Dashboard</Link>
                             </li>

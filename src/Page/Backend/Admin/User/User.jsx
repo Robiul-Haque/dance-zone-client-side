@@ -1,15 +1,28 @@
 import { toast } from "react-toastify";
 import Title from "../../../../../PageTitle/Title";
 import useAdminManageUser from "../../../../Hook/useAdminManageUser";
+import { useContext } from "react";
+import { AuthContext } from "../../../../Auth/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const User = () => {
 
     const { refetch, isLoading, data } = useAdminManageUser();
+    const { userLogout } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    if (data?.error) {
+        userLogout()
+            .then()
+        navigate('/login');
+    }
 
     const makeAdmin = id => {
         fetch(`http://localhost:5000/manage-user/update-role-admin/${id}`, {
             method: 'PATCH',
-            headers: { 'content-type': 'application/json' }
+            headers: {
+                'content-type': 'application/json',
+            }
         })
             .then(res => res.json())
             .then(() => refetch())
@@ -18,14 +31,18 @@ const User = () => {
     const makeInstructor = id => {
         fetch(`http://localhost:5000/admin/manage-user/update/view-status/${id}`, {
             method: 'PUT',
-            headers: { 'content-type': 'application/json' }
+            headers: {
+                'content-type': 'application/json',
+            }
         })
             .then(res => res.json())
             .then(() => refetch())
 
         fetch(`http://localhost:5000/manage-user/update-role-instructor/${id}`, {
             method: 'PATCH',
-            headers: { 'content-type': 'application/json' }
+            headers: {
+                'content-type': 'application/json',
+            }
         })
             .then(res => res.json())
             .then(() => refetch())
@@ -33,16 +50,19 @@ const User = () => {
 
     const deleteUser = id => {
         const confirmation = confirm('Are you sure want to do Delete!');
-        
+
         if (confirmation) {
             fetch(`http://localhost:5000/user/delete/${id}`, {
                 method: 'DELETE',
-                headers: { 'content-type': 'application/json' }
+                headers: {
+                    'content-type': 'application/json',
+                }
             })
                 .then(res => res.json())
                 .then(data => {
+                    refetch()
+
                     if (data?.deletedCount > 0) {
-                        refetch();
                         toast.success('Course Delete Successfully', {
                             position: "top-right",
                             autoClose: 5000,
@@ -70,6 +90,7 @@ const User = () => {
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>User Image</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Make Admin</th>
@@ -82,6 +103,7 @@ const User = () => {
                             data.map((user, index) =>
                                 <tr key={user?._id} className={user?.status === 'unseen' ? 'bg-base-200' : ''}>
                                     <th>{index + 1}</th>
+                                    <td><img src={user?.photo} alt={user?.user_name} className="w-16 h-16 rounded-xl" /></td>
                                     <td>{user?.email}</td>
                                     <td className={user?.role === 'admin' ? "text-green-500 capitalize" : user.role === 'instructor' ? "text-red-500 capitalize" : "text-purple-500 capitalize"}>{user?.role}</td>
                                     <td>

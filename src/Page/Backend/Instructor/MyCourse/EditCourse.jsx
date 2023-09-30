@@ -1,25 +1,28 @@
 import { useForm } from 'react-hook-form';
-import edit_class from '../../../../assets/edit_class.png'
 import { useContext } from 'react';
 import { AuthContext } from '../../../../Auth/AuthProvider';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Title from '../../../../../PageTitle/Title';
+import Lottie from "lottie-react";
+import edit_course from '../../../../assets/edit_course.json';
 
 const EditCourse = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { user } = useContext(AuthContext);
-    const { _id, class_name, class_image, available_seats, course_price } = useLoaderData();
     const navigate = useNavigate();
+    const { _id, class_name, class_image, available_seats, course_price } = useLoaderData();
 
     const editClass = data => {
-        const formData = { ...data, instructor_name: user?.displayName, instructor_email: user?.email, status: 'pending', feedback: '',  view_status: 'unseen'};
+        const formData = { ...data, instructor_name: user?.displayName, instructor_email: user?.email, status: 'pending', feedback: '', view_status: 'unseen' };
 
         if (formData) {
             fetch(`http://localhost:5000/my-course/update-data/${_id}/${user?.email}`, {
                 method: 'PUT',
-                headers: { 'content-type': 'application/json' },
+                headers: {
+                    'content-type': 'application/json',
+                },
                 body: JSON.stringify(formData)
             })
                 .then(res => res.json())
@@ -47,7 +50,7 @@ const EditCourse = () => {
             <div className="hero min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left">
-                        <img src={edit_class} alt="dance image" className="md:w-96" />
+                        <Lottie animationData={edit_course} loop={true} className='w-96'></Lottie>
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <div className="card-body">

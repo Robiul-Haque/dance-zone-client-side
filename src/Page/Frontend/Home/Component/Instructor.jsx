@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import InstructorTotalCourse from './InstructorTotalCourse';
 
-
 const Instructor = () => {
 
     const [instructors, setInstructors] = useState([]);
@@ -10,8 +9,12 @@ const Instructor = () => {
     useEffect(() => {
         fetch('http://localhost:5000/home/instructor')
             .then(res => res.json())
-            .then(data => setInstructors(data));
-    })
+            .then(data => {
+                if (data) {
+                    setInstructors(data)
+                }
+            });
+    }, [])
 
     return (
         <div className='my-20'>

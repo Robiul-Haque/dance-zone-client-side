@@ -1,23 +1,39 @@
 import Title from "../../../../PageTitle/Title";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Auth/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const EnrolledCourse = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, userLogout } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [enrolledCourses, setEnrolledCourses] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/student/enrolled-course/${user?.email}`)
+        fetch(`http://localhost:5000/student/enrolled-course/${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setEnrolledCourses(data))
-    }, [user?.email]);
+            .then(data => {
+                if (data?.error) {
+                    userLogout()
+                        .then()
+                    navigate('/login');
+                } else {
+                    setEnrolledCourses(data);
+                }
+            })
+    }, [user?.email, navigate, userLogout]);
 
     return (
         <>
             <Title title={'Enrolled Course'}></Title>
             <div className="overflow-x-auto">
-                <table className="table">
+                <table className="table text-center">
                     <thead>
                         <tr>
                             <th>#</th>

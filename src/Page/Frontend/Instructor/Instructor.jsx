@@ -1,10 +1,21 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Title from "../../../../PageTitle/Title";
 import InstructorTotalCourse from "./InstructorTotalCourse";
+import { useEffect, useState } from "react";
 
 const Instructor = () => {
 
-    const allInstructor = useLoaderData();
+    const [allInstructor, setAllInstructor] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/all-instructor')
+            .then(res => res.json())
+            .then(data => {
+                if (data) {
+                    setAllInstructor(data);
+                }
+            })
+    }, [])
 
     return (
         <>
@@ -25,7 +36,7 @@ const Instructor = () => {
                                         <h2 className="card-title text-2xl font-bold text-gray-500">{data?.name}</h2>
                                         <InstructorTotalCourse email={data?.email}></InstructorTotalCourse>
                                         <div className="card-actions justify-end">
-                                            <Link to={`/instructor/see-all-course/${data?.email}`} className="btn btn-primary w-full">See Instructor Course</Link>
+                                            <Link to={`/instructor/see-all-course/${data?.email}`} className="btn btn-neutral w-full">See Instructor Course</Link>
                                         </div>
                                     </div>
                                 </div>

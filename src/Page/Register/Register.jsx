@@ -10,23 +10,25 @@ import Title from "../../../PageTitle/Title";
 
 const Register = () => {
 
-    const { createUser, popUpGoogleLogin } = useContext(AuthContext);
+    const { createUser, popUpGoogleLogin, userLogout } = useContext(AuthContext);
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
+    const [registrationLoading, setRegistrationLoading] = useState(false);
 
     const handelRegister = data => {
-        reset()
-        setErrorMessage('');
+        setRegistrationLoading(true)
+        setErrorMessage('')
 
         createUser(data.email, data.password)
             .then(userCredential => {
                 const loggedUser = userCredential.user;
                 updateUserInfo(loggedUser, data.name, data.photo);
+                reset()
             })
             .catch(error => {
-                console.log(error);
                 setErrorMessage(error.message);
+                setRegistrationLoading(false);
             })
 
         const updateUserInfo = (user, name, photo) => {
@@ -34,6 +36,9 @@ const Register = () => {
                 displayName: name,
                 photoURL: photo,
             })
+
+            userLogout()
+            setRegistrationLoading(false)
 
             const loggedUserInfo = { name: name, email: user.email, photo: photo, role: 'student' }
             fetch('http://localhost:5000/login-user', {
@@ -43,9 +48,9 @@ const Register = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+
                     if (data.insertedId) {
-                        navigate('/')
+                        navigate('/login')
                         toast.success('Registration Successful', {
                             position: "top-right",
                             autoClose: 5000,
@@ -64,7 +69,7 @@ const Register = () => {
     const googleLogin = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
-                const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, role: 'student' }
+                const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, photo: loggedUser.user?.photoURL, role: 'student' }
                 fetch('http://localhost:5000/login-user', {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
@@ -72,53 +77,87 @@ const Register = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        if (data.user.role === 'admin') {
-                            navigate('/admin-dashboard');
-                            if (loggedUser.user.email) {
-                                toast.success('Login Successful', {
-                                    position: "top-right",
-                                    autoClose: 5000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                                    theme: "dark",
-                                });
-                            }
-                        } else if (data.user.role === 'instructor') {
-                            navigate('/instructor-dashboard');
-                            if (loggedUser.user.email) {
-                                toast.success('Login Successful', {
-                                    position: "top-right",
-                                    autoClose: 5000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                                    theme: "dark",
-                                });
-                            }
-                        } else if (data.user.role === 'student') {
-                            navigate('/');
-                            if (loggedUser.user.email) {
-                                toast.success('Login Successful', {
-                                    position: "top-right",
-                                    autoClose: 5000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                                    theme: "dark",
-                                });
-                            }
-                        }
+                        fetch('http://localhost:5000/create-jwt-token', {
+                            method: 'POST',
+                            headers: { 'content-type': 'application/json', },
+                            body: JSON.stringify({ email: data?.email })
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data?.token) {
+                                    localStorage.setItem('jwt-access-token', data?.token);
+
+                                    if (loggedUser.user.email) {
+                                        toast.success('Login Successful', {
+                                            position: "top-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "dark",
+                                        });
+                                    }
+                                }
+                            })
+
+                        fetch(`http://localhost:5000/check/user-role/${loggedUser?.user?.email}`)
+                            .then(res => res.json())
+                            .then(data => {
+
+                                if (data.role === 'student') {
+                                    navigate('/student/dashboard');
+
+                                    if (loggedUser.user.email) {
+                                        toast.success('Login Successful', {
+                                            position: "top-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "dark",
+                                        });
+                                    }
+                                } else if (data.role === 'instructor') {
+                                    navigate('/instructor-dashboard');
+
+                                    if (loggedUser.user.email) {
+                                        toast.success('Login Successful', {
+                                            position: "top-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "dark",
+                                        });
+                                    }
+                                }
+                                if (data.role === 'admin') {
+                                    navigate('/admin-dashboard');
+
+                                    if (loggedUser.user.email) {
+                                        toast.success('Login Successful', {
+                                            position: "top-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "dark",
+                                        });
+                                    }
+                                }
+                            })
                     })
             })
             .catch(error => {
-                console.log(error);
+                console.log(error)
             })
     }
 
@@ -178,16 +217,17 @@ const Register = () => {
                                 {/* {errors.confirm_password && <span className="mt-1 text-red-500">Confirm Password field is required</span>} */}
                             </div>
                             <div className="form-control mt-6">
-                                <input type='submit' value='Register' className="btn btn-primary text-white" />
+                                <input type='submit' value='Register' className="btn btn-primary text-white" disabled={registrationLoading} />
                             </div>
                         </form>
-                        <button onClick={googleLogin} className="btn border-slate-400 my-3">
+                        <div className="divider my-2">OR</div>
+                        <button onClick={googleLogin} className="btn border-slate-400">
                             <img width="28" height="28" src="https://img.icons8.com/fluency/48/google-logo.png" alt="google-logo" />
                             <span className="text-slate-600">Login with Google</span>
                         </button>
-                        <p className="text-sm text-center text-slate-500">You have an account <NavLink to='/login' className='text-slate-800 underline font-medium'>Login</NavLink></p>
+                        <p className="text-sm text-center text-slate-500 my-2">You have an account <NavLink to='/login' className='text-slate-800 underline font-medium'>Login</NavLink></p>
                         {
-                            errorMessage && <span className="mt-2 text-red-500 text-center">{errorMessage}</span>
+                            errorMessage && <span className="text-red-500 text-center">{errorMessage}</span>
                         }
                     </div>
                 </div>

@@ -1,32 +1,94 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Title from "../../../../../PageTitle/Title";
+import { AuthContext } from "../../../../Auth/AuthProvider";
 
 const Dashboard = () => {
 
+    const { userLogout } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [adminDashboardStatices, setAdminDashboardStatices] = useState({});
     const { admin, instructor, student, pending, accepted, rejected, contactUnseenMessage, enrolledCourse } = adminDashboardStatices || {};
     const [totalEnrolledCoursePrice, setTotalEnrolledCoursePrice] = useState([]);
     const [users, setUsers] = useState([]);
     const [approveCourses, setApproveCourses] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:5000/admin-dashboard/statices')
+        setLoading(true)
+        fetch('http://localhost:5000/admin-dashboard/statices', {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setAdminDashboardStatices(data))
+            .then(data => {
+                if (data?.error) {
+                    userLogout()
+                        .then()
+                    navigate('/login');
+                } else {
+                    setAdminDashboardStatices(data);
+                }
+            })
 
-        fetch('http://localhost:5000/admin-dashboard/statices/total-revenue')
+        fetch('http://localhost:5000/admin-dashboard/statices/total-revenue', {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setTotalEnrolledCoursePrice(data))
+            .then(data => {
+                if (data?.error) {
+                    userLogout()
+                        .then()
+                    navigate('/login');
+                } else {
+                    setTotalEnrolledCoursePrice(data);
+                }
+            })
 
-        fetch('http://localhost:5000/admin-dashboard/statices/user')
+        fetch('http://localhost:5000/admin-dashboard/statices/user', {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setUsers(data))
+            .then(data => {
+                if (data?.error) {
+                    userLogout()
+                        .then()
+                    navigate('/login');
+                } else {
+                    setUsers(data);
+                }
+            })
 
-        fetch('http://localhost:5000/admin-dashboard/statices/approve-course')
+        fetch('http://localhost:5000/admin-dashboard/statices/approve-course', {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setApproveCourses(data))
-    }, [])
+            .then(data => {
+                if (data?.error) {
+                    userLogout()
+                        .then()
+                    navigate('/login');
+                } else {
+                    setApproveCourses(data)
+                    setLoading(false)
+                }
+            })
+    }, [navigate, userLogout])
 
     return (
         <>
@@ -52,14 +114,16 @@ const Dashboard = () => {
                     <div className="text-center text-2xl font-medium">
                         <h2 className="mb-3">Course Status</h2>
                         {
-                            pending || accepted || rejected ?
-                                <>
-                                    <h2 className="text-xl">Pending: {pending}</h2>
-                                    <h2 className="text-xl">Approve: {accepted}</h2>
-                                    <h2 className="text-xl">Deny: {rejected}</h2>
-                                </>
+                            loading === true ? <span className="loading loading-dots loading-lg"></span>
                                 :
-                                <span className="loading loading-dots loading-lg"></span>
+                                pending || accepted || rejected ?
+                                    <>
+                                        <h2 className="text-xl">Pending: {pending}</h2>
+                                        <h2 className="text-xl">Approve: {accepted}</h2>
+                                        <h2 className="text-xl">Deny: {rejected}</h2>
+                                    </>
+                                    :
+                                    <p className='text-sm'>No Data Found</p>
                         }
                     </div>
                 </div>
@@ -67,10 +131,12 @@ const Dashboard = () => {
                     <div className="text-center text-2xl font-medium">
                         <h2 className="mb-3">Contact Message</h2>
                         {
-                            contactUnseenMessage ?
-                                <h2 className="text-xl">New Message: {contactUnseenMessage}</h2>
+                            loading === true ? <span className="loading loading-dots loading-lg"></span>
                                 :
-                                <span className="loading loading-dots loading-lg"></span>
+                                contactUnseenMessage ?
+                                    <h2 className="text-xl">New Message: {contactUnseenMessage}</h2>
+                                    :
+                                    <p className='text-sm'>No Data Found</p>
                         }
                     </div>
                 </div>
@@ -78,10 +144,12 @@ const Dashboard = () => {
                     <div className="text-center text-2xl font-medium">
                         <h2 className="mb-3">Enrolled Course</h2>
                         {
-                            enrolledCourse ?
-                                <h2 className="text-xl">Total Enrolled: {enrolledCourse}</h2>
+                            loading === true ? <span className="loading loading-dots loading-lg"></span>
                                 :
-                                <span className="loading loading-dots loading-lg"></span>
+                                enrolledCourse ?
+                                    <h2 className="text-xl">Total Enrolled: {enrolledCourse}</h2>
+                                    :
+                                    <p className='text-sm'>No Data Found</p>
                         }
                     </div>
                 </div>
@@ -118,14 +186,14 @@ const Dashboard = () => {
                                             <td><img src={user?.photo} alt={user?.user_name} className="w-16 h-16 rounded-xl" /></td>
                                             <td>{user?.name}</td>
                                             <td>{user?.email}</td>
-                                            <td className="capitalize">{user?.role}</td>
+                                            <td className="capitalize font-semibold">{user?.role}</td>
                                         </tr>
                                     )
                                 })
                             }
                         </tbody>
                     </table>
-                    <div className="text-center mt-5"><Link to={'/admin-dashboard/manage-user'} className="btn">See More</Link></div>
+                    <div className="text-center mt-5"><Link to={'/admin-dashboard/manage-user'} className={users.length === 0 ? "btn btn-disabled" : "btn"}>See More</Link></div>
                 </div>
                 <div className="overflow-x-auto border rounded-xl p-5 hover:shadow-xl transition duration-500 ease-out">
                     <h2 className="text-center text-xl font-bold mb-5">Approve Course</h2>
@@ -157,7 +225,7 @@ const Dashboard = () => {
                             }
                         </tbody>
                     </table>
-                    <div className="text-center mt-5"><Link to={'/admin-dashboard/manage-course'} className="btn">See More</Link></div>
+                    <div className="text-center mt-5"><Link to={'/admin-dashboard/manage-course'} className={approveCourses.length === 0 ? "btn btn-disabled" : "btn"}>See More</Link></div>
                 </div>
             </div>
         </>

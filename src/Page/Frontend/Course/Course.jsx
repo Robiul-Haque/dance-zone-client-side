@@ -58,12 +58,12 @@ const Course = () => {
                                             {
                                                 user?.email ? <>
                                                     <Link to={`/student/dashboard/course/enroll/checkout/${courseData?._id}`} className={courseData?.available_seats === 0 ? 'btn btn-disabled mt-2' : 'btn btn-neutral mt-2'}>Enroll Now</Link>
-                                                    <button onClick={() => selectCourse(courseData)} className={courseData?.available_seats === 0 ? 'btn btn-disabled mt-2' : 'btn btn-outline btn-primary mt-2'}>Select This Course</button>
+                                                    <button onClick={() => selectCourse(courseData)} className={courseData?.available_seats === 0 ? 'btn btn-disabled mt-2' : 'btn btn-outline btn-neutral mt-2'}>Select This Course</button>
                                                 </>
                                                     :
                                                     <>
                                                         <Link to='/login' className="btn btn-neutral">Enroll Now</Link>
-                                                        <Link to='/login' className="btn btn-outline btn-primary">Select This Course</Link>
+                                                        <Link to='/login' className="btn btn-outline btn-neutral">Select This Course</Link>
                                                     </>
                                             }
                                         </div>

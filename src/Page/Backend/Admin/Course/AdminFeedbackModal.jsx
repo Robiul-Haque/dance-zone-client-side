@@ -1,38 +1,36 @@
 /* eslint-disable react/prop-types */
 import { toast } from "react-toastify";
 
-const AdminFeedbackModal = ({ id, oldFeedback }) => {
+const AdminFeedbackModal = ({ id, oldFeedback, refetch }) => {
 
     const handelSubmit = event => {
         const form = event.target;
         const feedback = form.feedback.value;
 
-        if (!feedback == '') {
-            console.log(true);
-            fetch(`http://localhost:5000/admin/feedback/${id}`, {
-                method: 'PATCH',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify({ feedback })
+        fetch(`http://localhost:5000/admin/feedback/${id}`, {
+            method: 'PATCH',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ feedback })
+        })
+            .then(res => res.json())
+            .then(data => {
+                refetch()
+                
+                if (data?.modifiedCount > 0) {
+                    toast.success('Feedback Send Successfully', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
+                }
             })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    if (data?.modifiedCount > 0) {
-                        toast.success('Feedback Send Successfully', {
-                            position: "top-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "dark",
-                        });
-                    }
-                })
 
-            form.reset();
-        }
+        form.reset();
     }
 
     return (

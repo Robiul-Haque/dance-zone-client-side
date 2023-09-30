@@ -1,26 +1,40 @@
 import useAdminManageCourse from "../../../../Hook/useAdminManageCourse";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AdminFeedbackModal from "./AdminFeedbackModal";
 import { toast } from "react-toastify";
 import Title from "../../../../../PageTitle/Title";
+import { AuthContext } from "../../../../Auth/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const Course = () => {
 
-    const [courseId, setCourseId] = useState('');
     const { data, isLoading, refetch } = useAdminManageCourse();
+    const { userLogout } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const [courseId, setCourseId] = useState('');
     const [previousFeedback, setPreviousFeedback] = useState('');
+
+    if (data?.error) {
+        userLogout()
+            .then()
+        navigate('/login')
+    }
 
     const approve = id => {
         fetch(`http://localhost:5000/admin/manage-course/update/view-status/${id}`, {
             method: 'PUT',
-            headers: { 'content-type': 'application/json' }
+            headers: {
+                'content-type': 'application/json',
+            }
         })
             .then(res => res.json())
             .then(() => refetch())
 
         fetch(`http://localhost:5000/admin/approve-course/${id}`, {
             method: 'PATCH',
-            headers: { 'content-type': 'application/json' }
+            headers: {
+                'content-type': 'application/json',
+            }
         })
             .then(res => res.json())
             .then(() => refetch())
@@ -29,14 +43,18 @@ const Course = () => {
     const deny = id => {
         fetch(`http://localhost:5000/admin/manage-course/update/view-status/${id}`, {
             method: 'PUT',
-            headers: { 'content-type': 'application/json' }
+            headers: {
+                'content-type': 'application/json',
+            }
         })
             .then(res => res.json())
             .then(() => refetch())
 
         fetch(`http://localhost:5000/admin/deny-course/${id}`, {
             method: 'PATCH',
-            headers: { 'content-type': 'application/json' }
+            headers: {
+                'content-type': 'application/json',
+            }
         })
             .then(res => res.json())
             .then(() => refetch())
@@ -45,14 +63,30 @@ const Course = () => {
     const modalData = (id) => {
         fetch(`http://localhost:5000/admin/manage-course/update/view-status/${id}`, {
             method: 'PUT',
-            headers: { 'content-type': 'application/json' }
+            headers: {
+                'content-type': 'application/json',
+            }
         })
             .then(res => res.json())
             .then(() => refetch())
 
-        fetch(`http://localhost:5000/admin/feedback/data/${id}`)
+        fetch(`http://localhost:5000/admin/feedback/data/${id}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setPreviousFeedback(data?.feedback))
+            .then(data => {
+                if (data?.error) {
+                    userLogout()
+                        .then()
+                    navigate('/login');
+                } else {
+                    setPreviousFeedback(data?.feedback)
+                }
+            })
     }
 
     const deleteCourse = id => {
@@ -60,11 +94,14 @@ const Course = () => {
         if (confirmation === true) {
             fetch(`http://localhost:5000/admin/delete-course/${id}`, {
                 method: 'DELETE',
-                headers: { 'content-type': 'application/json' }
+                headers: {
+                    'content-type': 'application/json',
+                }
             })
                 .then(res => res.json())
-                .then(data => {
+                .then(() => {
                     refetch();
+
                     if (data?.deletedCount > 0) {
                         toast.success('Course Delete Successfully', {
                             position: "top-right",
@@ -100,6 +137,7 @@ const Course = () => {
                             <th>Available Seat</th>
                             <th>Price</th>
                             <th>Status</th>
+                            <th>Admin Send Feedback</th>
                             <th>Approve</th>
                             <th>Deny</th>
                             <th>Feedback</th>
@@ -120,6 +158,7 @@ const Course = () => {
                                     <td>{course?.available_seats}</td>
                                     <td>{course?.course_price} $</td>
                                     <td className={course?.status === 'accepted' ? 'text-green-500 capitalize font-semibold' : course?.status === 'rejected' ? 'text-red-500 capitalize font-semibold' : 'capitalize font-semibold'}>{course?.status}</td>
+                                    <td className="w-64 overflow-auto">{course?.feedback}</td>
                                     <td>
                                         <button onClick={() => approve(course?._id)} className={course?.status === 'accepted' || course?.status === 'rejected' ? 'btn btn-disabled' : 'btn bg-green-500 text-white hover:bg-green-600'}>Approve</button>
                                     </td>
@@ -137,7 +176,7 @@ const Course = () => {
                         }
                     </tbody>
                 </table>
-                <AdminFeedbackModal id={courseId} oldFeedback={previousFeedback}></AdminFeedbackModal>
+                <AdminFeedbackModal id={courseId} oldFeedback={previousFeedback} refetch={refetch}></AdminFeedbackModal>
             </div>
         </>
     );

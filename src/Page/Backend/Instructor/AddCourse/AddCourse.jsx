@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
-import add_class from '../../../../assets/add-a-class.png';
 import { useContext } from "react";
 import { AuthContext } from "../../../../Auth/AuthProvider";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Title from "../../../../../PageTitle/Title";
+import Lottie from "lottie-react";
+import add_course from '../../../../assets/add_course.json';
 
 const AddCourse = () => {
 
@@ -13,12 +14,14 @@ const AddCourse = () => {
     const navigate = useNavigate();
 
     const handelRegister = data => {
-        const formData = { ...data, instructor_name: user?.displayName, instructor_email: user?.email, status: 'pending', feedback: '' }
+        const formData = { ...data, instructor_name: user?.displayName, instructor_email: user?.email, status: 'pending', feedback: '', view_status: 'unseen' }
 
         if (formData) {
             fetch(`http://localhost:5000/add-course/${user?.email}`, {
                 method: 'POST',
-                headers: { 'content-type': 'application/json' },
+                headers: {
+                    'content-type': 'application/json',
+                },
                 body: JSON.stringify(formData)
             })
                 .then(res => res.json())
@@ -47,7 +50,7 @@ const AddCourse = () => {
             <div className="hero min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-right">
-                        <img src={add_class} alt="dance image" className="md:w-96" />
+                        <Lottie animationData={add_course} loop={true}></Lottie>
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <div className="card-body">
@@ -92,7 +95,7 @@ const AddCourse = () => {
                                     <label className="label">
                                         <span className="label-text">Price</span>
                                     </label>
-                                    <input type="number" {...register("course_price")} placeholder="Price" className="input input-bordered" required />
+                                    <input type="number" {...register("course_price")} placeholder="$" className="input input-bordered" required />
                                     {errors.name && <span className="mt-1 text-red-500">Name field is required</span>}
                                 </div>
                                 <div className="form-control mt-6">

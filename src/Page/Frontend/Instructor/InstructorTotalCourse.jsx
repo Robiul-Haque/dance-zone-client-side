@@ -8,7 +8,11 @@ const InstructorTotalCourse = ({ email }) => {
     useEffect(() => {
         fetch(`http://localhost:5000/single-instructor/total-course-count/${email}`)
             .then(res => res.json())
-            .then(data => setCourse(data))
+            .then(data => {
+                if (data) {
+                    setCourse(data);
+                }
+            })
     }, [email])
 
     return (

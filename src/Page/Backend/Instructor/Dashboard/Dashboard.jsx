@@ -11,27 +11,62 @@ const Dashboard = () => {
     const [pendingCourse, setPendingCourse] = useState([]);
     const [rejectedCourse, setRejectedCourse] = useState([]);
     const [instructorTotalRevenue, setInstructorTotalRevenue] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/total-approve/course/${user?.email}`)
+        setLoading(true)
+        fetch(`http://localhost:5000/total-approve/course/${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
             .then(data => setApproveCourseLimit(data))
 
-        fetch(`http://localhost:5000/total-approve/course/${user?.email}`)
+        fetch(`http://localhost:5000/total-approve/course/${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
             .then(data => setApproveCourse(data))
 
-        fetch(`http://localhost:5000/total-pending/course/${user?.email}`)
+        fetch(`http://localhost:5000/total-pending/course/${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
             .then(data => setPendingCourse(data))
 
-        fetch(`http://localhost:5000/total-rejected/course/${user?.email}`)
+        fetch(`http://localhost:5000/total-rejected/course/${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
             .then(data => setRejectedCourse(data))
 
-        fetch(`http://localhost:5000/total-revenue-by-instructor/${user?.email}`)
+        fetch(`http://localhost:5000/total-revenue-by-instructor/${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setInstructorTotalRevenue(data))
+            .then(data => {
+                setInstructorTotalRevenue(data)
+                setLoading(false)
+            })
     }, [user?.email]);
 
     return (
@@ -41,9 +76,17 @@ const Dashboard = () => {
                 <div className="bg-base-200 w-80 h-40 flex justify-center items-center rounded-lg border text-gray-500">
                     <div className="text-center text-2xl font-medium">
                         <h2 className="mb-3">Course Status</h2>
-                        <h2 className="text-xl">Approve Course: {approveCourse?.length}</h2>
-                        <h2 className="text-xl">Pending Course: {pendingCourse?.length}</h2>
-                        <h2 className="text-xl">Rejected Course: {rejectedCourse?.length}</h2>
+                        {
+                            loading === true ? <span className="loading loading-dots loading-lg"></span>
+                                :
+                                // approveCourse?.length || pendingCourse?.length || rejectedCourse?.length == 0 ? <p className='text-sm'>No Data Found</p>
+                                //     :
+                                    <>
+                                        <h2 className="text-xl">Approve Course: {approveCourse?.length}</h2>
+                                        <h2 className="text-xl">Pending Course: {pendingCourse?.length}</h2>
+                                        <h2 className="text-xl">Rejected Course: {rejectedCourse?.length}</h2>
+                                    </>
+                        }
                     </div>
                 </div>
                 <div className="bg-base-200 w-80 h-40 flex justify-center items-center rounded-lg border text-gray-500">

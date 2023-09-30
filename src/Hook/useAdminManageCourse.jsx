@@ -4,7 +4,13 @@ const useAdminManageCourse = () => {
     const { data = [], isLoading, refetch } = useQuery({
         queryKey: ['course'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/manage-course')
+            const res = await fetch('http://localhost:5000/manage-course', {
+                method: 'GET',
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+                }
+            })
             return res.json();
         }
     })

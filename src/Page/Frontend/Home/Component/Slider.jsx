@@ -29,7 +29,7 @@ const Slider = () => {
                 }}
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
-                className="mySwiper mt-4 rounded-xl"
+                className="mySwiper mt-4 rounded-xl z-0"
             >
                 <SwiperSlide>
                     <img src={slider_1} alt="image-1" />

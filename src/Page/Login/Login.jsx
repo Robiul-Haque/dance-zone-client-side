@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import dance from '../../assets/login.png';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Title from "../../../PageTitle/Title";
@@ -14,6 +14,8 @@ const login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { login, popUpGoogleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const handelLogin = data => {
         setError('')
@@ -35,7 +37,22 @@ const login = () => {
                                     }
                                 })
 
-                            if (data.role === 'instructor') {
+                            if (data.role === 'student') {
+                                navigate(from, { replace: true });
+
+                                if (userCredential.user.email) {
+                                    toast.success('Login Successful', {
+                                        position: "top-right",
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: "dark",
+                                    });
+                                }
+                            } else if (data.role === 'instructor') {
                                 navigate('/instructor-dashboard');
 
                                 if (userCredential.user.email) {
@@ -65,27 +82,11 @@ const login = () => {
                                         theme: "dark",
                                     });
                                 }
-                            } else if (data.role === 'student') {
-                                navigate('/');
-
-                                if (userCredential.user.email) {
-                                    toast.success('Login Successful', {
-                                        position: "top-right",
-                                        autoClose: 5000,
-                                        hideProgressBar: false,
-                                        closeOnClick: true,
-                                        pauseOnHover: true,
-                                        draggable: true,
-                                        progress: undefined,
-                                        theme: "dark",
-                                    });
-                                }
                             }
                         })
                 }
             })
             .catch(error => {
-                console.log(error);
                 setError(error.message)
             })
 
@@ -114,52 +115,58 @@ const login = () => {
                                 }
                             })
 
-                        if (data.user.role === 'admin') {
-                            navigate('/admin-dashboard');
+                        fetch(`http://localhost:5000/check/user-role/${loggedUser?.user?.email}`)
+                            .then(res => res.json())
+                            .then(data => {
 
-                            if (loggedUser.user.email) {
-                                toast.success('Login Successful', {
-                                    position: "top-right",
-                                    autoClose: 5000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                                    theme: "dark",
-                                });
-                            }
-                        } else if (data.user.role === 'instructor') {
-                            navigate('/instructor-dashboard');
+                                if (data.role === 'student') {
+                                    navigate('/student/dashboard');
 
-                            if (loggedUser.user.email) {
-                                toast.success('Login Successful', {
-                                    position: "top-right",
-                                    autoClose: 5000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                                    theme: "dark",
-                                });
-                            }
-                        } else if (data.user.role === 'student') {
-                            navigate('/');
+                                    if (loggedUser.user.email) {
+                                        toast.success('Login Successful', {
+                                            position: "top-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "dark",
+                                        });
+                                    }
+                                } else if (data.role === 'instructor') {
+                                    navigate('/instructor-dashboard');
 
-                            if (loggedUser.user.email) {
-                                toast.success('Login Successful', {
-                                    position: "top-right",
-                                    autoClose: 5000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                                    theme: "dark",
-                                });
-                            }
-                        }
+                                    if (loggedUser.user.email) {
+                                        toast.success('Login Successful', {
+                                            position: "top-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "dark",
+                                        });
+                                    }
+                                }
+                                if (data.role === 'admin') {
+                                    navigate('/admin-dashboard');
+
+                                    if (loggedUser.user.email) {
+                                        toast.success('Login Successful', {
+                                            position: "top-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "dark",
+                                        });
+                                    }
+                                }
+                            })
                     });
             })
             .catch(error => {
@@ -198,13 +205,14 @@ const login = () => {
                                 <input type='submit' value='Login' className="btn btn-primary text-white" />
                             </div>
                         </form>
-                        <button onClick={googleLogin} className="btn border-slate-400 my-3">
+                        <div className="divider my-2">OR</div>
+                        <button onClick={googleLogin} className="btn border-slate-400">
                             <img width="28" height="28" src="https://img.icons8.com/fluency/48/google-logo.png" alt="google-logo" />
                             <span className="text-slate-600">Login with Google</span>
                         </button>
-                        <p className="text-sm text-center text-slate-500">Don,t have an account <NavLink to='/register' className='text-slate-800 underline font-medium'>Register</NavLink></p>
+                        <p className="text-sm text-center text-slate-500 my-2">Don,t have an account <NavLink to='/register' className='text-slate-800 underline font-medium'>Register</NavLink></p>
                         {
-                            error && <p className="text-red-600 mt-2 mx-auto text-sm flex gap-x-2"><img width="20" height="20" src="https://img.icons8.com/fluency-systems-regular/48/dc2626/error--v1.png" alt="error--v1" /> {error}</p>
+                            error && <p className="text-red-600 mx-auto text-sm flex gap-x-2"><img width="20" height="20" src="https://img.icons8.com/fluency-systems-regular/48/dc2626/error--v1.png" alt="error--v1" /> {error}</p>
                         }
                     </div>
                 </div>

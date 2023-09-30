@@ -33,7 +33,7 @@ const Course = () => {
                                             user?.email ?
                                                 <Link to={`/student/dashboard/course/enroll/checkout/${allCourse?._id}`} className={allCourse?.available_seats === 0 ? 'btn btn-disabled w-full' : 'btn btn-neutral w-full'}>Enroll Now</Link>
                                                 :
-                                                <Link to={'/login'} className="btn btn-neutral w-full">Enroll Now</Link>
+                                                <Link to={'/login'} className={allCourse?.available_seats === 0 ? 'btn btn-disabled w-full' : 'btn btn-neutral w-full'}>Enroll Now</Link>
                                         }
                                     </div>
                                 </div>

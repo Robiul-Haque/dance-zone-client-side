@@ -46,7 +46,6 @@ const CheckoutForm = ({ courseId, selectedCourseId, courseName, courseImage, cou
         });
 
         if (error) {
-            console.log('error', error);
             setError(error.message);
         } else {
             console.log('PaymentMethod', paymentMethod);

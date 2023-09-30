@@ -1,23 +1,39 @@
 import Title from "../../../../PageTitle/Title";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Auth/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const PaymentHistory = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, userLogout } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [paymentHistory, setPaymentHistory] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/student/payment-history/${user?.email}`)
+        fetch(`http://localhost:5000/student/payment-history/${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setPaymentHistory(data))
-    }, [user?.email])
+            .then(data => {
+                if (data?.error) {
+                    userLogout()
+                        .then()
+                    navigate('/login');
+                } else {
+                    setPaymentHistory(data);
+                }
+            })
+    }, [user?.email, navigate, userLogout])
 
     return (
         <>
             <Title title={'Payment History'}></Title>
             <div className="overflow-x-auto">
-                <table className="table">
+                <table className="table text-center">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -36,7 +52,7 @@ const PaymentHistory = () => {
                                         <th>{index + 1}</th>
                                         <td>{data?.transaction_id}</td>
                                         <td>{data?.class_name}</td>
-                                        <td>{data?.course_price}</td>
+                                        <td>{data?.course_price} $</td>
                                         <td>{data?.instructor_name}</td>
                                         <td>{data?.date}</td>
                                     </tr>

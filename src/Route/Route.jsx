@@ -45,18 +45,10 @@ export const router = createBrowserRouter([
                 path: '/course',
                 element: <AllCourse></AllCourse>,
                 loader: () => fetch('http://localhost:5000/all-course'),
-                // children: [
-                //     {
-                //         path: '/course/enroll/checkout/:id',
-                //         element: <StudentPrivetRoute><CourseEnrollCheckout></CourseEnrollCheckout></StudentPrivetRoute>,
-                //         loader: ({ params }) => fetch(`http://localhost:5000/student/course/enroll/checkout/${params.id}`)
-                //     }
-                // ]
             },
             {
                 path: '/instructor',
                 element: <Instructor></Instructor>,
-                loader: () => fetch('http://localhost:5000/all-instructor')
             },
             {
                 path: '/instructor/see-all-course/:email',

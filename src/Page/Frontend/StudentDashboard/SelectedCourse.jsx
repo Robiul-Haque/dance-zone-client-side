@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import useStudentSelectedCourse from "../../../Hook/useStudentSelectedCourse";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Title from "../../../../PageTitle/Title";
 import { useContext } from "react";
 import { AuthContext } from "../../../Auth/AuthProvider";
@@ -8,7 +8,14 @@ import { AuthContext } from "../../../Auth/AuthProvider";
 const SelectedCourse = () => {
 
     const { data, refetch, isLoading } = useStudentSelectedCourse();
-    const { user } = useContext(AuthContext);
+    const { user, userLogout } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    if (data?.error) {
+        userLogout()
+            .then()
+        navigate('/login');
+    }
 
     if (isLoading) {
         return <h1 className="text-xl font-semibold">Loading...</h1>
@@ -19,11 +26,14 @@ const SelectedCourse = () => {
         if (confirmation) {
             fetch(`http://localhost:5000/student/delete-selected-course/${id}/${user?.email}`, {
                 method: 'DELETE',
-                headers: { 'content-type': 'application/json' }
+                headers: {
+                    'content-type': 'application/json',
+                }
             })
                 .then(res => res.json())
                 .then(data => {
                     refetch();
+
                     if (data?.deletedCount) {
                         toast.success('Course Delete Successfully', {
                             position: "top-right",

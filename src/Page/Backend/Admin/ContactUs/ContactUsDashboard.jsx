@@ -1,23 +1,37 @@
 import ContactUsModal from "./ContactUsModal";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import useAdminContactMassage from "../../../../Hook/useAdminContactMassage";
 import Title from "../../../../../PageTitle/Title";
+import { AuthContext } from "../../../../Auth/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const ContactUsDashboard = () => {
 
     const { data, isLoading, refetch } = useAdminContactMassage();
+    const { userLogout } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [contactUsMessage, setContactUsMessage] = useState({});
+
+    if (data?.error) {
+        userLogout()
+            .then()
+        navigate('/login');
+    }
 
     const deleteMessage = id => {
         const confirmation = confirm('Are you sure want to do Delete');
         if (confirmation) {
             fetch(`http://localhost:5000/contact-us/single-message/delete/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json',
+                }
             })
                 .then(res => res.json())
-                .then(data => {
+                .then(() => {
                     refetch();
+
                     if (data?.deletedCount > 0) {
                         toast.success('Message Delete Successfully', {
                             position: "top-right",
@@ -35,14 +49,28 @@ const ContactUsDashboard = () => {
     }
 
     const handelContactUsModal = id => {
-        fetch(`http://localhost:5000/contact-us/single-massage-modal/${id}`)
+        fetch(`http://localhost:5000/contact-us/single-massage-modal/${id}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setContactUsMessage(data))
+            .then(data => {
+                if (data?.error) {
+                    userLogout()
+                        .then()
+                    navigate('/login');
+                } else {
+                    setContactUsMessage(data)
+                }
+            })
 
         fetch(`http://localhost:5000/contact-us/single-massage-seen/${id}`, {
             method: "PUT",
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
             },
             body: JSON.stringify({ status: 'seen' })
         })

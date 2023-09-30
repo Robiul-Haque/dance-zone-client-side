@@ -16,7 +16,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch('http://localhost:5000/admin-dashboard/statices', {
+        fetch('https://summer-camp-backend-rho.vercel.app/admin-dashboard/statices', {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -34,7 +34,7 @@ const Dashboard = () => {
                 }
             })
 
-        fetch('http://localhost:5000/admin-dashboard/statices/total-revenue', {
+        fetch('https://summer-camp-backend-rho.vercel.app/admin-dashboard/statices/total-revenue', {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -52,7 +52,7 @@ const Dashboard = () => {
                 }
             })
 
-        fetch('http://localhost:5000/admin-dashboard/statices/user', {
+        fetch('https://summer-camp-backend-rho.vercel.app/admin-dashboard/statices/user', {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -70,7 +70,7 @@ const Dashboard = () => {
                 }
             })
 
-        fetch('http://localhost:5000/admin-dashboard/statices/approve-course', {
+        fetch('https://summer-camp-backend-rho.vercel.app/admin-dashboard/statices/approve-course', {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

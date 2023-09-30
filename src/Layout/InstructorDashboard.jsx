@@ -15,7 +15,7 @@ const Instructor = () => {
     const [verifyInstructor, setInstructor] = useState({});
 
     useEffect(() => {
-        fetch(`http://localhost:5000/if-exist-instructor/${user?.email}`)
+        fetch(`https://summer-camp-backend-rho.vercel.app/if-exist-instructor/${user?.email}`)
             .then(res => res.json())
             .then(data => setInstructor(data))
 

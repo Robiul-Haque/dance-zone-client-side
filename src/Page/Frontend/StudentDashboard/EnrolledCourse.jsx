@@ -10,7 +10,7 @@ const EnrolledCourse = () => {
     const [enrolledCourses, setEnrolledCourses] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/student/enrolled-course/${user?.email}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/student/enrolled-course/${user?.email}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

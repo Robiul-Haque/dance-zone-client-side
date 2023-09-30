@@ -16,7 +16,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/if-exist-admin/${user?.email}`)
+            fetch(`https://summer-camp-backend-rho.vercel.app/if-exist-admin/${user?.email}`)
                 .then(res => res.json())
                 .then(data => setVerifyAdmin(data))
         }

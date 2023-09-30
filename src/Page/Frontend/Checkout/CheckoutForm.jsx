@@ -16,7 +16,7 @@ const CheckoutForm = ({ courseId, selectedCourseId, courseName, courseImage, cou
     const [transactionId, setTransactionId] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/student/selected-course/create-payment-intent', {
+        fetch('https://summer-camp-backend-rho.vercel.app/student/selected-course/create-payment-intent', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ price: coursePrice })
@@ -75,7 +75,7 @@ const CheckoutForm = ({ courseId, selectedCourseId, courseName, courseImage, cou
         if (paymentIntent.status === "succeeded") {
             setTransactionId(paymentIntent.id);
 
-            fetch('http://localhost:5000/student/selected-course/payment-info', {
+            fetch('https://summer-camp-backend-rho.vercel.app/student/selected-course/payment-info', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -94,7 +94,7 @@ const CheckoutForm = ({ courseId, selectedCourseId, courseName, courseImage, cou
             })
                 .then(res => res.json())
                 .then(data => {
-                    fetch(`http://localhost:5000/student/course/available-seat-decrement/${selectedCourseId}`, {
+                    fetch(`https://summer-camp-backend-rho.vercel.app/student/course/available-seat-decrement/${selectedCourseId}`, {
                         method: 'PATCH',
                         headers: {
                             'content-type': 'application/json'
@@ -116,7 +116,7 @@ const CheckoutForm = ({ courseId, selectedCourseId, courseName, courseImage, cou
                             theme: "dark",
                         });
 
-                        fetch(`http://localhost:5000/student/selected-course/${courseId}`, {
+                        fetch(`https://summer-camp-backend-rho.vercel.app/student/selected-course/${courseId}`, {
                             method: "DELETE"
                         })
                             .then(res => res.json())

@@ -13,7 +13,7 @@ const Dashboard = () => {
     
 
     useEffect(() => {
-        fetch(`http://localhost:5000/if-exist-student/${user?.email}`)
+        fetch(`https://summer-camp-backend-rho.vercel.app/if-exist-student/${user?.email}`)
             .then(res => res.json())
             .then(data => setVerifyStudent(data))
     }, [user, navigate, userLogout])

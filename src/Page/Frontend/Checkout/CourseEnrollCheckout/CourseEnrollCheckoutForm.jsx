@@ -15,7 +15,7 @@ const CourseEnrollCheckoutForm = ({ courseId, courseName, courseImage, coursePri
     const [transactionId, setTransactionId] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/student/selected-course/create-payment-intent', {
+        fetch('https://summer-camp-backend-rho.vercel.app/student/selected-course/create-payment-intent', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ price: coursePrice })
@@ -76,7 +76,7 @@ const CourseEnrollCheckoutForm = ({ courseId, courseName, courseImage, coursePri
         if (paymentIntent.status === "succeeded") {
             setTransactionId(paymentIntent.id);
 
-            fetch('http://localhost:5000/student/selected-course/payment-info', {
+            fetch('https://summer-camp-backend-rho.vercel.app/student/selected-course/payment-info', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -95,7 +95,7 @@ const CourseEnrollCheckoutForm = ({ courseId, courseName, courseImage, coursePri
             })
                 .then(res => res.json())
                 .then(data => {
-                    fetch(`http://localhost:5000/student/course/available-seat-decrement/${courseId}`, {
+                    fetch(`https://summer-camp-backend-rho.vercel.app/student/course/available-seat-decrement/${courseId}`, {
                         method: 'PATCH',
                         headers: {
                             'content-type': 'application/json'
@@ -118,11 +118,11 @@ const CourseEnrollCheckoutForm = ({ courseId, courseName, courseImage, coursePri
                         });
                     }
 
-                    fetch(`http://localhost:5000/student/enroll/course/after-get-selected-course-if-exist/${courseId}`)
+                    fetch(`https://summer-camp-backend-rho.vercel.app/student/enroll/course/after-get-selected-course-if-exist/${courseId}`)
                         .then(res => res.json())
                         .then(data => {
                             if (data?._id) {
-                                fetch(`http://localhost:5000/student/delete/selected-course-if-exist/${data?._id}`, {
+                                fetch(`https://summer-camp-backend-rho.vercel.app/student/delete/selected-course-if-exist/${data?._id}`, {
                                     method: 'DELETE',
                                     headers: { 'content-type': 'application/json' }
                                 })

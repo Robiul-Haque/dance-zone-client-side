@@ -15,7 +15,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`http://localhost:5000/total-approve/course/${user?.email}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/total-approve/course/${user?.email}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -25,7 +25,7 @@ const Dashboard = () => {
             .then(res => res.json())
             .then(data => setApproveCourseLimit(data))
 
-        fetch(`http://localhost:5000/total-approve/course/${user?.email}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/total-approve/course/${user?.email}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -35,7 +35,7 @@ const Dashboard = () => {
             .then(res => res.json())
             .then(data => setApproveCourse(data))
 
-        fetch(`http://localhost:5000/total-pending/course/${user?.email}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/total-pending/course/${user?.email}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -45,7 +45,7 @@ const Dashboard = () => {
             .then(res => res.json())
             .then(data => setPendingCourse(data))
 
-        fetch(`http://localhost:5000/total-rejected/course/${user?.email}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/total-rejected/course/${user?.email}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -55,7 +55,7 @@ const Dashboard = () => {
             .then(res => res.json())
             .then(data => setRejectedCourse(data))
 
-        fetch(`http://localhost:5000/total-revenue-by-instructor/${user?.email}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/total-revenue-by-instructor/${user?.email}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

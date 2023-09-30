@@ -6,7 +6,7 @@ const InstructorTotalCourse = ({ email }) => {
     const [course, setCourse] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/single-instructor/total-course-count/${email}`)
+        fetch(`https://summer-camp-backend-rho.vercel.app/single-instructor/total-course-count/${email}`)
             .then(res => res.json())
             .then(data => {
                 if (data) {

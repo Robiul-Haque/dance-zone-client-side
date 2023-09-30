@@ -24,7 +24,7 @@ const SelectedCourse = () => {
     const deleteCourse = id => {
         const confirmation = confirm('Are you sure want to do Delete');
         if (confirmation) {
-            fetch(`http://localhost:5000/student/delete-selected-course/${id}/${user?.email}`, {
+            fetch(`https://summer-camp-backend-rho.vercel.app/student/delete-selected-course/${id}/${user?.email}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',

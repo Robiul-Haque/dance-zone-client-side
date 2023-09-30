@@ -8,7 +8,7 @@ const Course = () => {
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch('http://localhost:5000/home/course')
+        fetch('https://summer-camp-backend-rho.vercel.app/home/course')
             .then(res => res.json())
             .then(data => setCourse(data))
     }, [])

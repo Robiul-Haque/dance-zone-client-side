@@ -24,7 +24,7 @@ const AdminPaymentHistory = () => {
     const deletePaymentHistory = id => {
         const confirmation = confirm('Are you sure want to do Delete');
         if (confirmation === true) {
-            fetch(`http://localhost:5000/admin/delete-payment-history/${id}`, {
+            fetch(`https://summer-camp-backend-rho.vercel.app/admin/delete-payment-history/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',

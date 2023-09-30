@@ -21,7 +21,7 @@ const Course = () => {
     }
 
     const approve = id => {
-        fetch(`http://localhost:5000/admin/manage-course/update/view-status/${id}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/admin/manage-course/update/view-status/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -30,7 +30,7 @@ const Course = () => {
             .then(res => res.json())
             .then(() => refetch())
 
-        fetch(`http://localhost:5000/admin/approve-course/${id}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/admin/approve-course/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -41,7 +41,7 @@ const Course = () => {
     }
 
     const deny = id => {
-        fetch(`http://localhost:5000/admin/manage-course/update/view-status/${id}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/admin/manage-course/update/view-status/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -50,7 +50,7 @@ const Course = () => {
             .then(res => res.json())
             .then(() => refetch())
 
-        fetch(`http://localhost:5000/admin/deny-course/${id}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/admin/deny-course/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -61,7 +61,7 @@ const Course = () => {
     }
 
     const modalData = (id) => {
-        fetch(`http://localhost:5000/admin/manage-course/update/view-status/${id}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/admin/manage-course/update/view-status/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -70,7 +70,7 @@ const Course = () => {
             .then(res => res.json())
             .then(() => refetch())
 
-        fetch(`http://localhost:5000/admin/feedback/data/${id}`, {
+        fetch(`https://summer-camp-backend-rho.vercel.app/admin/feedback/data/${id}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -92,7 +92,7 @@ const Course = () => {
     const deleteCourse = id => {
         const confirmation = confirm('Are you sure want to do Delete!');
         if (confirmation === true) {
-            fetch(`http://localhost:5000/admin/delete-course/${id}`, {
+            fetch(`https://summer-camp-backend-rho.vercel.app/admin/delete-course/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',

@@ -41,7 +41,7 @@ const Register = () => {
             setRegistrationLoading(false)
 
             const loggedUserInfo = { name: name, email: user.email, photo: photo, role: 'student' }
-            fetch('http://localhost:5000/login-user', {
+            fetch('https://summer-camp-backend-rho.vercel.app/login-user', {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(loggedUserInfo)
@@ -70,14 +70,14 @@ const Register = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
                 const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, photo: loggedUser.user?.photoURL, role: 'student' }
-                fetch('http://localhost:5000/login-user', {
+                fetch('https://summer-camp-backend-rho.vercel.app/login-user', {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(loggedUserInfo)
                 })
                     .then(res => res.json())
                     .then(data => {
-                        fetch('http://localhost:5000/create-jwt-token', {
+                        fetch('https://summer-camp-backend-rho.vercel.app/create-jwt-token', {
                             method: 'POST',
                             headers: { 'content-type': 'application/json', },
                             body: JSON.stringify({ email: data?.email })
@@ -102,7 +102,7 @@ const Register = () => {
                                 }
                             })
 
-                        fetch(`http://localhost:5000/check/user-role/${loggedUser?.user?.email}`)
+                        fetch(`https://summer-camp-backend-rho.vercel.app/check/user-role/${loggedUser?.user?.email}`)
                             .then(res => res.json())
                             .then(data => {
 

@@ -130,7 +130,7 @@ const Navbar = () => {
                             </>
                             :
                             <>
-                                <NavLink to='/login' className='btn'>Login</NavLink>
+                                <NavLink to='/login' className='btn mb-4'>Login</NavLink>
                                 <NavLink to='/register' className='btn'>Register</NavLink>
                             </>
                     }

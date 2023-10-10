@@ -22,7 +22,7 @@ const ContactUsDashboard = () => {
     const deleteMessage = id => {
         const confirmation = confirm('Are you sure want to do Delete');
         if (confirmation) {
-            fetch(`https://summer-camp-backend-rho.vercel.app/contact-us/single-message/delete/${id}`, {
+            fetch(`http://localhost:5000/contact-us/single-message/delete/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',
@@ -49,7 +49,7 @@ const ContactUsDashboard = () => {
     }
 
     const handelContactUsModal = id => {
-        fetch(`https://summer-camp-backend-rho.vercel.app/contact-us/single-massage-modal/${id}`, {
+        fetch(`http://localhost:5000/contact-us/single-massage-modal/${id}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -67,7 +67,7 @@ const ContactUsDashboard = () => {
                 }
             })
 
-        fetch(`https://summer-camp-backend-rho.vercel.app/contact-us/single-massage-seen/${id}`, {
+        fetch(`http://localhost:5000/contact-us/single-massage-seen/${id}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json',

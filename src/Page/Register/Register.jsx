@@ -41,7 +41,7 @@ const Register = () => {
             setRegistrationLoading(false)
 
             const loggedUserInfo = { name: name, email: user.email, photo: photo, role: 'student' }
-            fetch('https://summer-camp-backend-rho.vercel.app/login-user', {
+            fetch('http://localhost:5000/login-user', {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(loggedUserInfo)
@@ -70,14 +70,14 @@ const Register = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
                 const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, photo: loggedUser.user?.photoURL, role: 'student' }
-                fetch('https://summer-camp-backend-rho.vercel.app/login-user', {
+                fetch('http://localhost:5000/login-user', {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(loggedUserInfo)
                 })
                     .then(res => res.json())
                     .then(data => {
-                        fetch('https://summer-camp-backend-rho.vercel.app/create-jwt-token', {
+                        fetch('http://localhost:5000/create-jwt-token', {
                             method: 'POST',
                             headers: { 'content-type': 'application/json', },
                             body: JSON.stringify({ email: data?.email })
@@ -102,7 +102,7 @@ const Register = () => {
                                 }
                             })
 
-                        fetch(`https://summer-camp-backend-rho.vercel.app/check/user-role/${loggedUser?.user?.email}`)
+                        fetch(`http://localhost:5000/check/user-role/${loggedUser?.user?.email}`)
                             .then(res => res.json())
                             .then(data => {
 
@@ -162,13 +162,13 @@ const Register = () => {
     }
 
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="min-h-screen hero bg-base-200">
             <Title title={'Register'}></Title>
-            <div className="hero-content flex-col lg:flex-row-reverse">
+            <div className="flex-col hero-content lg:flex-row-reverse">
                 <div className="text-center lg:text-right">
                     <img src={dance} alt="dance image" />
                 </div>
-                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <div className="flex-shrink-0 w-full max-w-sm shadow-2xl card bg-base-100">
                     <div className="card-body">
                         <h1 className="text-2xl font-bold text-center">Register now!</h1>
                         <form onSubmit={handleSubmit(handelRegister)}>
@@ -216,18 +216,18 @@ const Register = () => {
                                 <span className="mt-1 text-red-500">{errors.confirm_password?.message}</span>
                                 {/* {errors.confirm_password && <span className="mt-1 text-red-500">Confirm Password field is required</span>} */}
                             </div>
-                            <div className="form-control mt-6">
-                                <input type='submit' value='Register' className="btn btn-primary text-white" disabled={registrationLoading} />
+                            <div className="mt-6 form-control">
+                                <input type='submit' value='Register' className="text-white btn btn-primary" disabled={registrationLoading} />
                             </div>
                         </form>
-                        <div className="divider my-2">OR</div>
+                        <div className="my-2 divider">OR</div>
                         <button onClick={googleLogin} className="btn border-slate-400">
                             <img width="28" height="28" src="https://img.icons8.com/fluency/48/google-logo.png" alt="google-logo" />
                             <span className="text-slate-600">Login with Google</span>
                         </button>
-                        <p className="text-sm text-center text-slate-500 my-2">You have an account <NavLink to='/login' className='text-slate-800 underline font-medium'>Login</NavLink></p>
+                        <p className="my-2 text-sm text-center text-slate-500">You have an account <NavLink to='/login' className='font-medium underline text-slate-600'>Login</NavLink></p>
                         {
-                            errorMessage && <span className="text-red-500 text-center">{errorMessage}</span>
+                            errorMessage && <span className="text-center text-red-500">{errorMessage}</span>
                         }
                     </div>
                 </div>

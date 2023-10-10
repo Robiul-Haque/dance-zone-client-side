@@ -18,7 +18,7 @@ const EditCourse = () => {
         const formData = { ...data, instructor_name: user?.displayName, instructor_email: user?.email, status: 'pending', feedback: '', view_status: 'unseen' };
 
         if (formData) {
-            fetch(`https://summer-camp-backend-rho.vercel.app/my-course/update-data/${_id}/${user?.email}`, {
+            fetch(`http://localhost:5000/my-course/update-data/${_id}/${user?.email}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json',

@@ -10,7 +10,7 @@ const PaymentHistory = () => {
     const [paymentHistory, setPaymentHistory] = useState([]);
 
     useEffect(() => {
-        fetch(`https://summer-camp-backend-rho.vercel.app/student/payment-history/${user?.email}`, {
+        fetch(`http://localhost:5000/student/payment-history/${user?.email}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

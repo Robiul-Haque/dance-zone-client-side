@@ -9,7 +9,7 @@ const AdminPrivetRoute = ({ children }) => {
 
     if (loading) {
         return (
-            <div className="text-center">
+            <div className="text-center mt-32">
                 <span className="loading loading-spinner loading-lg"></span>
             </div>
         )

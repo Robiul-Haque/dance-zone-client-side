@@ -15,53 +15,23 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`https://summer-camp-backend-rho.vercel.app/total-approve/course/${user?.email}`, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-            }
-        })
+        fetch(`http://localhost:5000/total-approve/course-limit/${user?.email}`)
             .then(res => res.json())
             .then(data => setApproveCourseLimit(data))
 
-        fetch(`https://summer-camp-backend-rho.vercel.app/total-approve/course/${user?.email}`, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-            }
-        })
+        fetch(`http://localhost:5000/total-approve/course/${user?.email}`)
             .then(res => res.json())
             .then(data => setApproveCourse(data))
 
-        fetch(`https://summer-camp-backend-rho.vercel.app/total-pending/course/${user?.email}`, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-            }
-        })
+        fetch(`http://localhost:5000/total-pending/course/${user?.email}`)
             .then(res => res.json())
             .then(data => setPendingCourse(data))
 
-        fetch(`https://summer-camp-backend-rho.vercel.app/total-rejected/course/${user?.email}`, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-            }
-        })
+        fetch(`http://localhost:5000/total-rejected/course/${user?.email}`)
             .then(res => res.json())
             .then(data => setRejectedCourse(data))
 
-        fetch(`https://summer-camp-backend-rho.vercel.app/total-revenue-by-instructor/${user?.email}`, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-            }
-        })
+        fetch(`http://localhost:5000/total-revenue-by-instructor/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 setInstructorTotalRevenue(data)
@@ -72,36 +42,36 @@ const Dashboard = () => {
     return (
         <>
             <Title title={'Instructor Dashboard'}></Title>
-            <div className="flex lg:gap-10 flex-wrap">
-                <div className="bg-base-200 w-80 h-40 flex justify-center items-center rounded-lg border text-gray-500">
-                    <div className="text-center text-2xl font-medium">
+            <div className="flex flex-wrap lg:gap-10">
+                <div className="flex items-center justify-center h-40 text-gray-500 border rounded-lg bg-base-200 w-80">
+                    <div className="text-2xl font-medium text-center">
                         <h2 className="mb-3">Course Status</h2>
                         {
                             loading === true ? <span className="loading loading-dots loading-lg"></span>
                                 :
-                                // approveCourse?.length || pendingCourse?.length || rejectedCourse?.length == 0 ? <p className='text-sm'>No Data Found</p>
-                                //     :
-                                    <>
-                                        <h2 className="text-xl">Approve Course: {approveCourse?.length}</h2>
-                                        <h2 className="text-xl">Pending Course: {pendingCourse?.length}</h2>
-                                        <h2 className="text-xl">Rejected Course: {rejectedCourse?.length}</h2>
-                                    </>
+                                <>
+                                    <h2 className="text-xl">Approve Course: {approveCourse?.length}</h2>
+                                    <h2 className="text-xl">Pending Course: {pendingCourse?.length}</h2>
+                                    <h2 className="text-xl">Rejected Course: {rejectedCourse?.length}</h2>
+                                </>
                         }
                     </div>
                 </div>
-                <div className="bg-base-200 w-80 h-40 flex justify-center items-center rounded-lg border text-gray-500">
-                    <div className="text-center text-2xl font-medium">
+                <div className="flex items-center justify-center h-40 text-gray-500 border rounded-lg bg-base-200 w-80">
+                    <div className="text-2xl font-medium text-center">
                         <h2 className="mb-3">Total Revenue</h2>
-                        <h2 className="text-xl">{
-                            instructorTotalRevenue?.reduce((previewValue, currentValue) => {
-                                return previewValue + currentValue?.course_price;
-                            }, 0)
-                        } $</h2>
+                        <h2 className="text-xl">
+                            {
+                                instructorTotalRevenue?.reduce((previewValue, currentValue) => {
+                                    return previewValue + currentValue?.course_price;
+                                }, 0)
+                            }
+                            $</h2>
                     </div>
                 </div>
             </div>
-            <div className="overflow-x-auto border rounded-xl py-5 hover:shadow-xl transition duration-1000 ease-out mt-10">
-                <h1 className="text-center text-xl font-bold mb-5">Approve Course</h1>
+            <div className="py-5 mt-10 overflow-x-auto transition duration-1000 ease-out border rounded-xl hover:shadow-xl">
+                <h1 className="mb-5 text-xl font-bold text-center">Approve Course</h1>
                 <table className="table text-center">
                     <thead>
                         <tr>
@@ -130,7 +100,7 @@ const Dashboard = () => {
                         }
                     </tbody>
                 </table>
-                <div className="text-center mt-5"><Link to={'/instructor-dashboard/my-course'} className="btn">See More</Link></div>
+                <div className="mt-5 text-center"><Link to={'/instructor-dashboard/my-course'} className="btn">See More</Link></div>
             </div>
         </>
     );

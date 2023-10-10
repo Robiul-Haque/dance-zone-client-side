@@ -38,7 +38,7 @@ export const ContactUs = () => {
 
         if (name && email && message) {
             setProgress(true);
-            fetch('https://summer-camp-backend-rho.vercel.app/contact-us/message', {
+            fetch('http://localhost:5000/contact-us/message', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

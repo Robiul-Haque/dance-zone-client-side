@@ -9,7 +9,7 @@ const useStudentSelectedCourse = () => {
     const { data = [], refetch, isLoading } = useQuery({
         queryKey: ['studentSelectedCourse'],
         queryFn: async () => {
-            const res = await fetch(`https://summer-camp-backend-rho.vercel.app/student/selected-all-course/${user?.email}`, {
+            const res = await fetch(`http://localhost:5000/student/selected-all-course/${user?.email}`, {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',

@@ -16,86 +16,38 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch('https://summer-camp-backend-rho.vercel.app/admin-dashboard/statices', {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-            }
-        })
+        fetch('http://localhost:5000/admin-dashboard/statices')
             .then(res => res.json())
             .then(data => {
-                if (data?.error) {
-                    userLogout()
-                        .then()
-                    navigate('/login');
-                } else {
-                    setAdminDashboardStatices(data);
-                }
+                setAdminDashboardStatices(data);
             })
 
-        fetch('https://summer-camp-backend-rho.vercel.app/admin-dashboard/statices/total-revenue', {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-            }
-        })
+        fetch('http://localhost:5000/admin-dashboard/statices/total-revenue')
             .then(res => res.json())
             .then(data => {
-                if (data?.error) {
-                    userLogout()
-                        .then()
-                    navigate('/login');
-                } else {
-                    setTotalEnrolledCoursePrice(data);
-                }
+                setTotalEnrolledCoursePrice(data);
             })
 
-        fetch('https://summer-camp-backend-rho.vercel.app/admin-dashboard/statices/user', {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-            }
-        })
+        fetch('http://localhost:5000/admin-dashboard/statices/user')
             .then(res => res.json())
             .then(data => {
-                if (data?.error) {
-                    userLogout()
-                        .then()
-                    navigate('/login');
-                } else {
-                    setUsers(data);
-                }
+                setUsers(data);
             })
 
-        fetch('https://summer-camp-backend-rho.vercel.app/admin-dashboard/statices/approve-course', {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-            }
-        })
+        fetch('http://localhost:5000/admin-dashboard/statices/approve-course')
             .then(res => res.json())
             .then(data => {
-                if (data?.error) {
-                    userLogout()
-                        .then()
-                    navigate('/login');
-                } else {
-                    setApproveCourses(data)
-                    setLoading(false)
-                }
+                setApproveCourses(data)
+                setLoading(false)
             })
     }, [navigate, userLogout])
 
     return (
         <>
             <Title title={'Admin Dashboard'}></Title>
-            <div className="flex lg:gap-10 md:gap-6 gap-4 flex-wrap">
-                <div className="bg-base-200 lg:w-64 md:w-72 w-56 h-40 flex justify-center items-center rounded-lg border text-gray-500">
-                    <div className="text-center text-2xl font-medium">
+            <div className="flex flex-wrap gap-4 lg:gap-10 md:gap-6">
+                <div className="flex items-center justify-center w-56 h-40 text-gray-500 border rounded-lg bg-base-200 lg:w-64 md:w-72">
+                    <div className="text-2xl font-medium text-center">
                         <h2 className="mb-3">User Status</h2>
                         {
                             admin || instructor || student ?
@@ -110,8 +62,8 @@ const Dashboard = () => {
                         }
                     </div>
                 </div>
-                <div className="bg-base-200 lg:w-64 md:w-72 w-56 h-40 flex justify-center items-center rounded-lg border text-gray-500">
-                    <div className="text-center text-2xl font-medium">
+                <div className="flex items-center justify-center w-56 h-40 text-gray-500 border rounded-lg bg-base-200 lg:w-64 md:w-72">
+                    <div className="text-2xl font-medium text-center">
                         <h2 className="mb-3">Course Status</h2>
                         {
                             loading === true ? <span className="loading loading-dots loading-lg"></span>
@@ -127,8 +79,8 @@ const Dashboard = () => {
                         }
                     </div>
                 </div>
-                <div className="bg-base-200 lg:w-64 md:w-72 w-56 h-40 flex justify-center items-center rounded-lg border text-gray-500 indicator">
-                    <div className="text-center text-2xl font-medium">
+                <div className="flex items-center justify-center w-56 h-40 text-gray-500 border rounded-lg bg-base-200 lg:w-64 md:w-72 indicator">
+                    <div className="text-2xl font-medium text-center">
                         <h2 className="mb-3">Contact Message</h2>
                         {
                             loading === true ? <span className="loading loading-dots loading-lg"></span>
@@ -140,8 +92,8 @@ const Dashboard = () => {
                         }
                     </div>
                 </div>
-                <div className="bg-base-200 lg:w-64 md:w-72 w-56 h-40 flex justify-center items-center rounded-lg border text-gray-500 indicator">
-                    <div className="text-center text-2xl font-medium">
+                <div className="flex items-center justify-center w-56 h-40 text-gray-500 border rounded-lg bg-base-200 lg:w-64 md:w-72 indicator">
+                    <div className="text-2xl font-medium text-center">
                         <h2 className="mb-3">Enrolled Course</h2>
                         {
                             loading === true ? <span className="loading loading-dots loading-lg"></span>
@@ -153,8 +105,8 @@ const Dashboard = () => {
                         }
                     </div>
                 </div>
-                <div className="bg-base-200 lg:w-64 md:w-72 w-56 h-40 flex justify-center items-center rounded-lg border text-gray-500 indicator">
-                    <div className="text-center text-2xl font-medium">
+                <div className="flex items-center justify-center w-56 h-40 text-gray-500 border rounded-lg bg-base-200 lg:w-64 md:w-72 indicator">
+                    <div className="text-2xl font-medium text-center">
                         <h2 className="mb-3">Total Revenue</h2>
                         <h2 className="text-xl">{
                             totalEnrolledCoursePrice.reduce((previousValue, currentValue) => {
@@ -164,9 +116,9 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex lg:gap-20 md:gap-10 gap-y-5 flex-wrap justify-center mt-14">
-                <div className="overflow-x-auto border rounded-xl p-5 hover:shadow-xl transition duration-1000 ease-out">
-                    <h2 className="text-center text-xl font-bold mb-5">Register User</h2>
+            <div className="flex flex-wrap justify-center lg:gap-20 md:gap-10 gap-y-5 mt-14">
+                <div className="p-5 overflow-x-auto transition duration-1000 ease-out border rounded-xl hover:shadow-xl">
+                    <h2 className="mb-5 text-xl font-bold text-center">Register User</h2>
                     <table className="table text-center">
                         <thead>
                             <tr>
@@ -186,17 +138,17 @@ const Dashboard = () => {
                                             <td><img src={user?.photo} alt={user?.user_name} className="w-16 h-16 rounded-xl" /></td>
                                             <td>{user?.name}</td>
                                             <td>{user?.email}</td>
-                                            <td className="capitalize font-semibold">{user?.role}</td>
+                                            <td className="font-semibold capitalize">{user?.role}</td>
                                         </tr>
                                     )
                                 })
                             }
                         </tbody>
                     </table>
-                    <div className="text-center mt-5"><Link to={'/admin-dashboard/manage-user'} className={users.length === 0 ? "btn btn-disabled" : "btn"}>See More</Link></div>
+                    <div className="mt-5 text-center"><Link to={'/admin-dashboard/manage-user'} className={users.length === 0 ? "btn btn-disabled" : "btn"}>See More</Link></div>
                 </div>
-                <div className="overflow-x-auto border rounded-xl p-5 hover:shadow-xl transition duration-500 ease-out">
-                    <h2 className="text-center text-xl font-bold mb-5">Approve Course</h2>
+                <div className="p-5 overflow-x-auto transition duration-500 ease-out border rounded-xl hover:shadow-xl">
+                    <h2 className="mb-5 text-xl font-bold text-center">Approve Course</h2>
                     <table className="table text-center">
                         <thead>
                             <tr>
@@ -225,7 +177,7 @@ const Dashboard = () => {
                             }
                         </tbody>
                     </table>
-                    <div className="text-center mt-5"><Link to={'/admin-dashboard/manage-course'} className={approveCourses.length === 0 ? "btn btn-disabled" : "btn"}>See More</Link></div>
+                    <div className="mt-5 text-center"><Link to={'/admin-dashboard/manage-course'} className={approveCourses.length === 0 ? "btn btn-disabled" : "btn"}>See More</Link></div>
                 </div>
             </div>
         </>

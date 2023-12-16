@@ -21,7 +21,7 @@ const InstructorSeeCourse = () => {
             instructor_email: courseData?.instructor_email
         }
 
-        fetch('http://localhost:5000/student/selected-course', {
+        fetch('https://dance-zone-server-side.vercel.app/student/selected-course', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(singleCourseData)

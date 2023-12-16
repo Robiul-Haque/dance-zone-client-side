@@ -4,7 +4,7 @@ const useAdminContactMassage = () => {
     const { data = [], isLoading, refetch } = useQuery({
         queryKey: ['contactMessage'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/show-contact-us/message', {
+            const res = await fetch('https://dance-zone-server-side.vercel.app/show-contact-us/message', {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',

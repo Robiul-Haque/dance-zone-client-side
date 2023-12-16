@@ -8,7 +8,7 @@ const Instructor = () => {
     const [allInstructor, setAllInstructor] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/all-instructor')
+        fetch('https://dance-zone-server-side.vercel.app/all-instructor')
             .then(res => res.json())
             .then(data => {
                 if (data) {

@@ -12,7 +12,7 @@ const Course = () => {
     const selectCourse = courseData => {
         const singleCourseData = { id: courseData?._id, class_name: courseData?.class_name, class_image: courseData?.class_image, course_price: courseData?.course_price, available_seats: courseData?.available_seats, instructor_name: courseData?.instructor_name, instructor_email: courseData?.instructor_email, user_email: user?.email }
 
-        fetch('http://localhost:5000/student/selected-course', {
+        fetch('https://dance-zone-server-side.vercel.app/student/selected-course', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(singleCourseData)

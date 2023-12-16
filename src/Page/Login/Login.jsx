@@ -22,10 +22,10 @@ const login = () => {
         login(data.email, data.password)
             .then(userCredential => {
                 if (userCredential.user.email) {
-                    fetch(`http://localhost:5000/login-user/${userCredential.user.email}`)
+                    fetch(`https://dance-zone-server-side.vercel.app/login-user/${userCredential.user.email}`)
                         .then(res => res.json())
                         .then(data => {
-                            fetch('http://localhost:5000/create-jwt-token', {
+                            fetch('https://dance-zone-server-side.vercel.app/create-jwt-token', {
                                 method: 'POST',
                                 headers: { 'content-type': 'application/json', },
                                 body: JSON.stringify({ email: data?.email })
@@ -96,14 +96,14 @@ const login = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
                 const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, photo: loggedUser.user?.photoURL, role: 'student' }
-                fetch('http://localhost:5000/login-user', {
+                fetch('https://dance-zone-server-side.vercel.app/login-user', {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(loggedUserInfo)
                 })
                     .then(res => res.json())
                     .then(data => {
-                        fetch('http://localhost:5000/create-jwt-token', {
+                        fetch('https://dance-zone-server-side.vercel.app/create-jwt-token', {
                             method: 'POST',
                             headers: { 'content-type': 'application/json', },
                             body: JSON.stringify({ email: data?.email })
@@ -115,7 +115,7 @@ const login = () => {
                                 }
                             })
 
-                        fetch(`http://localhost:5000/check/user-role/${loggedUser?.user?.email}`)
+                        fetch(`https://dance-zone-server-side.vercel.app/check/user-role/${loggedUser?.user?.email}`)
                             .then(res => res.json())
                             .then(data => {
 

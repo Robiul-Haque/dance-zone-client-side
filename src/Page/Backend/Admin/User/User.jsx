@@ -18,7 +18,7 @@ const User = () => {
     }
 
     const makeAdmin = id => {
-        fetch(`http://localhost:5000/manage-user/update-role-admin/${id}`, {
+        fetch(`https://dance-zone-server-side.vercel.app/manage-user/update-role-admin/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -29,7 +29,7 @@ const User = () => {
     }
 
     const makeInstructor = id => {
-        fetch(`http://localhost:5000/admin/manage-user/update/view-status/${id}`, {
+        fetch(`https://dance-zone-server-side.vercel.app/admin/manage-user/update/view-status/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -38,7 +38,7 @@ const User = () => {
             .then(res => res.json())
             .then(() => refetch())
 
-        fetch(`http://localhost:5000/manage-user/update-role-instructor/${id}`, {
+        fetch(`https://dance-zone-server-side.vercel.app/manage-user/update-role-instructor/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -52,7 +52,7 @@ const User = () => {
         const confirmation = confirm('Are you sure want to do Delete!');
 
         if (confirmation) {
-            fetch(`http://localhost:5000/user/delete/${id}`, {
+            fetch(`https://dance-zone-server-side.vercel.app/user/delete/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',

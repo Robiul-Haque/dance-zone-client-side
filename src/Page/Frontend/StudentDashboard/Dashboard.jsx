@@ -12,7 +12,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`http://localhost:5000/student/all-statices/${user?.email}`, {
+        fetch(`https://dance-zone-server-side.vercel.app/student/all-statices/${user?.email}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

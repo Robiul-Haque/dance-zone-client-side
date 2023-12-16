@@ -7,7 +7,7 @@ const AdminFeedbackModal = ({ id, oldFeedback, refetch }) => {
         const form = event.target;
         const feedback = form.feedback.value;
 
-        fetch(`http://localhost:5000/admin/feedback/${id}`, {
+        fetch(`https://dance-zone-server-side.vercel.app/admin/feedback/${id}`, {
             method: 'PATCH',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ feedback })

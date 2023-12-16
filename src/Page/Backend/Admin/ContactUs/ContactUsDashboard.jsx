@@ -22,7 +22,7 @@ const ContactUsDashboard = () => {
     const deleteMessage = id => {
         const confirmation = confirm('Are you sure want to do Delete');
         if (confirmation) {
-            fetch(`http://localhost:5000/contact-us/single-message/delete/${id}`, {
+            fetch(`https://dance-zone-server-side.vercel.app/contact-us/single-message/delete/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',
@@ -49,7 +49,7 @@ const ContactUsDashboard = () => {
     }
 
     const handelContactUsModal = id => {
-        fetch(`http://localhost:5000/contact-us/single-massage-modal/${id}`, {
+        fetch(`https://dance-zone-server-side.vercel.app/contact-us/single-massage-modal/${id}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -67,7 +67,7 @@ const ContactUsDashboard = () => {
                 }
             })
 
-        fetch(`http://localhost:5000/contact-us/single-massage-seen/${id}`, {
+        fetch(`https://dance-zone-server-side.vercel.app/contact-us/single-massage-seen/${id}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json',

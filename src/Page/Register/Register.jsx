@@ -17,14 +17,14 @@ const Register = () => {
     const [registrationLoading, setRegistrationLoading] = useState(false);
 
     const handelRegister = data => {
-        setRegistrationLoading(true)
-        setErrorMessage('')
+        setRegistrationLoading(true);
+        setErrorMessage('');
 
         createUser(data.email, data.password)
             .then(userCredential => {
                 const loggedUser = userCredential.user;
                 updateUserInfo(loggedUser, data.name, data.photo);
-                reset()
+                reset();
             })
             .catch(error => {
                 setErrorMessage(error.message);
@@ -37,18 +37,17 @@ const Register = () => {
                 photoURL: photo,
             })
 
-            userLogout()
-            setRegistrationLoading(false)
+            userLogout();
+            setRegistrationLoading(false);
 
             const loggedUserInfo = { name: name, email: user.email, photo: photo, role: 'student' }
-            fetch('https://dance-zone-server-side.vercel.app/login-user', {
+            fetch('http://localhost:5000/login-user', {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(loggedUserInfo)
             })
                 .then(res => res.json())
                 .then(data => {
-
                     if (data.insertedId) {
                         navigate('/login')
                         toast.success('Registration Successful', {
@@ -70,39 +69,22 @@ const Register = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
                 const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, photo: loggedUser.user?.photoURL, role: 'student' }
-                fetch('https://dance-zone-server-side.vercel.app/login-user', {
+                fetch('http://localhost:5000/login-user', {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(loggedUserInfo)
                 })
                     .then(res => res.json())
                     .then(data => {
-                        fetch('https://dance-zone-server-side.vercel.app/create-jwt-token', {
+                        fetch('http://localhost:5000/create-jwt-token', {
                             method: 'POST',
                             headers: { 'content-type': 'application/json', },
                             body: JSON.stringify({ email: data?.email })
                         })
                             .then(res => res.json())
-                            .then(data => {
-                                if (data?.token) {
-                                    localStorage.setItem('jwt-access-token', data?.token);
+                            .then()
 
-                                    if (loggedUser.user.email) {
-                                        toast.success('Login Successful', {
-                                            position: "top-right",
-                                            autoClose: 5000,
-                                            hideProgressBar: false,
-                                            closeOnClick: true,
-                                            pauseOnHover: true,
-                                            draggable: true,
-                                            progress: undefined,
-                                            theme: "dark",
-                                        });
-                                    }
-                                }
-                            })
-
-                        fetch(`https://dance-zone-server-side.vercel.app/check/user-role/${loggedUser?.user?.email}`)
+                        fetch(`http://localhost:5000/check/user-role/${loggedUser?.user?.email}`)
                             .then(res => res.json())
                             .then(data => {
 
@@ -121,7 +103,9 @@ const Register = () => {
                                             theme: "dark",
                                         });
                                     }
-                                } else if (data.role === 'instructor') {
+                                }
+
+                                if (data.role === 'instructor') {
                                     navigate('/instructor-dashboard');
 
                                     if (loggedUser.user.email) {
@@ -137,6 +121,7 @@ const Register = () => {
                                         });
                                     }
                                 }
+
                                 if (data.role === 'admin') {
                                     navigate('/admin-dashboard');
 
@@ -176,45 +161,78 @@ const Register = () => {
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="text" {...register("name")} placeholder="name" className="input input-bordered" required />
-                                {errors.name && <span className="mt-1 text-red-500">Name field is required</span>}
+                                <input type="text" {...register("name", {
+                                    required: "Name field is required",
+                                    minLength: {
+                                        value: 3,
+                                        message: "Name must be at least 3 characters long"
+                                    },
+
+                                    maxLength: {
+                                        value: 30,
+                                        message: "Name must be almost 30 characters long"
+                                    },
+                                })} placeholder="name" className={errors.name?.message ? "input input-bordered border-red-500" : "input input-bordered"} />
+                                {
+                                    errors.name?.message && <p className="flex items-center gap-x-2 text-red-500 text-xs mt-3 text-center"><img width="15" height="14" src="https://img.icons8.com/small/16/FA5252/error.png" alt="error" /> {errors.name?.message}</p>
+                                }
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" {...register("email")} placeholder="email" className="input input-bordered" required />
-                                {errors.email && <span className="mt-1 text-red-500">Email field is required</span>}
+                                <input type="email" {...register("email", {
+                                    required: "Email field is required",
+                                    pattern: {
+                                        value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                        message: "Email must be valid"
+                                    }
+                                })} placeholder="email" className={errors.email?.message ? "input input-bordered border-red-500" : "input input-bordered"} />
+                                {
+                                    errors.email?.message && <p className="flex items-center gap-x-2 text-red-500 text-xs mt-3 text-center"><img width="15" height="14" src="https://img.icons8.com/small/16/FA5252/error.png" alt="error" /> {errors.email?.message}</p>
+                                }
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Photo URL</span>
                                 </label>
-                                <input type="text" {...register("photo")} placeholder="photo url" className="input input-bordered" required />
-                                {/* {errors.photo && <span className="mt-1 text-red-500">Photo URL field is required</span>} */}
+                                <input type="text" {...register("photo", {
+                                    required: "Photo URL field is required",
+                                })} placeholder="photo url" className={errors.photo?.message ? "input input-bordered border-red-500" : "input input-bordered"} />
+                                {
+                                    errors.photo?.message && <p className="flex items-center gap-x-2 text-red-500 text-xs mt-3 text-center"><img width="15" height="14" src="https://img.icons8.com/small/16/FA5252/error.png" alt="error" /> {errors.photo?.message}</p>
+                                }
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" {...register("password", { minLength: 6 })} placeholder="password" className="input input-bordered" required />
-                                {errors.password && <span className="mt-1 text-red-500">Password field is required</span>}
-                                {errors.password?.type == 'minLength' && <span className="mt-1 text-red-500">Minimum 6 characters required</span>}
-                                {/* {errors.password?.type == 'pattern' && <span className="mt-1 text-red-500">capital letter & special character</span>} */}
+                                <input type="password" {...register("password", {
+                                    required: "Password field is required",
+                                    pattern: {
+                                        value: /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
+                                        message: "Password must contain 6 characters, one uppercase, one lowercase, one number, and one special character."
+                                    }
+                                })} placeholder="password" className={errors.password?.message ? "input input-bordered border-red-500" : "input input-bordered"} />
+                                {
+                                    errors.password?.message && <p className="flex items-center gap-x-2 text-red-500 text-xs mt-3 text-center"><img width="15" height="14" src="https://img.icons8.com/small/16/FA5252/error.png" alt="error" /> {errors.password?.message}</p>
+                                }
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Confirm Password</span>
                                 </label>
                                 <input type="password" {...register("confirm_password", {
+                                    required: "Confirm Password field is required",
                                     validate: data => {
                                         if (watch('password') !== data) {
                                             return 'Password not match'
                                         }
                                     }
-                                })} placeholder="confirm password" className="input input-bordered" required />
-                                <span className="mt-1 text-red-500">{errors.confirm_password?.message}</span>
-                                {/* {errors.confirm_password && <span className="mt-1 text-red-500">Confirm Password field is required</span>} */}
+                                })} placeholder="confirm password" className={errors.confirm_password?.message ? "input input-bordered border-red-500" : "input input-bordered"} />
+                                {
+                                    errors.confirm_password?.message && <p className="flex items-center gap-x-2 text-red-500 text-xs mt-3 text-center"><img width="15" height="14" src="https://img.icons8.com/small/16/FA5252/error.png" alt="error" /> {errors.confirm_password?.message}</p>
+                                }
                             </div>
                             <div className="mt-6 form-control">
                                 <input type='submit' value='Register' className="text-white btn btn-primary" disabled={registrationLoading} />

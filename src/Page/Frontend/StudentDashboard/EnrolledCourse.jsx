@@ -10,13 +10,7 @@ const EnrolledCourse = () => {
     const [enrolledCourses, setEnrolledCourses] = useState([]);
 
     useEffect(() => {
-        fetch(`https://dance-zone-server-side.vercel.app/student/enrolled-course/${user?.email}`, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-            }
-        })
+        fetch(`http://localhost:5000/student/enrolled-course/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 if (data?.error) {

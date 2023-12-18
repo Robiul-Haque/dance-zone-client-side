@@ -22,21 +22,9 @@ const login = () => {
         login(data.email, data.password)
             .then(userCredential => {
                 if (userCredential.user.email) {
-                    fetch(`https://dance-zone-server-side.vercel.app/login-user/${userCredential.user.email}`)
+                    fetch(`http://localhost:5000/login-user/${userCredential.user.email}`)
                         .then(res => res.json())
                         .then(data => {
-                            fetch('https://dance-zone-server-side.vercel.app/create-jwt-token', {
-                                method: 'POST',
-                                headers: { 'content-type': 'application/json', },
-                                body: JSON.stringify({ email: data?.email })
-                            })
-                                .then(res => res.json())
-                                .then(data => {
-                                    if (data?.token) {
-                                        localStorage.setItem('jwt-access-token', data?.token);
-                                    }
-                                })
-
                             if (data.role === 'student') {
                                 navigate(from, { replace: true });
 
@@ -52,7 +40,9 @@ const login = () => {
                                         theme: "dark",
                                     });
                                 }
-                            } else if (data.role === 'instructor') {
+                            }
+
+                            if (data.role === 'instructor') {
                                 navigate('/instructor-dashboard');
 
                                 if (userCredential.user.email) {
@@ -67,7 +57,9 @@ const login = () => {
                                         theme: "dark",
                                     });
                                 }
-                            } else if (data.role === 'admin') {
+                            }
+
+                            if (data.role === 'admin') {
                                 navigate('/admin-dashboard');
 
                                 if (userCredential.user.email) {
@@ -96,26 +88,14 @@ const login = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
                 const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, photo: loggedUser.user?.photoURL, role: 'student' }
-                fetch('https://dance-zone-server-side.vercel.app/login-user', {
+                fetch('http://localhost:5000/login-user', {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(loggedUserInfo)
                 })
                     .then(res => res.json())
-                    .then(data => {
-                        fetch('https://dance-zone-server-side.vercel.app/create-jwt-token', {
-                            method: 'POST',
-                            headers: { 'content-type': 'application/json', },
-                            body: JSON.stringify({ email: data?.email })
-                        })
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data?.token) {
-                                    localStorage.setItem('jwt-access-token', data?.token);
-                                }
-                            })
-
-                        fetch(`https://dance-zone-server-side.vercel.app/check/user-role/${loggedUser?.user?.email}`)
+                    .then(() => {
+                        fetch(`http://localhost:5000/check/user-role/${loggedUser?.user?.email}`)
                             .then(res => res.json())
                             .then(data => {
 
@@ -134,7 +114,9 @@ const login = () => {
                                             theme: "dark",
                                         });
                                     }
-                                } else if (data.role === 'instructor') {
+                                }
+
+                                if (data.role === 'instructor') {
                                     navigate('/instructor-dashboard');
 
                                     if (loggedUser.user.email) {
@@ -150,6 +132,7 @@ const login = () => {
                                         });
                                     }
                                 }
+
                                 if (data.role === 'admin') {
                                     navigate('/admin-dashboard');
 
@@ -189,17 +172,31 @@ const login = () => {
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" {...register("email")} placeholder="email" className="input input-bordered" required />
-                                {errors.email && <span className="mt-1 text-red-500">Email field is required</span>}
+                                <input type="email" {...register("email", {
+                                    required: "Email field is required",
+                                    pattern: {
+                                        value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                        message: "Email must be valid"
+                                    }
+                                })} placeholder="email" className={errors.email?.message ? "input input-bordered border-red-500" : "input input-bordered"} />
+                                {
+                                    errors.email?.message && <p className="flex items-center gap-x-2 text-red-500 text-xs mt-3 text-center"><img width="15" height="14" src="https://img.icons8.com/small/16/FA5252/error.png" alt="error" /> {errors.email?.message}</p>
+                                }
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" {...register("password", { minLength: 6 })} placeholder="password" className="input input-bordered" required />
-                                {errors.password && <span className="mt-1 text-red-500">Password field is required</span>}
-                                {errors.password?.type == 'minLength' && <span className="mt-1 text-red-500">Minimum 6 characters required</span>}
-                                {/* {errors.password?.type == 'pattern' && <span className="mt-1 text-red-500">capital letter & special character</span>} */}
+                                <input type="password" {...register("password", {
+                                    required: "Password field is required",
+                                    pattern: {
+                                        value: /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
+                                        message: "Password must contain 6 characters, one uppercase, one lowercase, one number, and one special character."
+                                    }
+                                })} placeholder="password" className={errors.password?.message ? "input input-bordered border-red-500" : "input input-bordered"} />
+                                {
+                                    errors.password?.message && <p className="flex items-center gap-x-2 text-red-500 text-xs mt-3 text-center"><img width="15" height="14" src="https://img.icons8.com/small/16/FA5252/error.png" alt="error" /> {errors.password?.message}</p>
+                                }
                             </div>
                             <div className="mt-6 form-control">
                                 <input type='submit' value='Login' className="text-white btn btn-primary" />

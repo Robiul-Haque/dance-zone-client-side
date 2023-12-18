@@ -11,7 +11,7 @@ const Navbar = () => {
     const [verifyStudent, setVerifyStudent] = useState({});
 
     useEffect(() => {
-        fetch(`https://dance-zone-server-side.vercel.app/if-exist-student/${user?.email}`)
+        fetch(`http://localhost:5000/if-exist-student/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 if (data !== null) {
@@ -37,7 +37,6 @@ const Navbar = () => {
     const logOut = () => {
         userLogout()
             .then(() => {
-                localStorage.removeItem('jwt-access-token')
                 toast.success('Log Out Successful', {
                     position: "top-right",
                     autoClose: 5000,

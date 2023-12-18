@@ -12,13 +12,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`https://dance-zone-server-side.vercel.app/student/all-statices/${user?.email}`, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-            }
-        })
+        fetch(`http://localhost:5000/student/all-statices/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 if (data?.error) {
@@ -75,7 +69,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className="overflow-x-auto shadow-md rounded-lg mt-16 border text-center">
-                <h2 className="text-base font-medium text-gray-500 py-4 bg-base-200">Upcoming Total Course: {studentStatices?.upcomingCourse?.length}</h2>
+                <h2 className="text-base font-medium text-gray-500 py-4 bg-base-200">Upcoming Course: {studentStatices?.upcomingCourse?.length}</h2>
                 <table className="table text-center">
                     <thead>
                         <tr>

@@ -4,7 +4,7 @@ import { AuthContext } from "../Auth/AuthProvider";
 import { toast } from "react-toastify";
 import { Offline, Online } from "react-detect-offline";
 import Lottie from "lottie-react";
-import offline from '../assets/Lost-connation.json';
+import offline from '../assets/Lost-connection.json';
 
 const Instructor = () => {
 
@@ -17,7 +17,7 @@ const Instructor = () => {
 
 
     useEffect(() => {
-        fetch(`https://dance-zone-server-side.vercel.app/if-exist-instructor/${user?.email}`)
+        fetch(`http://localhost:5000/if-exist-instructor/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 setInstructor(data)
@@ -43,7 +43,6 @@ const Instructor = () => {
     const logOut = () => {
         userLogout()
             .then(() => {
-                localStorage.removeItem('jwt-access-token')
                 toast.success('Log Out Successful', {
                     position: "top-right",
                     autoClose: 5000,

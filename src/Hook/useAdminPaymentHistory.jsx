@@ -4,13 +4,7 @@ const useAdminPaymentHistory = () => {
     const { data = [], refetch, isLoading } = useQuery({
         queryKey: ['payment-history'],
         queryFn: async () => {
-            const res = await fetch('https://dance-zone-server-side.vercel.app/all-payment-history', {
-                method: 'GET',
-                headers: {
-                    'content-type': 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('jwt-access-token')}`
-                }
-            });
+            const res = await fetch('http://localhost:5000/all-payment-history');
             return res.json();
         }
     })

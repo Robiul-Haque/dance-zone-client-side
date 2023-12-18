@@ -4,7 +4,7 @@ import { AuthContext } from "../Auth/AuthProvider";
 import { toast } from "react-toastify";
 import { Offline, Online } from "react-detect-offline";
 import Lottie from "lottie-react";
-import offline from '../assets/Lost-connation.json';
+import offline from '../assets/Lost-connection.json';
 
 const Dashboard = () => {
 
@@ -13,11 +13,11 @@ const Dashboard = () => {
     const [verifyAdmin, setVerifyAdmin] = useState({});
     const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light');
     const [time, setTime] = useState(new Date());
-    console.log(verifyAdmin);
+    // console.log(verifyAdmin);
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`https://dance-zone-server-side.vercel.app/if-exist-admin/${user?.email}`)
+            fetch(`http://localhost:5000/if-exist-admin/${user?.email}`)
                 .then(res => res.json())
                 .then(data => setVerifyAdmin(data))
         }
@@ -42,7 +42,6 @@ const Dashboard = () => {
     const logOut = () => {
         userLogout()
             .then(() => {
-                localStorage.removeItem('jwt-access-token')
                 toast.success('Log Out Successful', {
                     position: "top-right",
                     autoClose: 5000,
@@ -104,7 +103,7 @@ const Dashboard = () => {
                     </div>
                     <hr className="my-5" />
                     {
-                        verifyAdmin && <>
+                        verifyAdmin?.role === "admin" && <>
                             <li>
                                 <Link to='/admin-dashboard'><img width="25" height="25" src="https://img.icons8.com/material/24/dashboard-layout.png" alt="dashboard-layout" /> Dashboard</Link>
                             </li>

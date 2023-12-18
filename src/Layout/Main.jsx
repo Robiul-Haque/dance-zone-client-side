@@ -3,7 +3,7 @@ import Footer from "../Shared/Footer/Footer";
 import Navbar from "../Shared/Navbar/Navbar";
 import { Offline, Online } from "react-detect-offline";
 import Lottie from "lottie-react";
-import offline from '../assets/Lost-connation.json';
+import offline from '../assets/Lost-connection.json';
 
 const Main = () => {
 

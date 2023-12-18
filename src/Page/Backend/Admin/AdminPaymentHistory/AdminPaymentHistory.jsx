@@ -24,7 +24,7 @@ const AdminPaymentHistory = () => {
     const deletePaymentHistory = id => {
         const confirmation = confirm('Are you sure want to do Delete');
         if (confirmation === true) {
-            fetch(`https://dance-zone-server-side.vercel.app/admin/delete-payment-history/${id}`, {
+            fetch(`http://localhost:5000/admin/delete-payment-history/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',

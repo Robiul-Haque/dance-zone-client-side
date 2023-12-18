@@ -15,23 +15,23 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`https://dance-zone-server-side.vercel.app/total-approve/course-limit/${user?.email}`)
+        fetch(`http://localhost:5000/total-approve/course-limit/${user?.email}`)
             .then(res => res.json())
             .then(data => setApproveCourseLimit(data))
 
-        fetch(`https://dance-zone-server-side.vercel.app/total-approve/course/${user?.email}`)
+        fetch(`http://localhost:5000/total-approve/course/${user?.email}`)
             .then(res => res.json())
             .then(data => setApproveCourse(data))
 
-        fetch(`https://dance-zone-server-side.vercel.app/total-pending/course/${user?.email}`)
+        fetch(`http://localhost:5000/total-pending/course/${user?.email}`)
             .then(res => res.json())
             .then(data => setPendingCourse(data))
 
-        fetch(`https://dance-zone-server-side.vercel.app/total-rejected/course/${user?.email}`)
+        fetch(`http://localhost:5000/total-rejected/course/${user?.email}`)
             .then(res => res.json())
             .then(data => setRejectedCourse(data))
 
-        fetch(`https://dance-zone-server-side.vercel.app/total-revenue-by-instructor/${user?.email}`)
+        fetch(`http://localhost:5000/total-revenue-by-instructor/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 setInstructorTotalRevenue(data)

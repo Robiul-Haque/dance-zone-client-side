@@ -17,7 +17,7 @@ const Instructor = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/if-exist-instructor/${user?.email}`)
+        fetch(`https://dance-zone-server-side.vercel.app/if-exist-instructor/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 setInstructor(data)

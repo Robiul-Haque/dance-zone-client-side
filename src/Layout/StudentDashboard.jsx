@@ -10,13 +10,12 @@ const Dashboard = () => {
     const { user, userLogout } = useContext(AuthContext);
     const navigate = useNavigate();
     const [verifyStudent, setVerifyStudent] = useState({});
-    
 
     useEffect(() => {
-        fetch(`https://dance-zone-server-side.vercel.app/if-exist-student/${user?.email}`)
+        fetch(`http://localhost:5000/if-exist-student/${user?.email}`)
             .then(res => res.json())
             .then(data => setVerifyStudent(data))
-    }, [user, navigate, userLogout])
+    }, [user?.email, navigate, userLogout])
 
     return (
         <div className="drawer lg:drawer-open">

@@ -22,7 +22,7 @@ const login = () => {
         login(data.email, data.password)
             .then(userCredential => {
                 if (userCredential.user.email) {
-                    fetch(`https://dance-zone-server-side.vercel.app/login-user/${userCredential.user.email}`)
+                    fetch(`http://localhost:5000/login-user/${userCredential.user.email}`)
                         .then(res => res.json())
                         .then(data => {
                             if (data.role === 'student') {
@@ -88,14 +88,14 @@ const login = () => {
         popUpGoogleLogin()
             .then(loggedUser => {
                 const loggedUserInfo = { name: loggedUser.user?.displayName, email: loggedUser.user?.email, photo: loggedUser.user?.photoURL, role: 'student' }
-                fetch('https://dance-zone-server-side.vercel.app/login-user', {
+                fetch('http://localhost:5000/login-user', {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(loggedUserInfo)
                 })
                     .then(res => res.json())
                     .then(() => {
-                        fetch(`https://dance-zone-server-side.vercel.app/check/user-role/${loggedUser?.user?.email}`)
+                        fetch(`http://localhost:5000/check/user-role/${loggedUser?.user?.email}`)
                             .then(res => res.json())
                             .then(data => {
 

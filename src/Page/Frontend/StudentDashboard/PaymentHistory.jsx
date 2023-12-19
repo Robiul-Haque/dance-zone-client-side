@@ -10,7 +10,7 @@ const PaymentHistory = () => {
     const [paymentHistory, setPaymentHistory] = useState([]);
 
     useEffect(() => {
-        fetch(`https://dance-zone-server-side.vercel.app/student/payment-history/${user?.email}`)
+        fetch(`http://localhost:5000/student/payment-history/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 if (data?.error) {

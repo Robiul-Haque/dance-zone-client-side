@@ -6,7 +6,7 @@ const InstructorTotalCourse = ({ email }) => {
     const [course, setCourse] = useState([]);
 
     useEffect(() => {
-        fetch(`https://dance-zone-server-side.vercel.app/single-instructor/total-course-count/${email}`)
+        fetch(`http://localhost:5000/single-instructor/total-course-count/${email}`)
             .then(res => res.json())
             .then(data => {
                 if (data) {

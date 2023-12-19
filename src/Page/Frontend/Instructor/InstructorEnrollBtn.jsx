@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const InstructorEnrollBtn = ({ course }) => {
 
-    fetch('https://dance-zone-server-side.vercel.app/student/selected-course/create-payment-intent', {
+    fetch('http://localhost:5000/student/selected-course/create-payment-intent', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',

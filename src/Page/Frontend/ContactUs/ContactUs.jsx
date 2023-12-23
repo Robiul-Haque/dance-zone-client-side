@@ -38,7 +38,7 @@ export const ContactUs = () => {
 
         if (name && email && message) {
             setProgress(true);
-            fetch('http://localhost:5000/contact-us/message', {
+            fetch('https://dance-zone-server-side.vercel.app/contact-us/message', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

@@ -12,7 +12,7 @@ const Navbar = () => {
 
     useEffect(() => {
         if (user?.email !== undefined) {
-            fetch(`http://localhost:5000/if-exist-student/${user?.email}`)
+            fetch(`https://dance-zone-server-side.vercel.app/if-exist-student/${user?.email}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data !== null) {

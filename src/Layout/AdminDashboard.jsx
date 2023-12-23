@@ -13,11 +13,10 @@ const Dashboard = () => {
     const [verifyAdmin, setVerifyAdmin] = useState({});
     const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light');
     const [time, setTime] = useState(new Date());
-    // console.log(verifyAdmin);
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/if-exist-admin/${user?.email}`)
+            fetch(`https://dance-zone-server-side.vercel.app/if-exist-admin/${user?.email}`)
                 .then(res => res.json())
                 .then(data => setVerifyAdmin(data))
         }

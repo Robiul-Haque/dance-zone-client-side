@@ -27,15 +27,15 @@ const Footer = () => {
                     <span className="footer-title">Location</span>
                     <div className="flex gap-3">
                         <img width="20" height="20" src="https://img.icons8.com/material-rounded/24/marker.png" alt="marker" />
-                        <p>USA - New York City - Wall St. 10005</p>
+                        <p>West goulchamot 1 no road, Faridpur, Bangladesh</p>
                     </div>
                     <div className="flex gap-3">
                         <img width="20" height="20" src="https://img.icons8.com/material-rounded/24/new-post.png" alt="new-post" />
-                        <p>dancezone@gmail.com</p>
+                        <p>robiulcoc420@gmail.com</p>
                     </div>
                     <div className="flex gap-3">
                         <img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/phone--v1.png" alt="phone--v1" />
-                        <p>+1209 299 7584</p>
+                        <p>+8801893187274</p>
                     </div>
                 </div>
             </div>

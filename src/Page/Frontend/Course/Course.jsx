@@ -5,14 +5,13 @@ import { AuthContext } from "../../../Auth/AuthProvider";
 import Title from "../../../../PageTitle/Title";
 
 const Course = () => {
-
     const allCourse = useLoaderData();
     const { user } = useContext(AuthContext);
 
     const selectCourse = courseData => {
         const singleCourseData = { id: courseData?._id, class_name: courseData?.class_name, class_image: courseData?.class_image, course_price: courseData?.course_price, available_seats: courseData?.available_seats, instructor_name: courseData?.instructor_name, instructor_email: courseData?.instructor_email, user_email: user?.email }
 
-        fetch('https://dance-zone-server-side.vercel.app/student/selected-course', {
+        fetch('https://dance-zone-server.vercel.app/student/selected-course', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(singleCourseData)
@@ -41,15 +40,15 @@ const Course = () => {
                 <h1 className="text-center lg:font-extrabold md:font-extrabold font-bold text-4xl text-gray-600">Elegance in Motion Discover the Rhythm of Dance</h1>
                 <p className="text-center font-medium lg:text-lg md:text-lg text-gray-500 lg:mt-3 md:mt-2 mt-5">Join us in a captivating journey of grace music and passion Experience dance like never before</p>
             </div>
-            <div className="lg:px-80 lg:py-20 md:px-80 md:py-20 pt-5 mb-20">
-                <h1 className="text-center lg:font-bold md:font-bold font-normal lg:text-3xl md:text-3xl text-2xl text-gray-600 lg:mb-16 md:mb-16 my-10">Our Best Dance Course</h1>
-                <div className="grid md:grid-cols-2 md:gap-14 lg:gap-16 gap-y-10">
+            <div className="lg:px-24 lg:py-20 md:px-80 md:py-20 pt-5 mb-20">
+                <h1 className="text-center lg:font-bold font-bold lg:text-3xl md:text-3xl text-2xl text-gray-600 lg:mb-16 md:mb-16 my-10">Our Best Dance Course</h1>
+                <div className="grid md:grid-cols-2 md:gap-14 lg:gap-16 gap-y-10 m-3 sm:m-0">
                     {
                         allCourse?.map(courseData => {
                             return (
                                 <div key={courseData?._id} className="card card-side bg-base-100 shadow-xl hover:shadow-2xl">
                                     <figure><img src={courseData?.class_image} alt={courseData?.class_name + "Class Image"} className="lg:w-64 lg:h-64 md:w-64 md:h-64 w-64 h-80" /></figure>
-                                    <div className="card-body">
+                                    <div className="card-body p-3 md:p-5">
                                         <h2 className="card-title text-2xl font-bold text-gray-500">{courseData?.class_name}</h2>
                                         <p className="text-gray-500 font-medium">Instructor name: <span className="font-bold">{courseData?.instructor_name}</span></p>
                                         <p className="text-gray-500 font-medium">Available seats: <span className="font-bold">{courseData?.available_seats}</span></p>

@@ -24,7 +24,7 @@ const SelectedCourse = () => {
     const deleteCourse = id => {
         const confirmation = confirm('Are you sure want to do Delete');
         if (confirmation) {
-            fetch(`https://dance-zone-server-side.vercel.app/student/delete-selected-course/${id}/${user?.email}`, {
+            fetch(`https://dance-zone-server.vercel.app/student/delete-selected-course/${id}/${user?.email}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',

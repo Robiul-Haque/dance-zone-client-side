@@ -16,7 +16,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`https://dance-zone-server-side.vercel.app/if-exist-admin/${user?.email}`)
+            fetch(`https://dance-zone-server.vercel.app/if-exist-admin/${user?.email}`)
                 .then(res => res.json())
                 .then(data => setVerifyAdmin(data))
         }

@@ -12,7 +12,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`https://dance-zone-server-side.vercel.app/student/all-statices/${user?.email}`)
+        fetch(`https://dance-zone-server.vercel.app/student/all-statices/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 if (data?.error) {

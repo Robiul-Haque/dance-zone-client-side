@@ -12,7 +12,7 @@ const Dashboard = () => {
     const [verifyStudent, setVerifyStudent] = useState({});
 
     useEffect(() => {
-        fetch(`https://dance-zone-server-side.vercel.app/if-exist-student/${user?.email}`)
+        fetch(`https://dance-zone-server.vercel.app/if-exist-student/${user?.email}`)
             .then(res => res.json())
             .then(data => setVerifyStudent(data))
     }, [user?.email, navigate, userLogout])

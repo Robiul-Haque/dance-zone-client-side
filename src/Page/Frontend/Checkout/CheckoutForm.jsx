@@ -16,7 +16,7 @@ const CheckoutForm = ({ courseId, selectedCourseId, courseName, courseImage, cou
     const [transactionId, setTransactionId] = useState('');
 
     useEffect(() => {
-        fetch('https://dance-zone-server-side.vercel.app/student/selected-course/create-payment-intent', {
+        fetch('https://dance-zone-server.vercel.app/student/selected-course/create-payment-intent', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ price: coursePrice })
@@ -47,9 +47,10 @@ const CheckoutForm = ({ courseId, selectedCourseId, courseName, courseImage, cou
 
         if (error) {
             setError(error.message);
-        } else {
-            console.log('PaymentMethod', paymentMethod);
         }
+        // else {
+        //     console.log('PaymentMethod', paymentMethod);
+        // }
 
         setProgress(true);
 
@@ -72,10 +73,10 @@ const CheckoutForm = ({ courseId, selectedCourseId, courseName, courseImage, cou
 
         setProgress(false);
 
-        if (paymentIntent.status === "succeeded") {
+        if (paymentIntent?.status === "succeeded") {
             setTransactionId(paymentIntent.id);
 
-            fetch('https://dance-zone-server-side.vercel.app/student/selected-course/payment-info', {
+            fetch('https://dance-zone-server.vercel.app/student/selected-course/payment-info', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -94,7 +95,7 @@ const CheckoutForm = ({ courseId, selectedCourseId, courseName, courseImage, cou
             })
                 .then(res => res.json())
                 .then(data => {
-                    fetch(`https://dance-zone-server-side.vercel.app/student/course/available-seat-decrement/${selectedCourseId}`, {
+                    fetch(`https://dance-zone-server.vercel.app/student/course/available-seat-decrement/${selectedCourseId}`, {
                         method: 'PATCH',
                         headers: {
                             'content-type': 'application/json'
@@ -116,7 +117,7 @@ const CheckoutForm = ({ courseId, selectedCourseId, courseName, courseImage, cou
                             theme: "dark",
                         });
 
-                        fetch(`https://dance-zone-server-side.vercel.app/student/selected-course/${courseId}`, {
+                        fetch(`https://dance-zone-server.vercel.app/student/selected-course/${courseId}`, {
                             method: "DELETE"
                         })
                             .then(res => res.json())

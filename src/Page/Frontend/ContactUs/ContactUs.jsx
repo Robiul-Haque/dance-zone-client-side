@@ -8,7 +8,6 @@ import { AuthContext } from '../../../Auth/AuthProvider';
 import Title from '../../../../PageTitle/Title';
 
 export const ContactUs = () => {
-
     const form = useRef();
     const [progress, setProgress] = useState(false);
     const { user } = useContext(AuthContext);
@@ -38,7 +37,7 @@ export const ContactUs = () => {
 
         if (name && email && message) {
             setProgress(true);
-            fetch('https://dance-zone-server-side.vercel.app/contact-us/message', {
+            fetch('https://dance-zone-server.vercel.app/contact-us/message', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

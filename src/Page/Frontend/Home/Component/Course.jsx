@@ -8,7 +8,7 @@ const Course = () => {
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch('https://dance-zone-server-side.vercel.app/home/course')
+        fetch('https://dance-zone-server.vercel.app/home/course')
             .then(res => res.json())
             .then(data => setCourse(data))
     }, [])

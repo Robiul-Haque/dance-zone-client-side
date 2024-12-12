@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
             {
                 path: '/course',
                 element: <AllCourse></AllCourse>,
-                loader: () => fetch('https://dance-zone-server-side.vercel.app/all-course'),
+                loader: () => fetch('https://dance-zone-server.vercel.app/all-course'),
             },
             {
                 path: '/instructor',
@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
             {
                 path: '/instructor/see-all-course/:email',
                 element: <InstructorSeeCourse></InstructorSeeCourse>,
-                loader: ({ params }) => fetch(`https://dance-zone-server-side.vercel.app/see-all-course-by-instructor/${params.email}`)
+                loader: ({ params }) => fetch(`https://dance-zone-server.vercel.app/see-all-course-by-instructor/${params.email}`)
             },
             {
                 path: '/contact-us',
@@ -82,13 +82,13 @@ export const router = createBrowserRouter([
                     {
                         path: '/student/dashboard/checkout/:id',
                         element: <Checkout></Checkout>,
-                        loader: ({ params }) => fetch(`https://dance-zone-server-side.vercel.app/student/selected-single-course/${params.id}`)
+                        loader: ({ params }) => fetch(`https://dance-zone-server.vercel.app/student/selected-single-course/${params.id}`)
                     },
                     // single course direct enroll now stripe payment
                     {
                         path: '/student/dashboard/course/enroll/checkout/:id',
                         element: <CourseEnrollCheckout></CourseEnrollCheckout>,
-                        loader: ({ params }) => fetch(`https://dance-zone-server-side.vercel.app/student/course/enroll/checkout/${params.id}`)
+                        loader: ({ params }) => fetch(`https://dance-zone-server.vercel.app/student/course/enroll/checkout/${params.id}`)
                     }
                 ]
             },
@@ -121,7 +121,7 @@ export const router = createBrowserRouter([
             {
                 path: '/instructor-dashboard/my-course/edit/:id',
                 element: <EditCourse></EditCourse>,
-                loader: ({ params }) => fetch(`https://dance-zone-server-side.vercel.app/my-course/edit/show-data/${params?.id}`)
+                loader: ({ params }) => fetch(`https://dance-zone-server.vercel.app/my-course/edit/show-data/${params?.id}`)
             }
         ]
     },

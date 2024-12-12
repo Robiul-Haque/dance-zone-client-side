@@ -8,7 +8,7 @@ const Instructor = () => {
     const [allInstructor, setAllInstructor] = useState([]);
 
     useEffect(() => {
-        fetch('https://dance-zone-server-side.vercel.app/all-instructor')
+        fetch('https://dance-zone-server.vercel.app/all-instructor')
             .then(res => res.json())
             .then(data => {
                 if (data) {
@@ -20,13 +20,13 @@ const Instructor = () => {
     return (
         <>
             <Title title={'Instructor'}></Title>
-            <div className="md:mt-20">
+            <div className="mt-20 mx-2">
                 <h1 className="text-center font-extrabold text-4xl text-gray-600">Dance Masters Shaping Dreams One Step at a Time</h1>
                 <p className="text-center font-medium text-lg text-gray-500 mt-2">Experience the artistry and dedication of our dance instructors igniting your passion for movement and self expression</p>
             </div>
-            <div className="md:px-80 md:py-20">
+            <div className="md:px-80 py-20">
                 <h1 className="text-center font-bold text-3xl text-gray-600 mb-16">Our Best Instructor</h1>
-                <div className="grid md:grid-cols-3 md:gap-16 gap-4">
+                <div className="grid justify-items-center md:grid-cols-3 md:gap-16 gap-4">
                     {
                         allInstructor?.map(data => {
                             return (

@@ -16,25 +16,25 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch('https://dance-zone-server-side.vercel.app/admin-dashboard/statices')
+        fetch('https://dance-zone-server.vercel.app/admin-dashboard/statices')
             .then(res => res.json())
             .then(data => {
                 setAdminDashboardStatices(data);
             })
 
-        fetch('https://dance-zone-server-side.vercel.app/admin-dashboard/statices/total-revenue')
+        fetch('https://dance-zone-server.vercel.app/admin-dashboard/statices/total-revenue')
             .then(res => res.json())
             .then(data => {
                 setTotalEnrolledCoursePrice(data);
             })
 
-        fetch('https://dance-zone-server-side.vercel.app/admin-dashboard/statices/user')
+        fetch('https://dance-zone-server.vercel.app/admin-dashboard/statices/user')
             .then(res => res.json())
             .then(data => {
                 setUsers(data);
             })
 
-        fetch('https://dance-zone-server-side.vercel.app/admin-dashboard/statices/approve-course')
+        fetch('https://dance-zone-server.vercel.app/admin-dashboard/statices/approve-course')
             .then(res => res.json())
             .then(data => {
                 setApproveCourses(data)

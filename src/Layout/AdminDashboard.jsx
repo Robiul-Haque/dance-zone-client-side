@@ -57,7 +57,7 @@ const Dashboard = () => {
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="flex flex-col items-center justify-center drawer-content">
+            <div className="flex flex-col items-center justify-center drawer-content m-4">
                 {/* Page content here */}
                 <label htmlFor="my-drawer-2" className="my-5 btn btn-primary drawer-button lg:hidden">Open Menu</label>
                 <div className="my-10">

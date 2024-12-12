@@ -4,7 +4,6 @@ import Title from "../../../../../PageTitle/Title";
 import { AuthContext } from "../../../../Auth/AuthProvider";
 
 const Dashboard = () => {
-
     const { userLogout } = useContext(AuthContext);
     const navigate = useNavigate();
     const [adminDashboardStatices, setAdminDashboardStatices] = useState({});
@@ -45,7 +44,7 @@ const Dashboard = () => {
     return (
         <>
             <Title title={'Admin Dashboard'}></Title>
-            <div className="flex flex-wrap gap-4 lg:gap-10 md:gap-6">
+            <div className="flex justify-center flex-wrap gap-4 lg:gap-10 md:gap-6">
                 <div className="flex items-center justify-center w-56 h-40 text-gray-500 border rounded-lg bg-base-200 lg:w-64 md:w-72">
                     <div className="text-2xl font-medium text-center">
                         <h2 className="mb-3">User Status</h2>

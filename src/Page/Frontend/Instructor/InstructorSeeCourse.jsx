@@ -46,20 +46,20 @@ const InstructorSeeCourse = () => {
     return (
         <>
             <Title title={'Instructor Course'}></Title>
-            <div className="md:px-80 md:py-20">
+            <div className="md:px-24 md:py-20 py-20 m-3 md:m-0">
                 <h1 className="text-center font-bold text-3xl text-gray-600 mb-16">Explore Instructor Best Dance Course</h1>
                 <div className="grid md:grid-cols-2 md:gap-16 gap-4">
                     {
                         allCourse?.map(course => {
                             return (
                                 <div key={course?._id} className="card card-side bg-base-100 shadow-xl hover:shadow-2xl">
-                                    <figure><img src={course?.class_image} alt={course?.class_name + "Class Image"} className="w-64 h-64 object-cover" /></figure>
-                                    <div className="card-body">
+                                    <figure><img src={course?.class_image} alt={course?.class_name + "Class Image"} className="lg:w-64 lg:h-64 md:w-64 md:h-64 w-64 h-80 object-cover" /></figure>
+                                    <div className="card-body p-4">
                                         <h2 className="card-title text-2xl font-bold text-gray-500">{course?.class_name}</h2>
                                         <p className="text-gray-500 font-medium">Instructor name: <span className="font-bold">{course?.instructor_name}</span></p>
                                         <p className="text-gray-500 font-medium">Available seats: <span className="font-bold">{course?.available_seats}</span></p>
                                         <p className="text-gray-500 font-medium">Course price: <span className="font-bold">{course?.course_price} $</span></p>
-                                        <div className="card-actions flex flex-nowrap">
+                                        <div className="card-actions flex md:flex-nowrap">
                                             {
                                                 user?.email ? <>
                                                     <InstructorEnrollBtn course={course}></InstructorEnrollBtn>
